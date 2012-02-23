@@ -23,18 +23,19 @@ class MySoup(BeautifulStoneSoup):
 
 def inlines(value, return_list=False):
     selfClosingTags = ['inline','img','br','input','meta','link','hr']
-    content = MySoup(value, selfClosingTags=selfClosingTags)
+    soup = MySoup(value, selfClosingTags=selfClosingTags)
     inline_list = []
     if return_list:
-        for inline in content.findAll('inline'):
+        for inline in soup.findAll('inline'):
             rendered_inline = render_inline(inline)
             inline_list.append(rendered_inline['context'])
         return inline_list
     else:
-        for inline in content.findAll('inline'):
+        for inline in soup.findAll('inline'):
             rendered_inline = render_inline(inline)
             inline.replaceWith(render_to_string(rendered_inline['template'], rendered_inline['context']))
-        return mark_safe(content)
+        html_content = "".join(["%s" % element for element in soup.contents])
+        return mark_safe(html_content)
 
 
 def render_inline(inline):
