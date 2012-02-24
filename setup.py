@@ -11,6 +11,7 @@ setup(
     name = "django-inline-media",
     version = "1.0a",
     packages = find_packages(),
+    install_requires = ["BeautifulSoup>=3.1","PIL>=1.1.6","tagging","sorl-thumbnail"],
     license = "MIT",
     description = "Simple Django app that allows insertion of inline media objects in text fields.",
     long_description = "Simple Django app that allows insertion of inline media objects in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-tagging, and the jquery plugin prettyPhoto. See it in action running the demo project.",

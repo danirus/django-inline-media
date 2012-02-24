@@ -1,12 +1,10 @@
 Django-inline-media
 ===================
 
-|stillmaintained|  by Daniel Rus Morales <http://danir.us/>
+By Daniel Rus Morales <http://danir.us/>
 
 * http://pypi.python.org/pypi/django-inline-media/
 * http://github.com/danirus/django-inline-media/
-
-.. |stillmaintained| image:: http://stillmaintained.com/danirus/django-inline-media.png
 
 Simple Django app that allows insertion of inline media objects in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-tagging, and the jquery plugin prettyPhoto.
 
