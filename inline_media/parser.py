@@ -10,9 +10,9 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 try:
-    from BeautifulSoup import BeautifulStoneSoup
+    from BeautifulSoup import BeautifulStoneSoup, NavigableString
 except ImportError:
-    from beautifulsoup import BeautifulStoneSoup
+    from beautifulsoup import BeautifulStoneSoup, NavigableString
 
 
 class MySoup(BeautifulStoneSoup):
@@ -33,9 +33,11 @@ def inlines(value, return_list=False):
     else:
         for inline in soup.findAll('inline'):
             rendered_inline = render_inline(inline)
-            inline.replaceWith(render_to_string(rendered_inline['template'], rendered_inline['context']))
-        html_content = "".join(["%s" % element for element in soup.contents])
-        return mark_safe(html_content)
+            rendered_item = MySoup(render_to_string(rendered_inline['template'], 
+                                                    rendered_inline['context']),
+                                   selfClosingTags=selfClosingTags)
+            inline.replaceWith(rendered_item)
+        return mark_safe(soup)
 
 
 def render_inline(inline):
