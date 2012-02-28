@@ -46,12 +46,16 @@ class TextareaWithInlines(AdminTextareaWidget):
       
         inlines_widget += u'<strong>Class:</strong> '
         inlines_widget += u'<select id="id_inline_class_for_'+name+'">'
+        inlines_widget += u'<option value="inline_mini_left">'+_("Mini left")+u'</option>'
+        inlines_widget += u'<option value="inline_mini_right">'+_("Mini right")+u'</option>'
         inlines_widget += u'<option value="inline_small_left">'+_("Small left")+u'</option>'
         inlines_widget += u'<option value="inline_small_right">'+_("Small right")+u'</option>'
         inlines_widget += u'<option value="inline_medium_left">'+_("Medium left")+u'</option>'
         inlines_widget += u'<option value="inline_medium_right">'+_("Medium right")+u'</option>'
         inlines_widget += u'<option value="inline_large_left">'+_("Large left")+u'</option>'
         inlines_widget += u'<option value="inline_large_right">'+_("Large right")+u'</option>'
+        inlines_widget += u'<option value="inline_full_left">'+_("Full left")+u'</option>'
+        inlines_widget += u'<option value="inline_full_right">'+_("Full right")+u'</option>'
         inlines_widget += u'<option value="inline_full">'+_("Full centered")+u'</option>'
         inlines_widget += u'</select>'
       

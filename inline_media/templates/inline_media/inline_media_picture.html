@@ -1,5 +1,19 @@
 {% load i18n thumbnail %}
 
+{% if class == "inline_mini_left" or class == "inline_mini_right" %}
+<div class="inline {{ class }}">
+  {% thumbnail object.picture "80" as im %}
+  {% if object.show_as_link %}
+  <a href="{{ object.picture.url }}" class="picture" rel="{{ object.sha1 }}" title="{{ object.description }}">
+    <img src="{{ im.url }}" alt="{{ object.title }}">
+  </a>
+  {% else %}
+  <img src="{{ im.url }}" alt="{{ object.title }}">
+  {% endif %}
+  {% endthumbnail %}
+</div>
+{% else %}
+
 {% if class == "inline_small_left" or class == "inline_small_right" %}
 <div class="inline {{ class }}">
   {% thumbnail object.picture "150" as im %}
@@ -77,6 +91,7 @@
   <p class="inline_description">{{ object.description|safe }}</p>
   {% endif %}
 </div>
+{% endif %}
 {% endif %}
 {% endif %}
 {% endif %}
