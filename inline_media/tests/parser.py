@@ -74,6 +74,4 @@ class BeautifulSoupTestCase(DjangoTestCase):
 
     def test_beautifulsoup_replace_with(self):
         expected = u'<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><div class="inline inline_medium_right"><img src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png" alt="Django" /><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
-        for char1, char2 in zip(expected, self.html_content):
-            print char1, char2
         self.assertEqual(expected, self.html_content)
