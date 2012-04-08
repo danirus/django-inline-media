@@ -4,13 +4,13 @@ import os
 import shutil
 import tempfile
 
-from BeautifulSoup import BeautifulStoneSoup, NavigableString, Tag
+from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.models import InlineType
-from inline_media.parser import MySoup, inlines, render_inline
+from inline_media.parser import inlines, render_inline
 from inline_media.widgets import TextareaWithInlines
 from inline_media.tests.models import MediaModelTest
 
@@ -27,7 +27,7 @@ class ParserTestCase(DjangoTestCase):
             "type": "tests.mediamodeltest", "id": self.obj.id, "class": "inline_small_left" }
 
     def test_render_inline(self):
-        soup = MySoup(self.tag, selfClosingTags=selfClosingTags)
+        soup = BeautifulSoup(self.tag, selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))
         self.assert_(rendered_inline.get("context", None) != None)
         self.assert_(rendered_inline.get("template", None) != None)
@@ -64,10 +64,10 @@ class BeautifulSoupTestCase(DjangoTestCase):
 
         selfClosingTags = ['inline','img','br','input','meta','link','hr']
         value = u'<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><inline type="inline_media.picture" id="3" class="inline_medium_right" />To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
-        docsoup = BeautifulStoneSoup(value, selfClosingTags=selfClosingTags)
+        docsoup = BeautifulSoup(value, selfClosingTags=selfClosingTags)
 
         rendered_string = u'<div class="inline inline_medium_right"><img src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png" alt="Django" /><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>'
-        picsoup = BeautifulStoneSoup(rendered_string, selfClosingTags=selfClosingTags)
+        picsoup = BeautifulSoup(rendered_string, selfClosingTags=selfClosingTags)
         inline = docsoup.find('inline')
         inline.replaceWith(picsoup)
         self.html_content = "%s" % docsoup

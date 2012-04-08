@@ -13,7 +13,13 @@
 .inline_small_left, .inline_small_right { width: 150px }
 .inline_mini_left, .inline_mini_right { width: 80px }
 
-.pictureset1, .pictureset2, .pictureset3 { position: relative; left: -100px; margin: 0 auto }
+.pictureset1, .pictureset2, .pictureset3 { 
+    position: relative;
+    left: -100px; 
+    margin: 0 auto;
+    margin-left: 2px;
+    margin-right: 2px;
+}
 
 .inline_mini_left .pictureset1, .inline_mini_right .pictureset1,
 .inline_mini_left .pictureset2, .inline_mini_right .pictureset2,

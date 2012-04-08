@@ -10,20 +10,14 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 try:
-    from BeautifulSoup import BeautifulStoneSoup, NavigableString
+    from BeautifulSoup import BeautifulSoup, NavigableString
 except ImportError:
-    from beautifulsoup import BeautifulStoneSoup, NavigableString
-
-
-class MySoup(BeautifulStoneSoup):
-    def __init__(self, *args, **kwargs):
-        self.PRESERVE_WHITESPACE_TAGS.append("pre")
-        BeautifulStoneSoup.__init__(self, *args, **kwargs)
+    from beautifulsoup import BeautifulSoup, NavigableString
 
 
 def inlines(value, return_list=False):
-    selfClosingTags = ['inline','img','br','input','meta','link','hr']
-    soup = MySoup(value, selfClosingTags=selfClosingTags)
+    selfClosingTags = ['inline','img','br','input','meta','link','hr',]
+    soup = BeautifulSoup(value, selfClosingTags=selfClosingTags)
     inline_list = []
     if return_list:
         for inline in soup.findAll('inline'):
@@ -33,9 +27,10 @@ def inlines(value, return_list=False):
     else:
         for inline in soup.findAll('inline'):
             rendered_inline = render_inline(inline)
-            rendered_item = MySoup(render_to_string(rendered_inline['template'], 
-                                                    rendered_inline['context']),
-                                   selfClosingTags=selfClosingTags)
+            rendered_item = BeautifulSoup(
+                render_to_string(rendered_inline['template'], 
+                                 rendered_inline['context']),
+                selfClosingTags=selfClosingTags)
             inline.replaceWith(rendered_item)
         return mark_safe(soup)
 
