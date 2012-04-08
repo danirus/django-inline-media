@@ -14,7 +14,7 @@ from inline_media.models import InlineType
 class TextareaWithInlines(AdminTextareaWidget):
 
     class Media:
-        js = (settings.ADMIN_MEDIA_PREFIX + "inline_media/js/inlines.js",)
+        js = (settings.STATIC_URL + "admin/inline_media/js/inlines.js",)
 
     def __init__(self, attrs=None):
         super(TextareaWithInlines, self).__init__(attrs=attrs)        
