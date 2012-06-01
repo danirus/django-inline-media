@@ -87,3 +87,4 @@ INSTALLED_APPS = [
 ]
 
 INLINE_MEDIA_STORAGE = FileSystemStorage(tempfile.mkdtemp())
+ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3

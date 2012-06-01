@@ -161,3 +161,5 @@ logging.getLogger("sorl.thumbnail").addHandler(handler)
 
 THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"
 THUMBNAIL_FORMAT = "JPEG"
+
+ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
