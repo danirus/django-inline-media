@@ -10,6 +10,9 @@ from django.utils.translation import ugettext as _
 
 from inline_media.models import InlineType
 
+# Defaulted to Django 1.4 path
+ADMIN_IMAGES_PATH = getattr(settings, "ADMIN_IMAGES_PATH", "%s/admin/img" % settings.STATIC_URL)
+
 
 class TextareaWithInlines(AdminTextareaWidget):
 
@@ -42,7 +45,7 @@ class TextareaWithInlines(AdminTextareaWidget):
 
         inlines_widget += u'<strong>Object:</strong>&nbsp;'
         inlines_widget += u'<input type="text" class="vIntegerField" id="id_inline_for_'+name+'" size="10" /> '
-        inlines_widget += u'<a id="lookup_id_inline_for_'+name+'" href="#" class="related-lookup" onclick="if(document.getElementById(\'id_inline_content_type_for_'+name+'\').value != \'----------\') { return showRelatedObjectLookupPopup(this); }" style="margin-right:20px;"><img src="%s/admin/img/admin/selector-search.gif" width="16" height="16" alt="Loopup" /></a> ' % settings.STATIC_URL
+        inlines_widget += u'<a id="lookup_id_inline_for_'+name+'" href="#" class="related-lookup" onclick="if(document.getElementById(\'id_inline_content_type_for_'+name+'\').value != \'----------\') { return showRelatedObjectLookupPopup(this); }" style="margin-right:20px;"><img src="%s/selector-search.gif" width="16" height="16" alt="Loopup" /></a> ' % ADMIN_IMAGES_PATH
       
         inlines_widget += u'<strong>Class:</strong> '
         inlines_widget += u'<select id="id_inline_class_for_'+name+'">'

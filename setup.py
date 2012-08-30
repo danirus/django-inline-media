@@ -9,7 +9,7 @@ test.run_tests = run_tests
 
 setup(
     name = "django-inline-media",
-    version = "1.0a",
+    version = "1.0a2",
     packages = find_packages(),
     license = "MIT",
     description = "Simple Django app that allows insertion of inline media objects in text fields.",
