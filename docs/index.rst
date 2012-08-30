@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Introducing Django inline-media
-==============================
+===============================
 
 Insert inline media content in your text fields. Based on `django-basic-apps/inlines <https://github.com/nathanborror/django-basic-apps>`_.
 
