@@ -1,4 +1,5 @@
 PIL
 BeautifulSoup<4.0.0
+South
 -e svn+http://django-tagging.googlecode.com/svn/trunk/#egg=django-tagging
 -e git+git://github.com/sorl/sorl-thumbnail.git#egg=sorl-thumbnail
