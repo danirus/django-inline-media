@@ -112,7 +112,7 @@ INSTALLED_APPS = (
     "tagging",
     "inline_media",
 
-    "articles",
+    "demo.articles",
 )
 
 # A sample logging configuration. The only tangible logging

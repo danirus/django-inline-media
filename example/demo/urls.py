@@ -6,7 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 admin.autodiscover()
 
-urlpatterns = patterns('views',
+urlpatterns = patterns('demo.views',
     url(r'^admin/',    include(admin.site.urls)),
     url(r'^articles/', include('demo.articles.urls')),
     url(r'^$',         'homepage_v', name='homepage'),
