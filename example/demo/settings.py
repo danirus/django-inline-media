@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     "sorl.thumbnail",
     "tagging",
     "inline_media",
+    "wysihtml5",
 
     "demo.articles",
 )
@@ -163,3 +164,5 @@ THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"
 THUMBNAIL_FORMAT = "JPEG"
 
 ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
+
+WYSIHTML5_FUNC_INSERT_IMAGE_DIALOG = "inline_media.widgets.wysihtml5_render_insert_image_dialog"

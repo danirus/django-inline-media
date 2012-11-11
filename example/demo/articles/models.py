@@ -3,7 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.db.models import permalink
 
-from inline_media.fields import TextFieldWithInlines
+from inline_media.fields import TextFieldWithInlines, Wysihtml5TextFieldWithInlines
+
 
 class PublicManager(models.Manager):
     """Returns published articles that are not in the future."""
@@ -15,11 +16,11 @@ class PublicManager(models.Manager):
 class Article(models.Model):
     """Article, that accepts comments."""
 
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique_for_date='publish')
-    abstract = models.TextField()
-    body = TextFieldWithInlines()
-    publish = models.DateTimeField(default=datetime.now)
+    title    = models.CharField(max_length=200)
+    slug     = models.SlugField(unique_for_date='publish')
+    abstract = Wysihtml5TextFieldWithInlines()
+    body     =          TextFieldWithInlines()
+    publish  = models.DateTimeField(default=datetime.now)
 
     objects = PublicManager()
 

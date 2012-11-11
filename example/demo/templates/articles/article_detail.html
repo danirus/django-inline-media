@@ -16,6 +16,9 @@
 
 {% block content %}
 <H2 style="text-align:center">{{ object.title }}</H2>
+<div class="inline_media_clearfix" style="width:540px; margin:10px auto">
+  {{ object.abstract|render_inlines }}
+</div>
 <div style="font-size:.8em; text-align:center; font-style:italic">Published {{ object.publish }}</div>
 <div class="inline_media_clearfix" style="width:640px; margin:10px auto">
   {{ object.body|render_inlines }}
