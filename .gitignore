@@ -7,6 +7,6 @@
 docs/_build
 build/
 dist/
-example/demo/media/cache/
-example/demo/static/
-example/demo/server-static/
+example/demo*/media/cache/
+example/demo*/static/
+example/demo*/server-static/
