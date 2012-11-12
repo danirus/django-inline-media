@@ -7,6 +7,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
 urlpatterns = patterns('demo_wysihtml5.views',
+    url(r'^inline-media/', include('inline_media.urls')),
     url(r'^admin/',    include(admin.site.urls)),
     url(r'^articles/', include('demo_wysihtml5.articles.urls')),
     url(r'^$',         'homepage_v', name='homepage'),

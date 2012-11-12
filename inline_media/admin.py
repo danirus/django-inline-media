@@ -4,9 +4,9 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.util import unquote
 
-from inline_media.fields import TextFieldWithInlines, Wysihtml5TextFieldWithInlines
+from inline_media.fields import TextFieldWithInlines
 from inline_media.models import InlineType, License, Picture, PictureSet
-from inline_media.widgets import TextareaWithInlines, Wysihtml5TextareaWithInlines
+from inline_media.widgets import TextareaWithInlines
 
 
 class LicenseAdmin(admin.ModelAdmin):
@@ -22,15 +22,6 @@ class AdminTextFieldWithInlinesMixin(object):
         if isinstance(db_field, TextFieldWithInlines):
             return db_field.formfield(widget=TextareaWithInlines)
         sup = super(AdminTextFieldWithInlinesMixin, self)
-        return sup.formfield_for_dbfield(db_field, **kwargs)
-
-
-class AdminWysihtml5TextFieldWithInlinesMixin(object):
-    """Mixin for ModelAdmin subclasses to provide custom widget for ``Wysihtml5TextFieldWithInlines`` fields."""
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if isinstance(db_field, Wysihtml5TextFieldWithInlines):
-            return db_field.formfield(widget=Wysihtml5TextareaWithInlines)
-        sup = super(AdminWysihtml5TextFieldWithInlinesMixin, self)
         return sup.formfield_for_dbfield(db_field, **kwargs)
 
 

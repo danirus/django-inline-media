@@ -115,8 +115,8 @@ class TextareaWithInlines(AdminTextareaWidget):
 
 
 def render_insert_image_dialog(id):
-    inlines_widget = u'<div data-wysihtml5-dialog="insertImage" style="display:none;width:inherit;margin:0">'
+    inlines_widget = u'<div data-wysihtml5-dialog="insertImage" style="display:none">'
     inlines_widget += Wysihtml5InlinesDialogStr(id).widget_string()
     inlines_widget += u'</div>'
-    inlines_widget += u'<script type="text/javascript" src="%(static_url)s/admin/inline_media/js/wysihtml5/insertInlineMedia.js"></script>' % {"static_url": settings.STATIC_URL}
+    inlines_widget += u'<script type="text/javascript" src="%(static_url)sadmin/inline_media/js/wysihtml5/insertInlineMedia.js"></script>' % {"static_url": settings.STATIC_URL}
     return inlines_widget
