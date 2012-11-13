@@ -1,7 +1,10 @@
-wysihtml5.commands.insertImage = {
-    exec: function(composer, command, html) {
-	composer.commands.exec("insertHTML", "<H3>Joder Ostias!</H3>");
-	return;
+wysihtml5.commands.insertInlinePicture = {
+    exec: function(composer, command, value) {
+	django.jQuery.get("/inline-media/render-image/"+value['size']+"/"+value['align']+"/"+value['oid'],
+			  function(data) {
+			      composer.commands.exec("insertImage", data);
+			      return;
+			  });
     },
     state: function(composer) {
 	return false;

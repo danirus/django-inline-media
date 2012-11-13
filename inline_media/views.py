@@ -1,37 +1,24 @@
 #-*- coding: utf-8 -*-
 
-from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponse
 from django.template import TemplateSyntaxError
 from django.shortcuts import render_to_response
+from django.utils import simplejson
+
+from sorl.thumbnail import get_thumbnail
+
+from inline_media.models import Picture
 
 
-def render_inline(request, app_label, model_name, css_class, oid):
+def render_inline(request, size, align, oid):
     try:
-        content_type = ContentType.objects.get(app_label=app_label, model=model_name)
-        model = content_type.model_class()
-    except ContentType.DoesNotExist:
+        picture = Picture.objects.get(pk=oid)
+    except Picture.DoesNotExist:
         if settings.DEBUG:
-            raise TemplateSyntaxError, "Inline ContentType not found."
+            raise Picture.DoesNotExist, "Picture id '%s' does not exist"
         else:
             return ''
-
-    context = { 'content_type': '%s.%s' % (app_label, model_name), 
-                'class': css_class, 
-                'settings': settings }
-    try:
-        obj = model.objects.get(pk=oid)
-        context['object'] = obj
-    except model.DoesNotExist:
-        if settings.DEBUG:
-            raise model.DoesNotExist, "Object matching '%s' does not exist"
-        else:
-            return ''
-    except:
-        if settings.DEBUG:
-            raise TemplateSyntaxError, "The <inline> id attribute is missing or invalid."
-        else:
-            return ''
-            
-    return render_to_response("inline_media/%s_%s.html" % (app_label, model_name),
-                            context)
+    
+    im = get_thumbnail(picture.picture.file, size)
+    json = simplejson.dumps({"src": im.url, "title": picture.title, "width": size, "align": align})
+    return HttpResponse(json, mimetype='application/json')
