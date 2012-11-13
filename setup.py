@@ -9,11 +9,11 @@ test.run_tests = run_tests
 
 setup(
     name = "django-inline-media",
-    version = "1.0a2",
+    version = "1.1a0",
     packages = find_packages(),
     license = "MIT",
-    description = "Simple Django app that allows insertion of inline media objects in text fields.",
-    long_description = "Simple Django app that allows insertion of inline media objects in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-tagging, and the jquery plugin prettyPhoto. See it in action running the demo project.",
+    description = "Simple Django app that allows insertion of inline media objects in text fields, with support for rich text editor Wysihtml5.",
+    long_description = "Simple Django app that allows insertion of inline media objects in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-tagging, and the jquery plugin prettyPhoto. Supports the rich text editor Wysihtml5. See it in action running the demo projects.",
     author = "Daniel Rus Morales",
     author_email = "inbox@danir.us",
     maintainer = "Daniel Rus Morales",
