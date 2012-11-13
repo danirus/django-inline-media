@@ -24,4 +24,3 @@ class TextFieldWithInlinesTestCase(DjangoTestCase):
         second_field = form.fields.get("second_text")
         self.assert_(first_field.widget.__class__.__name__ == "Textarea")
         self.assert_(second_field.widget.__class__.__name__ == "TextareaWithInlines")
-        self.assert_(True == True)

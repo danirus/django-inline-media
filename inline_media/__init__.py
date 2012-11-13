@@ -1,7 +1,7 @@
 """
 django_inline_media - Simple Django app that allows insertion of inline media objects in text fields.
 """
-VERSION = (1, 0, 0, 'a', 2) # following PEP 386
+VERSION = (1, 1, 0, 'a', 0) # following PEP 386
 
 def get_version():
     version = '%s.%s' % (VERSION[0], VERSION[1])

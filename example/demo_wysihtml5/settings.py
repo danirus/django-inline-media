@@ -111,8 +111,9 @@ INSTALLED_APPS = (
     "sorl.thumbnail",
     "tagging",
     "inline_media",
+    "wysihtml5",
 
-    "demo.articles",
+    "demo_wysihtml5.articles",
 )
 
 # A sample logging configuration. The only tangible logging
@@ -163,3 +164,6 @@ THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"
 THUMBNAIL_FORMAT = "JPEG"
 
 # ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
+
+WYSIHTML5_CMD_INSERT_IMAGE = "insertInlinePicture"
+WYSIHTML5_FUNC_INSERT_IMAGE_DIALOG = "inline_media.widgets.render_insert_inline_picture_dialog"

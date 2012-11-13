@@ -14,3 +14,4 @@ class TextFieldWithInlines(fields.TextField):
 
 from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^inline_media\.fields\.TextFieldWithInlines"])
+
