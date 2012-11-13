@@ -26,6 +26,7 @@ class BaseInlinesDialogStr(object):
 
     def _do_element_select_type(self, attrs=None):
         widget = u'\
+<strong>%(_inline_type_)s:</strong>&nbsp;\
 <select id="id_inline_content_type_for_%(name)s" onchange="document.getElementById(\'lookup_id_inline_for_%(name)s\').href = \'../../../\'+this.value+\'/\';" style="margin-left:2px;margin-right:20px;" '
         if attrs:
             widget += " ".join([u'%s="%s"' % (key, value) for key, value in attrs.iteritems()])
@@ -39,7 +40,8 @@ class BaseInlinesDialogStr(object):
                  "app_label_cap": inline.content_type.app_label.capitalize(), 
                  "model_cap":     inline.content_type.model.capitalize() }
         widget += u'</select>'
-        return widget % {"name": self.name}
+        return widget % {"_inline_type_": _("Inline type"), 
+                         "name": self.name}
 
     def _do_element_input_object(self, attrs=None):
         widget = u'<strong>Object:</strong>&nbsp;\
@@ -131,10 +133,9 @@ class Wysihtml5InlinesDialogStr(BaseInlinesDialogStr):
   <option value="150">150</option>\
   <option value="200">200</option>\
   <option value="250">250</option>\
-  <option value="original">%(_original_)s</option>\
+  <option value="350">350</option>\
 </select>' 
-        size_widget = size_widget % {'_size_': _("Size"), 'name': self.name, 
-                                     '_original_': _("Original") }
+        size_widget = size_widget % {'_size_': _("Size"), 'name': self.name}
         align_widget = u'&nbsp;&nbsp;\
 <strong>%(_align_)s:</strong>&nbsp;\
 <select id="id_inline_align_for_%(name)s" data-wysihtml5-dialog-field="align">\
@@ -174,7 +175,7 @@ class TextareaWithInlines(AdminTextareaWidget):
             flatatt(final_attrs),
             conditional_escape(force_unicode(value)))
 
-        inlinesWidget = InlinesDialogStr(final_attrs.get("id", "unknown"))
+        inlinesWidget = InlinesDialogStr(final_attrs.get("id", "id_%s" % name))
         inlines_widget = u'<div style="margin-top:10px">'
         inlines_widget += '<label>'+_("Inlines")+u':</label>'
         inlines_widget += inlinesWidget.widget_string()

@@ -18,7 +18,9 @@ def render_inline(request, size, align, oid):
             raise Picture.DoesNotExist, "Picture id '%s' does not exist"
         else:
             return ''
-    
     im = get_thumbnail(picture.picture.file, size)
-    json = simplejson.dumps({"src": im.url, "title": picture.title, "width": size, "align": align})
+    json = simplejson.dumps({"src": im.url, 
+                             "title": picture.title, 
+                             "width": size, 
+                             "align": align})
     return HttpResponse(json, mimetype='application/json')
