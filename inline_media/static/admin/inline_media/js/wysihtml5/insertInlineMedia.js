@@ -1,6 +1,6 @@
 wysihtml5.commands.insertInlinePicture = {
     exec: function(composer, command, value) {
-	django.jQuery.get("/inline-media/render-image/"+value['size']+"/"+value['align']+"/"+value['oid'],
+	django.jQuery.get(value['rurl']+"/"+value['size']+"/"+value['align']+"/"+value['oid'],
 			  function(data) {
 			      composer.commands.exec("insertImage", data);
 			      return;

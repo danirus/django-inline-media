@@ -3,7 +3,6 @@ from datetime import datetime
 from django.db import models
 from django.db.models import permalink
 
-# from inline_media.fields import Wysihtml5TextFieldWithInlines
 from wysihtml5.fields import Wysihtml5TextField
 
 
@@ -20,7 +19,6 @@ class Article(models.Model):
     title    = models.CharField(max_length=200)
     slug     = models.SlugField(unique_for_date='publish')
     abstract = models.TextField()
-    # body     = Wysihtml5TextFieldWithInlines()
     body     = Wysihtml5TextField()
     publish  = models.DateTimeField(default=datetime.now)
 

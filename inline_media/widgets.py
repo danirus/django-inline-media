@@ -2,6 +2,7 @@
 
 from django.conf import settings
 from django.contrib.admin.widgets import AdminTextareaWidget
+from django.core.urlresolvers import reverse
 from django.forms.util import flatatt
 from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
@@ -117,7 +118,11 @@ class InlinesDialogStr(BaseInlinesDialogStr):
 
 class Wysihtml5InlinesDialogStr(BaseInlinesDialogStr):
     def _do_element_select_type(self, attrs=None):
-        return ""
+        widget = u'<input type="hidden" data-wysihtml5-dialog-field="rurl" value="%(rurl)s" />'
+        rurl = reverse('inline-media-render-inline', 
+                       kwargs={"size": 80, "align": "left", "oid": 0})
+        rurl = rurl[:rurl.index("render-image")+len("render-image")]
+        return widget % {"rurl":rurl}
 
     def _do_element_input_object(self, attrs=None):
         widget = u'<strong>%(_image_)s:</strong>&nbsp;\

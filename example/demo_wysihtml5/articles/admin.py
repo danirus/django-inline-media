@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-# from inline_media.admin import AdminWysihtml5TextFieldWithInlinesMixin
 from wysihtml5.admin import AdminWysihtml5TextFieldMixin
 
 from demo_wysihtml5.articles.models import Article
