@@ -1,8 +1,11 @@
 .. _ref-templatetags:
 
-============
-Templatetags
-============
+.. index::
+   pair: Filters; Templatetags
+
+=========================
+Filters and Template Tags
+=========================
 
 Django-inline-media comes with two filters and one tag:
 
@@ -14,6 +17,10 @@ To use any of them in your templates you first need to load them::
 
     {% load inlines %}
 
+
+.. index::
+   single: render_inlines
+   pair: Filter; render_inlines
 
 Filter: render_inlines
 ======================
@@ -46,6 +53,10 @@ Example usage::
     {{ object.body|render_inlines }}
 
 
+.. index::
+   single: extract_inlines
+   pair: Filter; extract_inlines
+
 Filter: extract_inlines
 =======================
 
@@ -63,6 +74,10 @@ Example usage::
       {% endifequal %}
     {% endfor %}
 
+
+.. index::
+   single: get_inline_types
+   pair: Tag; get_inline_types
 
 Tag: get_inline_types
 =====================

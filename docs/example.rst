@@ -1,22 +1,46 @@
 .. _ref-example:
 
-============
-Demo project
-============
+=============
+Demo projects
+=============
 
-Django-inlines-media comes with a demo project to show the application in action.
+Django-inlines-media comes with two demo projects:
+
+1. **demo**: An article model with a TextFieldWithInlines
+2. **demo_wysihtml5**: The same article model with a Wysihtml5TextField
 
 
-Demo project setup
-==================
+The example sites in the repository live `here <http://github.com/danirus/django-inline-media/tree/master/example>`.
 
-1. Go to the demos directory ``django_inline_media/example/demo``.
+.. index::
+   pair: Demo; Setup
 
-2. Run ``python manage.py syncdb --noinput`` to create a simple SQLite db file for the demo (``user:admin``, ``pwd:admin``).
+Demo sites setup
+================
 
-3. Run ``python manage.py collectstatic`` and answer *'Yes'*, to collect static files from ``inline_media/static/``.
+I recommended you to run the demo sites in a `virtualenv <http://www.virtualenv.org/en/latest/>`_ for this application. Create a virtualenv, clone the code and cd into any of the demo sites.
 
-4. Run ``python manage runserver`` and visit http://localhost:8000/ 
+Example site **demo**::
+
+    $ cd django-inline-media/example/demo
+    $ python manage.py syncdb --noinput
+    $ python manage.py collectstatic
+    $ python manage.py runserver
+
+Example site **demo_wysihtml5**::
+
+    $ cd django-inline-media/example/demo_wysihtml5
+    $ sh install.sh
+    $ python manage.py collectstatic
+    $ python manage.py runserver
+
+Both example sites have the same admin user available: ``user: admin``, ``pwd: admin``.
+
+
+.. index::
+   single: Demo
+   pair: Demo; Project
+   triple: Demo; Project; Structure
 
 
 Demo project structure
@@ -34,7 +58,7 @@ Position can either be **left**, **right**, or **centered**. The size can be **s
 
 
 Example articles
-===================
+================
 
 Let's see how articles in the demo site look like. Following you can see example articles one, two and five. Article views are combined with their body fields in the admin UI so that you can get an idea of how inline elements look like in the textarea and what's the effect in the final rendered article.
 
@@ -82,3 +106,40 @@ An inline picture set has different looks:
 The overlaid gallery view of the picture set of article five:
 
 .. image:: images/demo_article_5_gallery.png
+
+
+.. index::
+   single: Wysihtml5
+   pair: Wysihtml5; Demo
+
+.. _ref-wysihtml5-demo:
+
+Wysihtml5 demo project
+======================
+
+**django-inline-media** comes with a new command *insertInlineMedia** for the Wysihtml5 rich text editor. The ``demo_wysihtml5`` shows it in action.
+
+The demo settings file customise two **django-wysihtml5** settings that allow replace the *insertImage* command by your own::
+
+    WYSIHTML5_CMD_INSERT_IMAGE = "insertInlinePicture"
+    WYSIHTML5_FUNC_INSERT_IMAGE_DIALOG = "inline_media.widgets.render_insert_inline_picture_dialog"
+
+In the **Article** models file we make use of **Wysihtml5TextField**::
+
+    from wysihtml5.fields import Wysihtml5TextField
+
+    class Article(models.Model):
+        [...]
+        abstract = models.TextField()   # a regular django TextField
+        body     = Wysihtml5TextField() # a Textfield that uses a Wysihtml5 widget editor
+
+The admin class for that model looks like::
+
+    from wysihtml5.admin import AdminWysihtml5TextFieldMixin
+
+    class ArticleAdmin(AdminWysihtml5TextFieldMixin, admin.ModelAdmin):
+        [...]
+
+And finally include the django-wysihtml5 specific ``stylesheet.css`` file in your templates whenever you render the content of the **body** field::
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}wysihtml5/css/stylesheet.css" type="text/css" media="screen" />

@@ -1,5 +1,8 @@
 .. _ref-templates:
 
+.. index::
+   single: Templates
+
 =========
 Templates
 =========

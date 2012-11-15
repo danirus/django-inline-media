@@ -4,8 +4,11 @@
 Tutorial
 ========
 
-Django-inline-media is a simple reusable app that allows insertion of inline media content into TextFields.
+Django-inline-media is a simple reusable app that allows insertion of inline media content into TextFields. 
 
+
+.. index::
+   single: Motivation
 
 Motivation
 ==========
@@ -16,6 +19,11 @@ Django-inline-media comes with two media models: Picture and PictureSet, but you
 
 This tutorial explains how to install and configure django-inline-media, how to integrate it in your web project and how to use the new widget.
 
+It additionally supports the Wysihtml5 rich text editor by providing a replacement for the Wysihtml5's ``insertImage`` command. See the **demo_wysihtml5** for details on this feature.
+
+
+.. index::
+   single: Installation
 
 Installation
 ============
@@ -48,6 +56,9 @@ Use git, pip or easy_install to check out Django-inline-media from Github_ or ge
 .. _git: http://git-scm.com/
 
 
+.. index::
+   single: Configuration
+
 Configuration
 =============
 
@@ -71,6 +82,12 @@ Configuration comprehends the following steps:
    * ``python manage.py collectstatic`` to copy CSS and Javascript content from inline_media into your project's static directory
 
 
+There are a few extra details to consider when planning to use the Wysihtml5 editor. Read on the specific :ref:`ref-wysihtml5-demo`.
+
+
+.. index::
+   single: inline-media
+
 .. _using-label:
 
 Using inline-media
@@ -85,6 +102,11 @@ Using inline-media is pretty straightforward:
 3. Change the admin class of those models and make them inherit from **AdminTextFieldWithInlinesMixin**. This change make fields of type **TextfieldWithInlines** be rendered as **TextareWithInlines**
 
 Let's see it with an example: the Article model.
+
+
+.. index::
+   single: Code
+   Pair: Example; Code
 
 Example code
 ------------
@@ -118,6 +140,9 @@ And the ArticleAdmin class will inherit from both, **AdminTextFieldWithInlinesMi
 
     admin.site.register(Article, ArticleAdmin)
 
+
+.. index::
+   single: InlineType
 
 InlineType instances
 ====================
