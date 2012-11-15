@@ -9,15 +9,14 @@ from django.db.models.signals import pre_delete
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core import urlresolvers
-from django.core.files.storage import default_storage
 from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail import get_thumbnail, ImageField
+from sorl.thumbnail.default import Storage
 from tagging.fields import TagField
 
 
-media_storage = getattr(settings, 'INLINE_MEDIA_STORAGE', default_storage)
-
+storage = Storage()
 
 #----------------------------------------------------------------------
 # InlineType code borrowed from django-basic-apps by Nathan Borror
@@ -82,8 +81,7 @@ class Picture(models.Model):
 
     title        = models.CharField(max_length=255)
     show_as_link = models.BooleanField(default=True)
-    picture      = ImageField(upload_to="pictures/%Y/%b/%d", 
-                              storage=media_storage)
+    picture      = ImageField(upload_to="pictures/%Y/%b/%d", storage=storage)
     description  = models.TextField(blank=True)
     tags         = TagField()
     author       = models.CharField(blank=True, null=False, max_length=255,
@@ -131,7 +129,10 @@ class Picture(models.Model):
 
     # used in admin 'list_display' to show the thumbnail of self.picture
     def thumbnail(self):
-        im = get_thumbnail(self.picture, "x50")
+        try:
+            im = get_thumbnail(self.picture, "x50")
+        except Exception, e:
+            return "unavailable"
         return '<div style="text-align:center"><img src="%s"></div>' % im.url
     thumbnail.allow_tags = True
 
