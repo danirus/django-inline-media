@@ -1,9 +1,6 @@
 #-*- coding: utf-8 -*-
 
 import os
-import tempfile
-
-from django.core.files.storage import FileSystemStorage
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -86,5 +83,5 @@ INSTALLED_APPS = [
     'tagging',
 ]
 
-INLINE_MEDIA_STORAGE = FileSystemStorage(tempfile.mkdtemp())
-ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
+THUMBNAIL_STORAGE = "inline_media.tests.storage.TestStorage"
+# ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3

@@ -11,6 +11,7 @@ from inline_media.models import Picture
 
 
 def render_inline(request, size, align, oid):
+    import ipdb; ipdb.set_trace()
     try:
         picture = Picture.objects.get(pk=oid)
     except Picture.DoesNotExist:
@@ -18,7 +19,7 @@ def render_inline(request, size, align, oid):
             raise Picture.DoesNotExist, "Picture id '%s' does not exist"
         else:
             return ''
-    im = get_thumbnail(picture.picture.file, size)
+    im = get_thumbnail(picture.picture, size)
     json = simplejson.dumps({"src": im.url, 
                              "title": picture.title, 
                              "width": size, 

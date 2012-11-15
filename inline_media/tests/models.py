@@ -15,9 +15,6 @@ from inline_media.fields import TextFieldWithInlines
 from inline_media.models import Picture, PictureSet
 
 
-media_storage = getattr(settings, 'INLINE_MEDIA_STORAGE', default_storage)
-
-
 class ModelTest(models.Model):
     first_text = models.TextField()
     second_text = TextFieldWithInlines()
@@ -35,8 +32,8 @@ class PictureTestCase(DjangoTestCase):
         image_2 = ImageFile(open(os.path.join(curdir, "images/palandroid.png"), "rb"))
         self.picture_2 = Picture.objects.create(title="android clone", picture=image_2)
         
-    def tearDown(self):
-        shutil.rmtree(media_storage.location)
+    # def tearDown(self):
+    #     shutil.rmtree(media_storage.location)
 
     def test_find_duplicates_of_a_picture(self):
         duplicates = Picture.objects.find_duplicates(self.picture_1)
@@ -61,8 +58,8 @@ class PictureSetTestCase(DjangoTestCase):
         self.picset.pictures.add(self.picture_2)
         self.picset.pictures.add(self.picture_3) 
 
-    def tearDown(self):
-        shutil.rmtree(media_storage.location)
+    # def tearDown(self):
+    #     shutil.rmtree(media_storage.location)
                                   
     def test_pictureset_get_picture_titles_as_ul(self):
         self.assertEqual(
