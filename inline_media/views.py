@@ -11,7 +11,6 @@ from inline_media.models import Picture
 
 
 def render_inline(request, size, align, oid):
-    import ipdb; ipdb.set_trace()
     try:
         picture = Picture.objects.get(pk=oid)
     except Picture.DoesNotExist:
