@@ -32,6 +32,12 @@ function fanPictureSet3(divid) {
 }
 
 $(document).ready(function() {
+    $('.inline-ps3').each(function() {
+	fanPictureSet3($(this).attr("id"));
+    });
+    $('.inline-ps2').each(function() {
+	fanPictureSet2($(this).attr("id"));
+    });
     $("A[rel^='pictureset']").prettyPhoto({social_tools:false});
     $("A.picture").prettyPhoto({social_tools:false});
 });

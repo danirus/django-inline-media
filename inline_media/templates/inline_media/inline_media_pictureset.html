@@ -1,7 +1,7 @@
 {% load i18n thumbnail %}
 
 {% if class == "inline_mini_left" or class == "inline_mini_right" %}
-<div id="{{ object.slug }}" class="inline {{ class }}" style="width:100px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:100px">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture "80x80" crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
@@ -22,7 +22,7 @@
 {% else %}
 
 {% if class == "inline_small_left" or class == "inline_small_right" %}
-<div id="{{ object.slug }}" class="inline {{ class }}" style="width:170px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:170px">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture "150x150" crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
@@ -45,7 +45,7 @@
 {% else %}
 
 {% if class == "inline_medium_left" or class == "inline_medium_right" %}
-<div id="{{ object.slug }}" class="inline {{ class }}" style="width:220px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:220px">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture "200x200" crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
@@ -68,7 +68,7 @@
 
 {% else %}
 {% if class == "inline_large_left" or class == "inline_large_right" %}
-<div id="{{ object.slug }}" class="inline {{ class }}" style="width:270px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:270px">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture "250x250" crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
@@ -90,7 +90,7 @@
 </div>
 
 {% else %}
-<div id="{{ object.slug }}" class="inline {{ class }}" style="width:400px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:400px">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture "380x280" crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
@@ -116,12 +116,3 @@
 {% endif %}
 {% endif %}
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    {% if object.pictures.count == 2 %}
-      fanPictureSet2("{{ object.slug }}");
-    {% else %}
-      fanPictureSet3("{{ object.slug }}");
-    {% endif %}
-  });
-</script>
