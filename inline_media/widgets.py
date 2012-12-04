@@ -9,8 +9,6 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from wysihtml5.widgets import Wysihtml5AdminTextareaWidget
-
 from inline_media.models import InlineType
 
 # Defaulted to Django 1.4 path
