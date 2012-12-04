@@ -1,0 +1,2 @@
+-r ../../requirements
+-e git+git://github.com/danirus/django-wysihtml5.git#egg=django-wysihtml5
