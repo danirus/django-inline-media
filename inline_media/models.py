@@ -113,7 +113,7 @@ class Picture(models.Model):
 
     @property
     def url(self):
-        return '%s%s' % (settings.MEDIA_URL, self.photo)
+        return '%s%s' % (settings.MEDIA_URL, self.picture)
 
     # showing duplicates ala django-filer
     @property
