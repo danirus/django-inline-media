@@ -29,4 +29,8 @@ setup(
         'Framework :: Django',
     ],
     test_suite = "dummy",
+    include_package_data = True,
+    package_data = {
+        'inline_media': ['*.css', '*.js', '*.html']
+    }
 )
