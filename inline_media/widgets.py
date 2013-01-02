@@ -164,9 +164,9 @@ class TextareaWithInlines(AdminTextareaWidget):
 
     class Media:
         css = {
-            'all': (settings.STATIC_URL + "inline_media/css/inline_media.css",)
+            'all': ("inline_media/css/inline_media.css",)
         }
-        js = (settings.STATIC_URL + "admin/inline_media/js/inlines.js",)
+        js = ("admin/inline_media/js/inlines.js",)
 
     def __init__(self, attrs=None):
         super(TextareaWithInlines, self).__init__(attrs=attrs)        
@@ -192,5 +192,5 @@ def render_insert_inline_picture_dialog(id):
     inlines_widget = u'<div data-wysihtml5-dialog="insertInlinePicture" style="display:none">'
     inlines_widget += Wysihtml5InlinesDialogStr(id).widget_string()
     inlines_widget += u'</div>'
-    inlines_widget += u'<script type="text/javascript" src="%(static_url)sadmin/inline_media/js/wysihtml5/insertInlineMedia.js"></script>' % {"static_url": settings.STATIC_URL}
+    inlines_widget += u'<script type="text/javascript" src="admin/inline_media/js/wysihtml5/insertInlineMedia.js"></script>'
     return inlines_widget
