@@ -163,3 +163,13 @@ THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"
 THUMBNAIL_FORMAT = "JPEG"
 
 # ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
+
+INLINE_MEDIA_TEXTAREA_ATTRS = {
+    'default': { # default widget attributes, can be overriden on
+                 # a per app_label.model basis
+        'style': 'font: 13px monospace'
+    },
+    'articles.article': { # widget attributes for app_label.model
+        'body': { 'rows': 20 } # field 'body'
+    }
+}

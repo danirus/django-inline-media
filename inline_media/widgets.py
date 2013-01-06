@@ -9,10 +9,9 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
+from inline_media.conf import ADMIN_IMAGES_PATH, TEXTAREA_ATTRS
 from inline_media.models import InlineType
 
-# Defaulted to Django 1.4 path
-ADMIN_IMAGES_PATH = getattr(settings, "ADMIN_IMAGES_PATH", "%s/admin/img" % settings.STATIC_URL)
 
 class BaseInlinesDialogStr(object):
 
@@ -55,7 +54,7 @@ class BaseInlinesDialogStr(object):
         widget = u'<strong>Class:</strong>&nbsp;<select id="id_inline_class_for_%(name)s" '
         if attrs:
             widget += " ".join(['%s="%s"' % (key, value) for key, value in attrs.iteritems()])
-        widget += u'<\
+        widget += u'>\
   <option value="inline_mini_left">%(_mini_left_)s</option>\
   <option value="inline_mini_right">%(_mini_right_)s</option>\
   <option value="inline_small_left">%(_small_left_)s</option>\
@@ -66,7 +65,7 @@ class BaseInlinesDialogStr(object):
   <option value="inline_large_right">%(_large_right_)s</option>\
   <option value="inline_full_left">%(_full_left_)s</option>\
   <option value="inline_full_right">%(_full_right_)s</option>\
-  <option value="inline_full">%(_full_centered_)s</option>\
+  <option value="inline_full_center">%(_full_center_)s</option>\
 </select>'
         return widget % {'name': self.name, 
                          '_mini_left_': _("Mini left"), 
@@ -79,7 +78,7 @@ class BaseInlinesDialogStr(object):
                          '_large_right_': _("Large right"),
                          '_full_left_': _("Full left"), 
                          '_full_right_': _("Full right"),
-                         '_full_centered_': _("Full centered")}
+                         '_full_center_': _("Full center")}
     
     def _do_element_button_add(self, attrs=None):
         widget = u'<input type="button" value="%(_add_)s" style="margin-left:10px;" '
@@ -167,9 +166,6 @@ class TextareaWithInlines(AdminTextareaWidget):
             'all': ("inline_media/css/inline_media.css",)
         }
         js = ("admin/inline_media/js/inlines.js",)
-
-    def __init__(self, attrs=None):
-        super(TextareaWithInlines, self).__init__(attrs=attrs)        
 
     def render(self, name, value, attrs=None):
         if value is None: value = ''

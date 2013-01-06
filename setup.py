@@ -2,14 +2,15 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test
 
 def run_tests(*args):
-    from inline_media.tests import run_tests
+    from inline_media.tests import run_tests, delete_tmp_dirs
     run_tests()
+    delete_tmp_dirs()
 
 test.run_tests = run_tests
 
 setup(
     name = "django-inline-media",
-    version = "1.1a3",
+    version = "1.1a4",
     packages = find_packages(),
     license = "MIT",
     description = "Simple Django app that allows insertion of inline media objects in text fields, with support for rich text editor Wysihtml5.",

@@ -7,7 +7,7 @@ from django.utils.html import conditional_escape
 
 from inline_media.models import InlineType
 from inline_media.widgets import TextareaWithInlines, InlinesDialogStr
-from inline_media.tests.models import ModelTest
+from inline_media.tests.models import TestModel
 
 
 class AdminTextareaWithInlinesWidgetTestCase(DjangoTestCase):
@@ -18,7 +18,7 @@ class AdminTextareaWithInlinesWidgetTestCase(DjangoTestCase):
         InlineType.objects.create(title="PictureSet", content_type=ct_pictureset)
         
     def test_render_textareawithinlines_widget(self):
-        neilmsg = ModelTest.objects.create(
+        neilmsg = TestModel.objects.create(
             first_text="One small step for man", 
             second_text="One giant leap for mankind")
         widget = TextareaWithInlines()
