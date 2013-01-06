@@ -1,0 +1,13 @@
+{% load thumbnail %}
+
+<div class="inline {{ class }}">
+  {% thumbnail object.picture size as im %}
+  {% if object.show_as_link %}
+  <a href="{{ object.picture.url }}" class="picture" rel="{{ object.sha1 }}" title="{{ object.description }}">
+    <img src="{{ im.url }}" alt="{{ object.title }}">
+  </a>
+  {% else %}
+  <img src="{{ im.url }}" alt="{{ object.title }}">
+  {% endif %}
+  {% endthumbnail %}
+</div>

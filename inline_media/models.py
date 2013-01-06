@@ -96,6 +96,7 @@ class Picture(models.Model):
     objects      = PictureManager()
 
     class Meta:
+        ordering = ('-uploaded',)
         db_table = 'inline_media_pictures'
 
     def save(self, *args, **kwargs):

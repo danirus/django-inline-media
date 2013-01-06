@@ -1,4 +1,4 @@
-.inline_full {
+.inline_full_center {
     display: block;
     margin: 10px auto;
 }
@@ -37,9 +37,9 @@
 .inline_large_left .pictureset2, .inline_large_right .pictureset2,
 .inline_large_left .pictureset3, .inline_large_right .pictureset3 { height: 274px }
 
-.inline_full .pictureset1, .inline_full_left .pictureset1, .inline_full_right .pictureset1, 
-.inline_full .pictureset2, .inline_full_left .pictureset2, .inline_full_right .pictureset2, 
-.inline_full .pictureset3, .inline_full_left .pictureset3, .inline_full_right .pictureset3 { height: 304px }
+.inline_full_center .pictureset1, .inline_full_left .pictureset1, .inline_full_right .pictureset1, 
+.inline_full_center .pictureset2, .inline_full_left .pictureset2, .inline_full_right .pictureset2, 
+.inline_full_center .pictureset3, .inline_full_left .pictureset3, .inline_full_right .pictureset3 { height: 304px }
 
 .pictureset1 img, .pictureset2 img, .pictureset3 img {
     text-decoration: none;

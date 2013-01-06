@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 import unittest
 
@@ -20,6 +21,12 @@ def run_tests():
     test_suite.run_tests(["inline_media"])
 
 
+def delete_tmp_dirs():
+    from django.conf import settings
+    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'pictures'))
+    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'cache'))
+
+
 def suite():
     if not os.environ.get("DJANGO_SETTINGS_MODULE", False):
         setup_django_settings()
@@ -29,13 +36,16 @@ def suite():
         settings.INSTALLED_APPS = settings.INSTALLED_APPS + ['inline_media.tests',]
         map(load_app, settings.INSTALLED_APPS)
 
-    from inline_media.tests import fields, models, parser, widgets
+    from inline_media.tests import (test_fields, test_models, 
+                                    test_parser, test_widgets,
+                                    test_conf)
 
     testsuite = unittest.TestSuite([
-        unittest.TestLoader().loadTestsFromModule(fields),
-        unittest.TestLoader().loadTestsFromModule(models),
-        unittest.TestLoader().loadTestsFromModule(parser),
-        unittest.TestLoader().loadTestsFromModule(widgets),
+        unittest.TestLoader().loadTestsFromModule(test_conf),
+        unittest.TestLoader().loadTestsFromModule(test_fields),
+        unittest.TestLoader().loadTestsFromModule(test_models),
+        unittest.TestLoader().loadTestsFromModule(test_parser),
+        unittest.TestLoader().loadTestsFromModule(test_widgets),
     ])
     return testsuite
 
