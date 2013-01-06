@@ -1,6 +1,12 @@
 Django-inline-media
 ===================
 
+|TravisCI|_
+
+.. |TravisCI| image:: https://secure.travis-ci.org/danirus/django-inline-media.png?branch=master
+.. _TravisCI: https://travis-ci.org/danirus/django-inline-media
+
+
 By Daniel Rus Morales <http://danir.us/>
 
 * http://pypi.python.org/pypi/django-inline-media/
