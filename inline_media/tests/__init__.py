@@ -23,8 +23,12 @@ def run_tests():
 
 def delete_tmp_dirs():
     from django.conf import settings
-    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'pictures'))
-    shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'cache'))
+    try:
+        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'pictures'))
+        shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'cache'))
+    except OSError, e:
+        if e.errno != 2:
+            raise e
 
 
 def suite():
