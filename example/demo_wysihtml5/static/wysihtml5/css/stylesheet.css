@@ -1,0 +1,38 @@
+@import url("../../inline_media/css/inline_media.css");
+
+BODY.wysihtml5-editor {
+    padding: 5px;
+    font-size: 13px;
+}
+
+.wysihtml5-editor DIV,
+.wysihtml5-editor OL, .wysihtml5-editor OL LI,
+.wysihtml5-editor UL, .wysihtml5-editor UL LI,
+.wysihtml5-editor BLOCKQUOTE,
+.wysihtml5-editor P { font-size: 13px }
+.wysihtml5-editor H1 { font-size: 2.2em }
+.wysihtml5-editor H2 { font-size: 2.0em }
+.wysihtml5-editor H3 { font-size: 1.8em }
+.wysihtml5-editor H4 { font-size: 1.6em }
+.wysihtml5-editor H5 { font-size: 1.4em }
+.wysihtml5-editor H6 { font-size: 1.2em }
+
+.wysiwyg-color-green { color: green }
+.wysiwyg-color-silver { color: silver }
+.wysiwyg-color-maroon { color: maroon }
+.wysiwyg-color-gray { color: gray }
+.wysiwyg-color-red { color: red }
+.wysiwyg-color-purple { color: purple }
+.wysiwyg-color-olive { color: olive }
+.wysiwyg-color-navy { color: navy }
+.wysiwyg-color-blue { color: blue }
+
+.wysiwyg-text-align-left { text-align: left }
+.wysiwyg-text-align-center { text-align: center }
+.wysiwyg-text-align-right { text-align: right }
+
+.wysiwyg-float-left { float: left }
+.wysiwyg-float-right { float: right }
+
+IMG.wysiwyg-float-left { margin: 10px 20px 10px 0 }
+IMG.wysiwyg-float-right { margin: 10px 0 20px 10px }

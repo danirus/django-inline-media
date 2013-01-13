@@ -167,9 +167,14 @@ THUMBNAIL_FORMAT = "JPEG"
 INLINE_MEDIA_TEXTAREA_ATTRS = {
     'default': { # default widget attributes, can be overriden on
                  # a per app_label.model basis
-        'style': 'font: 13px monospace'
+        'style': 'font: 12px monospace'
     },
     'articles.article': { # widget attributes for app_label.model
         'body': { 'rows': 20 } # field 'body'
     }
+}
+
+INLINE_MEDIA_CUSTOM_SIZES = {
+    'inline_media.picture':    { 'large': 310 },
+    'inline_media.pictureset': { 'large': (310, 240) }
 }
