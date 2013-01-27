@@ -5,7 +5,7 @@ import os
 from django.core.files.images import ImageFile
 from django.test import TestCase as DjangoTestCase
 
-from inline_media.conf import TEXTAREA_ATTRS
+from inline_media.conf import settings
 from inline_media.models import Picture, PictureSet
 from inline_media.tests.forms import TestModelForm
 
@@ -59,8 +59,8 @@ class ModelFormTestCase(DjangoTestCase):
     """
     def test_field(self):
         attrs = {}
-        attrs.update(TEXTAREA_ATTRS['default'])
-        attrs.update(TEXTAREA_ATTRS['tests.TestModel']['second_text'])
+        attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS['default'])
+        attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS['tests.TestModel']['second_text'])
         form = TestModelForm()
         widget = form.fields['second_text'].widget
         for k, v in attrs.iteritems():

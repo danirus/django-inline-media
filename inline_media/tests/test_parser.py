@@ -8,7 +8,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.files.images import ImageFile
 from django.test import TestCase as DjangoTestCase
 
-from inline_media.conf import CUSTOM_SIZES
+from inline_media.conf import settings
 from inline_media.models import InlineType, Picture
 from inline_media.parser import inlines, render_inline
 from inline_media.widgets import TextareaWithInlines
@@ -138,4 +138,4 @@ class PictureTemplatesTestCase(DjangoTestCase):
         soup = BeautifulSoup(inline_tag, selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))
         self.assertEqual(int(rendered_inline['context']['size']),
-                         CUSTOM_SIZES['inline_media.picture']['mini'])
+                         settings.INLINE_MEDIA_CUSTOM_SIZES['inline_media.picture']['mini'])

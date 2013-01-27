@@ -4,9 +4,8 @@ from django.http import HttpResponse
 from django.template import TemplateSyntaxError
 from django.shortcuts import render_to_response
 from django.utils import simplejson
-
 from sorl.thumbnail import get_thumbnail
-
+from inline_media.conf import settings
 from inline_media.models import Picture
 
 

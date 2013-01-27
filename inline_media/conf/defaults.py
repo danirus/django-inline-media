@@ -18,28 +18,26 @@ ADMIN_IMAGES_PATH = getattr(settings,
 # Size values may be just an int, a tuple or anything else. When the size is 
 # an int it represents the width of the thumbnail for the picture. When the
 # size is a tuple it represents the geometry (width, height) for the thumbnail.
-CUSTOM_SIZES = getattr(settings,
-                       'INLINE_MEDIA_CUSTOM_SIZES',
-                       {'inline_media.picture':
-                            {'mini': 80,
-                             'small': 150,
-                             'medium': 200,
-                             'large': 250,
-                             'full': 'full'},
-                        'inline_media.pictureset':
-                            {'mini': (80, 80),
-                             'small': (150, 150),
-                             'medium': (200, 200),
-                             'large': (250, 250),
-                             'full': (380, 280)}
-                        })
+INLINE_MEDIA_CUSTOM_SIZES =  {
+    'inline_media.picture': {
+        'mini': 80,
+        'small': 150,
+        'medium': 200,
+        'large': 250,
+        'full': 'full'
+    },
+    'inline_media.pictureset': {
+        'mini': (58, 58),
+        'small': (128, 128),
+        'medium': (178, 178),
+        'large': (228, 228),
+        'full': (380, 280)
+    }
+}
 
 # Default size in case the entry corresponding to an app_label.model and 
 # size_type does not exist in INLINE_MEDIA_CUSTOM_SIZES
-DEFAULT_SIZE = getattr(settings, 'INLINE_MEDIA_DEFAULT_SIZE', 200)
+INLINE_MEDIA_DEFAULT_SIZE = 200
 
 # Quick way to site-wide change attributes of TextareaWithInlines widget
-TEXTAREA_ATTRS = getattr(settings, 
-                         'INLINE_MEDIA_TEXTAREA_ATTRS', 
-                         {})
-
+INLINE_MEDIA_TEXTAREA_ATTRS = {}

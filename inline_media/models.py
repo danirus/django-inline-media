@@ -6,7 +6,6 @@ import os.path
 
 from django.db import models
 from django.db.models.signals import pre_delete
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _
@@ -15,6 +14,7 @@ from sorl.thumbnail import get_thumbnail, ImageField
 from sorl.thumbnail.default import Storage
 from tagging.fields import TagField
 
+from inline_media.conf import settings
 
 storage = Storage()
 
@@ -79,21 +79,21 @@ class PictureManager(models.Manager):
 class Picture(models.Model):
     """Picture model"""
 
-    title        = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     show_as_link = models.BooleanField(default=True)
-    picture      = ImageField(upload_to="pictures/%Y/%b/%d", storage=storage)
-    description  = models.TextField(blank=True)
-    tags         = TagField()
-    author       = models.CharField(blank=True, null=False, max_length=255,
-                                    help_text=_("picture's author"))
-    show_author  = models.BooleanField(default=False)
-    license      = models.ForeignKey("License", blank=True, null=True)
+    picture = ImageField(upload_to="pictures/%Y/%b/%d", storage=storage)
+    description = models.TextField(blank=True)
+    tags = TagField()
+    author = models.CharField(blank=True, null=False, max_length=255,
+                              help_text=_("picture's author"))
+    show_author = models.BooleanField(default=False)
+    license = models.ForeignKey("License", blank=True, null=True)
     show_license = models.BooleanField(default=False)
-    uploaded     = models.DateTimeField(auto_now_add=True)
-    modified     = models.DateTimeField(auto_now=True)
-    sha1         = models.CharField(max_length=40, blank=True, default="")
+    uploaded = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    sha1 = models.CharField(max_length=40, blank=True, default="")
 
-    objects      = PictureManager()
+    objects = PictureManager()
 
     class Meta:
         ordering = ('-uploaded',)
@@ -146,15 +146,18 @@ pre_delete.connect(delete_picture, sender=Picture)
 
 class PictureSet(models.Model):
     """ PictureSet model """
-    title       = models.CharField(max_length=255)
-    slug        = models.SlugField()
+    title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.TextField(blank=True)
-    tags        = TagField()
-    cover       = models.ForeignKey("Picture", blank=True, null=True)
-    pictures    = models.ManyToManyField("Picture", related_name="picture_sets")
-    order       = models.CommaSeparatedIntegerField(blank=True, max_length=512, help_text=_("Establish the pictures order by typing the comma separated list of their picture IDs."))
-    created     = models.DateTimeField(auto_now_add=True)
-    modified    = models.DateTimeField(auto_now=True)
+    tags = TagField()
+    cover = models.ForeignKey("Picture", blank=True, null=True)
+    pictures = models.ManyToManyField("Picture", related_name="picture_sets")
+    order = models.CommaSeparatedIntegerField(
+        blank=True, max_length=512, 
+        help_text=_("Establish the pictures order by typing the comma "
+                    "separated list of their picture IDs."))
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = "inline_media_picture_sets"
@@ -195,4 +198,3 @@ class PictureSet(models.Model):
                 except:
                     pass
             return ordered
-

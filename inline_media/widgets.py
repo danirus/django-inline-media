@@ -1,6 +1,5 @@
 #-*- coding: utf-8 -*-
 
-from django.conf import settings
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.urlresolvers import reverse
 from django.forms.util import flatatt
@@ -8,8 +7,7 @@ from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
-
-from inline_media.conf import ADMIN_IMAGES_PATH, TEXTAREA_ATTRS
+from inline_media.conf import settings
 from inline_media.models import InlineType
 
 
@@ -48,7 +46,7 @@ class BaseInlinesDialogStr(object):
             widget += " ".join([u'%s="%s"' % (key, value) for key, value in attrs.iteritems()])
         widget += u'/><a id="lookup_id_inline_for_%(name)s" href="#" class="related-lookup" onclick="if(document.getElementById(\'id_inline_content_type_for_%(name)s\').value != \'----------\') { return showRelatedObjectLookupPopup(this); }" style="margin-right:20px;">'
         widget += u'<img src="%(path)s/selector-search.gif" width="16" height="16" alt="Loopup" /></a>'
-        return widget % {"name": self.name,  "path": ADMIN_IMAGES_PATH}
+        return widget % {"name": self.name,  "path": settings.ADMIN_IMAGES_PATH}
         
     def _do_element_select_class(self, attrs=None):
         widget = u'<strong>Class:</strong>&nbsp;<select id="id_inline_class_for_%(name)s" '
@@ -125,7 +123,7 @@ class Wysihtml5InlinesDialogStr(BaseInlinesDialogStr):
         widget = u'<strong>%(_image_)s:</strong>&nbsp;\
 <input type="text" class="vIntegerField" id="id_inline_for_%(name)s" size="10" data-wysihtml5-dialog-field="oid" style="width:50px"/><a id="lookup_id_inline_for_%(name)s" href="/admin/inline_media/picture/" class="related-lookup" onclick="return showRelatedObjectLookupPopup(this)" style="margin-right:20px;">'
         widget += u'<img src="%(path)s/selector-search.gif" width="16" height="16" alt="Loopup" /></a>'
-        return widget % {"_image_": _("Image"), "name": self.name,  "path": ADMIN_IMAGES_PATH}
+        return widget % {"_image_": _("Image"), "name": self.name,  "path": settings.ADMIN_IMAGES_PATH}
 
     def _do_element_select_class(self, attrs=None):
         size_widget = u'\

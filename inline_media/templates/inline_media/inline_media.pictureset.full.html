@@ -1,6 +1,6 @@
 {% load i18n thumbnail %}
 
-<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}" style="width:400px">
+<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture size crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>

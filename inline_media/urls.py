@@ -1,9 +1,7 @@
 #-*- coding: utf-8 -*-
 
-from django.conf import settings
 from django.conf.urls.defaults import patterns, url
 from django.contrib.auth.decorators import login_required
-
 from inline_media.views import render_inline
 
 urlpatterns = patterns('',

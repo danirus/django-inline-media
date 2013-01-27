@@ -2,7 +2,7 @@
 
 from django.db.models import fields, get_model
 
-from inline_media.conf import TEXTAREA_ATTRS
+from inline_media.conf import settings
 from inline_media.widgets import TextareaWithInlines
 
 
@@ -25,7 +25,8 @@ def build_textarea_attrs(attrdict):
 def get_attrs(model, formfield):
     global textarea_attrs
     if textarea_attrs == None:
-        textarea_attrs = build_textarea_attrs(TEXTAREA_ATTRS)
+        textarea_attrs = build_textarea_attrs(
+            settings.INLINE_MEDIA_TEXTAREA_ATTRS)
     attrs = textarea_attrs.get('default', {})
     if textarea_attrs.get(model, False):
         attrs.update(textarea_attrs[model].get(formfield, {}))

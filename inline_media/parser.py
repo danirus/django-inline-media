@@ -4,7 +4,6 @@
 import re
 
 from django.template import TemplateSyntaxError
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
 from django.utils.encoding import smart_unicode
@@ -16,7 +15,7 @@ try:
 except ImportError:
     from beautifulsoup import BeautifulSoup, NavigableString
 
-from inline_media.conf import DEFAULT_SIZE, CUSTOM_SIZES
+from inline_media.conf import settings
 
 
 def inlines(value, return_list=False):
@@ -82,9 +81,9 @@ def render_inline(inline):
         match = regexp.match(inline_class)
         if match:
             size_type = match.group('size_type')
-        size = CUSTOM_SIZES[inline_type][size_type]
+        size = settings.INLINE_MEDIA_CUSTOM_SIZES[inline_type][size_type]
     except:
-        size = DEFAULT_SIZE
+        size = settings.INLINE_MEDIA_DEFAULT_SIZE
 
     if type(size) == int:
         size = '%d' % size
@@ -124,7 +123,7 @@ def render_inline(inline):
 
     rendered_inline = {
         'template': [
-            "inline_media/%s.%s.%s.html" % (app_label, model_name, size_type), 
+            "inline_media/%s.%s.%s.html" % (app_label, model_name, size_type),
             "inline_media/%s.%s.default.html" % (app_label, model_name) ],
         'context': context}
     return rendered_inline

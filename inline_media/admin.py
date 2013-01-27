@@ -1,6 +1,4 @@
 #-*- coding: utf-8 -*-
-
-from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.util import unquote
 
@@ -17,7 +15,7 @@ class LicenseAdmin(admin.ModelAdmin):
 
 
 class AdminTextFieldWithInlinesMixin(object):
-    """Mixin for ModelAdmin subclasses to provide custom widget for ``TextFieldWithInlines`` fields."""
+    """Mixin to provide custom widget for ``TextFieldWithInlines`` fields."""
     def formfield_for_dbfield(self, db_field, **kwargs):
         if isinstance(db_field, TextFieldWithInlines):
             return db_field.formfield(widget=TextareaWithInlines)
@@ -47,7 +45,7 @@ class PictureAdmin(admin.ModelAdmin):
         css = { "all": ("prettyphoto-3.1.3/css/prettyPhoto.css",) }
         js = ("prettyphoto-3.1.3/js/jquery-1.6.1.min.js",
               "prettyphoto-3.1.3/js/jquery.prettyPhoto.js",
-              settings.STATIC_URL + "admin/inline_media/js/picture.js")
+              "admin/inline_media/js/picture.js")
 
 
 class PictureSetAdmin(admin.ModelAdmin):
@@ -67,7 +65,7 @@ class PictureSetAdmin(admin.ModelAdmin):
         css = { "all": ("prettyphoto-3.1.3/css/prettyPhoto.css",) }
         js = ("prettyphoto-3.1.3/js/jquery-1.6.1.min.js",
               "prettyphoto-3.1.3/js/jquery.prettyPhoto.js",
-              settings.STATIC_URL + "admin/inline_media/js/pictureset.js")
+              "admin/inline_media/js/pictureset.js")
 
     def change_view(self, request, object_id, extra_context=None):
         response = super(PictureSetAdmin, self).change_view(
@@ -79,6 +77,6 @@ class PictureSetAdmin(admin.ModelAdmin):
 
 
 admin.site.register(InlineType)
-admin.site.register(License,    LicenseAdmin)
-admin.site.register(Picture,    PictureAdmin)
+admin.site.register(License, LicenseAdmin)
+admin.site.register(Picture, PictureAdmin)
 admin.site.register(PictureSet, PictureSetAdmin)
