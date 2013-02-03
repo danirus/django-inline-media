@@ -2,12 +2,21 @@
 
 <div class="inline {{ class }}" style="text-align:center">
   <img src="{{ object.picture.url }}" alt="{{ object.title }}">
+  {% if object.show_description_inline and object.description %}
+  <p class="inline_description">{{ object.description|safe }}</p>
+  {% endif %}
   {% if object.show_author or object.show_license %}
   <p class="inline_credits">
-    {% if object.show_author %}{% trans "author" %}:&nbsp;{{ object.author }}{% if object.show_license %}&nbsp;-&nbsp;{% endif %}{% endif %}{% if object.show_license %}<a href="{{ object.license }}" target="_new" style="font-size:0.9em">{% trans "license" %}</a>{% endif %}
+    {% if object.show_author %}
+    <span class="inline_author">
+      {% trans "author" %}:&nbsp;{{ object.author }}
+    </span>
+    {% endif %}
+    {% if object.show_license %}
+    <span class="inline_license">
+      {% trans "license" %}:&nbsp;<a href="{{ object.license.link }}" target="_new" style="font-size:0.9em">{{ object.license.name }}</a>
+    </span>
+    {% endif %}
   </p>
-  {% endif %}
-  {% if object.description %}
-  <p class="inline_description">{{ object.description|safe }}</p>
   {% endif %}
 </div>

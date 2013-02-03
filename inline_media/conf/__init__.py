@@ -1,5 +1,5 @@
 from django.conf import settings as django_settings
-from django.utils.functional import SimpleLazyObject, LazyObject
+from django.utils.functional import LazyObject
 
 from inline_media.conf import defaults as app_settings
 
@@ -26,7 +26,6 @@ class Settings(object):
     def __setattr__(self, name, value):
         obj_attr = getattr(self, name, None)
         if obj_attr and type(obj_attr) == dict:
-            # update it than replace it
             update_dict_in_depth(obj_attr, value)
         else:
             object.__setattr__(self, name, value)

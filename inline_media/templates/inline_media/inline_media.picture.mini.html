@@ -3,7 +3,7 @@
 <div class="inline {{ class }}">
   {% thumbnail object.picture size as im %}
   {% if object.show_as_link %}
-  <a href="{{ object.picture.url }}" class="picture" rel="{{ object.sha1 }}" title="{{ object.description }}">
+  <a href="{{ object.picture.url }}" class="picture" rel="{{ object.sha1 }}" title="{{ object.description|safe }}">
     <img src="{{ im.url }}" alt="{{ object.title }}">
   </a>
   {% else %}

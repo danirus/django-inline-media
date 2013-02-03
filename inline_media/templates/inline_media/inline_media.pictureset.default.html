@@ -6,7 +6,7 @@
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
     {% endthumbnail %}
 
-    {% for item in object.pictures.all %}
+    {% for item in object.next_picture %}
     {% ifnotequal item.picture object.cover.picture %}
     {% thumbnail item.picture size crop="center" as im %}
     <a href="{{ item.picture.url }}" rel="pictureset[{{ object.slug }}]" 
@@ -17,6 +17,10 @@
     {% endifnotequal %}
     {% endfor %}
   </div>
+  {% if object.show_description_inline %}
   <p class="inline_description">{{ object.description|safe }}</p>
+  {% endif %}
+  {% if object.show_counter %}
   <p class="inline_counter">{% with count=object.pictures.count %}[{% if object.cover not in object.pictures.all %}{{ count|add:"1" }}{% else %}{{ count }}{% endif %} {% ifequal count 1 %}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endifequal %}]{% endwith %}</p>
+  {% endif %}
 </div>

@@ -55,7 +55,8 @@ class License(models.Model):
 
     name = models.CharField(max_length=255)
     link = models.URLField(unique=True)
-    tags = TagField(help_text=_("family, comercial/non-commercial, etc."))
+    tags = TagField(help_text=_("i.e: creativecommons, comercial, "
+                                "non-commercial, ..."))
 
     class Meta:
         db_table = 'inline_media_licenses'
@@ -80,18 +81,21 @@ class Picture(models.Model):
     """Picture model"""
 
     title = models.CharField(max_length=255)
-    show_as_link = models.BooleanField(default=True)
     picture = ImageField(upload_to="pictures/%Y/%b/%d", storage=storage)
+    show_as_link = models.BooleanField(default=True)
     description = models.TextField(blank=True)
-    tags = TagField()
+    show_description_inline = models.BooleanField(_("Show description inline"),
+                                                  default=True)
     author = models.CharField(blank=True, null=False, max_length=255,
                               help_text=_("picture's author"))
     show_author = models.BooleanField(default=False)
-    license = models.ForeignKey("License", blank=True, null=True)
+    license = models.ForeignKey(License, blank=True, null=True)
     show_license = models.BooleanField(default=False)
     uploaded = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    sha1 = models.CharField(max_length=40, blank=True, default="")
+    sha1 = models.CharField(max_length=40, db_index=True, 
+                            blank=True, default="")
+    tags = TagField(help_text=_("i.e: logo, photo, country, season, ..."))
 
     objects = PictureManager()
 
@@ -146,18 +150,27 @@ pre_delete.connect(delete_picture, sender=Picture)
 
 class PictureSet(models.Model):
     """ PictureSet model """
-    title = models.CharField(max_length=255)
+    title = models.CharField(
+        help_text=_("Visible at the top of the gallery slider that shows up "
+                    "when clicking on cover's picture."), max_length=255)
     slug = models.SlugField()
-    description = models.TextField(blank=True)
-    tags = TagField()
-    cover = models.ForeignKey("Picture", blank=True, null=True)
+    description = models.TextField(
+        help_text=_("Only visible in the inline under sizes "
+                    "small, medium, large or full."), blank=True)
+    show_description_inline = models.BooleanField(default=True)
+    cover = models.ForeignKey("Picture", blank=True, null=True,
+                              help_text=_("Front cover picture."))
     pictures = models.ManyToManyField("Picture", related_name="picture_sets")
     order = models.CommaSeparatedIntegerField(
         blank=True, max_length=512, 
-        help_text=_("Establish the pictures order by typing the comma "
+        help_text=_("Establish pictures order by typing the comma "
                     "separated list of their picture IDs."))
+    show_counter = models.BooleanField(
+        default=False, help_text=_("Whether to show how many pictures "
+                                   "contains the pictureset."))
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+    tags = TagField(help_text=_("i.e: exposition, holidays, party, ..."))
     
     class Meta:
         db_table = "inline_media_picture_sets"
@@ -174,7 +187,7 @@ class PictureSet(models.Model):
     # used in admin 'list_display' to show the list of pictures' titles
     def picture_titles_as_ul(self):
         titles = []
-        for picture in self.pictures_in_order():
+        for picture in self.next_picture():
             if picture == self.cover:
                 titles.append("<li>%s (cover)</li>" % picture.title)
             else:
@@ -182,19 +195,7 @@ class PictureSet(models.Model):
         return '<ul>%s</ul>' % "".join(titles)
     picture_titles_as_ul.allow_tags = True
 
-    def pictures_in_order(self):
-        pictures = self.pictures.all()
-        pic_ids = [ pic.id for pic in pictures ]
-        ordered = []
-
-        try:
-            sorted_ids = [ int(id) for id in self.order.split(",") ]
-        except ValueError:
-            return pictures
-        else:
-            for id in sorted_ids:
-                try:
-                    ordered.append(pictures[pic_ids.index(id)])
-                except:
-                    pass
-            return ordered
+    def next_picture(self):
+        picids = [ int(pid) for pid in self.order.split(',') ]
+        for picid in picids:
+            yield self.pictures.get(pk=picid)

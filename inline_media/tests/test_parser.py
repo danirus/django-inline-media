@@ -20,12 +20,17 @@ selfClosingTags = ['inline','img','br','input','meta','link','hr']
 
 class ParserTestCase(DjangoTestCase):
     def setUp(self):
-        test_content_type = ContentType.objects.get(app_label="tests", model="testmediamodel")
-        InlineType.objects.create(title="testobj", content_type=test_content_type)
-        self.obj = TestMediaModel.objects.create(title="The Title", description="Blah blah ...")
-        self.tag = u'<inline type="%(type)s" id="%(id)d" class="%(class)s" />' % {
-            "type": "tests.testmediamodel", "id": self.obj.id, "class": "inline_small_left" }
-
+        test_content_type = ContentType.objects.get(app_label="tests", 
+                                                    model="testmediamodel")
+        InlineType.objects.create(title="testobj", 
+                                  content_type=test_content_type)
+        self.obj = TestMediaModel.objects.create(title="The Title", 
+                                                 description="Blah blah ...")
+        self.tag = (u'<inline type="%(type)s" id="%(id)d" class="%(class)s"'
+                    u'/>') % {"type": "tests.testmediamodel", 
+                              "id": self.obj.id, 
+                              "class": "inline_small_left"}
+                    
     def test_render_inline(self):
         soup = BeautifulSoup(self.tag, selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))

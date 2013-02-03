@@ -100,6 +100,6 @@ INLINE_MEDIA_TEXTAREA_ATTRS = {
         'style': 'font: 13px monospace'
     },
     'tests.TestModel': {
-        'second_text': { 'rows': 20 }
+        'second_text': { 'rows': '20' }
     }
 }

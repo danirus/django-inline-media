@@ -28,10 +28,12 @@ class PictureAdmin(admin.ModelAdmin):
     list_editable = ("title", "tags")
     list_filter  = ("tags", "author", "license")
     search_fields = ("title", "tags", "description", "author")
-    date_hierarchy = "modified"
+    date_hierarchy = "uploaded"
     fieldsets = (
         (None, {"fields": (("title", "show_as_link"),
-                           "picture", "description", "tags",
+                           "picture", 
+                           ("description", "show_description_inline"),
+                           "tags",
                            ("author", "show_author"), 
                            ("license", "show_license"),
                            ("modified", "uploaded"),
@@ -52,12 +54,19 @@ class PictureSetAdmin(admin.ModelAdmin):
     list_display = ("title", "cover_thumbnail", 
                     "picture_titles_as_ul", "modified")
     list_filter  = ("tags",)
-    date_hierarchy = "modified"
-    search_fields = ("title", "tags", "description", 
+    search_fields = ("title", "tags", "description",
                      "pictures__title", "pictures__description", 
                      "pictures__tags")
+    date_hierarchy = "modified"
     prepopulated_fields = {'slug': ('title',)}
     filter_horizontal = ("pictures",)
+    fieldsets = (
+        (None, {'fields': ('title', 'slug',
+                           ('description', 'show_description_inline'),
+                           'cover', 'pictures', 'order', 
+                           'show_counter', 'tags'),
+        }),
+    )
     raw_id_fields = ("cover",)
     list_per_page = 50
 

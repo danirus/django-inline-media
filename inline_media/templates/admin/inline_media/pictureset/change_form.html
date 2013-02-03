@@ -30,7 +30,7 @@
   <p style="padding:10px; background:#eee; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "empty picture set" %}</p>
   {% else %}
   <p>{% trans "Pictures appear in the following order. Reorder them by typing a comma separated list of IDs in the field Order." %}</p>
-  {% for item in original.pictures_in_order %}
+  {% for item in original.next_picture %}
   {% thumbnail item.picture "180" as im %}
   <div style="border-top: 1px solid #ddd">
     <p>{% trans "Id" %} {{ item.id }}, {{ item.title }}:</p>

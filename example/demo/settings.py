@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     "inline_media",
 
     "demo.articles",
+    # "south",
 )
 
 # A sample logging configuration. The only tangible logging
