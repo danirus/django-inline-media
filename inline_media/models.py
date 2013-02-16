@@ -196,6 +196,10 @@ class PictureSet(models.Model):
     picture_titles_as_ul.allow_tags = True
 
     def next_picture(self):
-        picids = [ int(pid) for pid in self.order.split(',') ]
-        for picid in picids:
-            yield self.pictures.get(pk=picid)
+        if self.order:
+            picids = [ int(pid) for pid in self.order.split(',') ]
+            for picid in picids:
+                yield self.pictures.get(pk=picid)
+        else:
+            for picture in self.pictures.all():
+                yield picture
