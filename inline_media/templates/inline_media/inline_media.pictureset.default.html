@@ -3,14 +3,14 @@
 <div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}">
   <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture size crop="center" as im %}
-    <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
+    <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description|striptags }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
     {% endthumbnail %}
 
     {% for item in object.next_picture %}
     {% ifnotequal item.picture object.cover.picture %}
     {% thumbnail item.picture size crop="center" as im %}
     <a href="{{ item.picture.url }}" rel="pictureset[{{ object.slug }}]" 
-       title="{{ item.description }}">
+       title="{{ item.description|striptags }}">
       <img src="{{ im.url }}" alt="{{ item.title }}" class="picture">
     </a>
     {% endthumbnail %}
