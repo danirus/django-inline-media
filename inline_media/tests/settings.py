@@ -91,8 +91,18 @@ THUMBNAIL_FORMAT = "JPEG"
 #THUMBNAIL_STORAGE = "inline_media.tests.storage.TestStorage"
 # ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
 
+INLINE_MEDIA_TYPES = [
+    'inline_media.picture',
+    'inline_media.pictureset',
+    'inline_media.tests.testmediamodel',
+]
+
 INLINE_MEDIA_CUSTOM_SIZES = {
-    'inline_media.picture': { 'mini': 81 }
+    'inline_media.picture': { 'mini': 81 },
+    'inline_media.pictureset': { 
+        # by default -> 'mini': None # see inline_media/conf/defaults.py
+        'small': None
+    }
 }
 
 INLINE_MEDIA_TEXTAREA_ATTRS = {
@@ -103,3 +113,5 @@ INLINE_MEDIA_TEXTAREA_ATTRS = {
         'second_text': { 'rows': '20' }
     }
 }
+
+INLINE_MEDIA_DEBUG = True

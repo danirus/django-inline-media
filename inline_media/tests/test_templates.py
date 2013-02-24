@@ -4,6 +4,7 @@ try:
 except ImportError:
     from beautifulsoup import BeautifulSoup, NavigableString
 
+from django.template import TemplateSyntaxError
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.models import PictureSet
@@ -261,45 +262,20 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         self.picset.save()
 
     def test_mini_with_default_options(self):
+        # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
         tmpl = 'inline_media/inline_media.pictureset.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
-            # default options:
-            #  - show_description_inline = True
-            #  - show_counter = False
-            # But! template for size 'mini' never includes 
-            # picture's description or counter
-            soup = BeautifulSoup(html)
-            links = soup.findAll('a')
-            self.assert_(len(links) == 3)
-            # check order
-            order = [int(x)-1 for x in self.picset.order.split(",")]
-            for idx, link in zip(order, links):
-                self.assert_(link['href'] == self.pics[idx].url)
-            self.assert_(html.find('inline_description') == -1)
-            self.assert_(html.find('inline_counter') == -1)
+            with self.assertRaises(Exception):
+                html = inlines(self.tag % cssclass, return_list=False)
 
     def test_small_with_default_options(self):
+        # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_small_left', 'inline_small_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
-            # default options:
-            #  - show_description_inline = True
-            #  - show_counter = False
-            soup = BeautifulSoup(html)
-            links = soup.findAll('a')
-            self.assert_(len(links) == 3)
-            # check order
-            order = [int(x)-1 for x in self.picset.order.split(",")]
-            for idx, link in zip(order, links):
-                self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
-            self.assert_(len(descrip) == 1)
-            self.assert_(html.find('inline_counter') == -1)
+            with self.assertRaises(Exception):
+                html = inlines(self.tag % cssclass, return_list=False)
 
     def test_medium_with_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
@@ -368,43 +344,16 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         positions = ['inline_mini_left', 'inline_mini_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
-            # default options:
-            #  - show_description_inline = False
-            #  - show_counter = True
-            # But! template for size 'mini' never includes 
-            # picture's description or counter
-            soup = BeautifulSoup(html)
-            links = soup.findAll('a')
-            self.assert_(len(links) == 3)
-            # check order
-            order = [int(x)-1 for x in self.picset.order.split(",")]
-            for idx, link in zip(order, links):
-                self.assert_(link['href'] == self.pics[idx].url)
-            self.assert_(html.find('inline_description') == -1)
-            self.assert_(html.find('inline_counter') == -1)
+            with self.assertRaises(Exception):
+                html = inlines(self.tag % cssclass, return_list=False)
 
     def test_small_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_small_left', 'inline_small_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
-            # default options:
-            #  - show_description_inline = False
-            #  - show_counter = True
-            soup = BeautifulSoup(html)
-            links = soup.findAll('a')
-            self.assert_(len(links) == 3)
-            # check order
-            order = [int(x)-1 for x in self.picset.order.split(",")]
-            for idx, link in zip(order, links):
-                self.assert_(link['href'] == self.pics[idx].url)
-            self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('p', attrs={'class':'inline_counter'})
-            self.assert_(len(counter) == 1)
+            with self.assertRaises(Exception):
+                html = inlines(self.tag % cssclass, return_list=False)
 
     def test_medium_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'

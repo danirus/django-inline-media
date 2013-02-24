@@ -177,6 +177,8 @@ INLINE_MEDIA_TEXTAREA_ATTRS = {
 
 INLINE_MEDIA_CUSTOM_SIZES = {
     'inline_media.picture':    { 'large': 310 },
-    'inline_media.pictureset': { 'large': (288, 240) }
+    'inline_media.pictureset': { 
+        'small': None,
+        'large': (288, 240),
+    }
 }
-

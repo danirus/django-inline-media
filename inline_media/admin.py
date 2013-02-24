@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.util import unquote
 
 from inline_media.fields import TextFieldWithInlines
-from inline_media.models import InlineType, License, Picture, PictureSet
+from inline_media.models import License, Picture, PictureSet
 from inline_media.widgets import TextareaWithInlines
 
 
@@ -85,7 +85,7 @@ class PictureSetAdmin(admin.ModelAdmin):
         return response
 
 
-admin.site.register(InlineType)
+# admin.site.register(InlineType)
 admin.site.register(License, LicenseAdmin)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(PictureSet, PictureSetAdmin)

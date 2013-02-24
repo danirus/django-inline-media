@@ -2,10 +2,18 @@
 
 from django.conf import settings
 
+INLINE_MEDIA_DEBUG = False
+
 # Defaulted to Django 1.4 path
 ADMIN_IMAGES_PATH = getattr(settings, 
                             "ADMIN_IMAGES_PATH", 
                             "%s/admin/img" % settings.STATIC_URL)
+
+# Defines available inline types.
+INLINE_MEDIA_TYPES = [
+    'inline_media.picture',
+    'inline_media.pictureset',
+]
 
 # Defines custom picture sizes for app_label.model and size_type combinations.
 # It's a 2-level depth dictionary with 'app_label.model' as keys for the 
@@ -24,20 +32,15 @@ INLINE_MEDIA_CUSTOM_SIZES =  {
         'small': 150,
         'medium': 200,
         'large': 250,
-        'full': 'full'
     },
     'inline_media.pictureset': {
-        'mini': (58, 58),
+        'mini': None,
         'small': (128, 128),
         'medium': (178, 178),
         'large': (228, 228),
         'full': (380, 280)
     }
 }
-
-# Default size in case the entry corresponding to an app_label.model and 
-# size_type does not exist in INLINE_MEDIA_CUSTOM_SIZES
-INLINE_MEDIA_DEFAULT_SIZE = 200
 
 # Quick way to site-wide change attributes of TextareaWithInlines widget
 INLINE_MEDIA_TEXTAREA_ATTRS = {}

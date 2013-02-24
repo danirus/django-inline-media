@@ -12,6 +12,23 @@ Django-inline-media recognizes four setting:
 
 
 .. index::
+   single: INLINE_MEDIA_TYPES
+   pair: Setting; INLINE_MEDIA_TYPES
+
+``INLINE_MEDIA_TYPES``
+======================
+
+**Optional**
+
+Defines the inline media types available project wide. 
+
+It defaults to::
+
+    INLINE_MEDIA_TYPES = ['inline_media.picture',
+                          'inline_media.pictureset']
+
+
+.. index::
    single: INLINE_MEDIA_CUSTOM_SIZES
    pair: Setting; INLINE_MEDIA_CUSTOM_SIZES
 
@@ -20,53 +37,43 @@ Django-inline-media recognizes four setting:
 
 **Optional**
 
-This setting defines custom sizes used in inline_media templates. Each ``<inline>`` element has an ``inline_type`` attribute that refers to an **app_label.model**, and a ``class`` attribute that defines the **size and alignment** of the inline element. 
+This setting defines custom size values for the available ``INLINE_MEDIA_TYPES``. By default every inline type declared in ``INLINE_MEDIA_TYPES`` can be rendered in **mini**, **small**, **medium**, **large** and **full** size.
 
-``INLINE_MEDIA_CUSTOM_SIZES`` is a 2-level depth dictionary. The first level contains ``inline_types`` with **app_label.model** pairs as keys.  The second level contains ``class`` values as keys and values as geometries. 
+``INLINE_MEDIA_CUSTOM_SIZES`` is a 2-level depth dictionary to define custom size values for each of the 5 size classes. Size classes can also be disabled. 
 
-When the value is just an **int**, it represents the **width** of the thumbnail. When the value is a **tuple** it represents the **(width, height)** of the thumbnail. If the value is something else the size is not being used in the corresponding template. It is the case of the template 'inline_media/inline_media.picture.full.html', distributed with this app.
+The first level contains inline types with **app_label.model** pairs as keys.  The second level contains class sizes as keys and values as geometries. When the value is just an **int**, it represents the **width** of the thumbnail. When the value is a **tuple** it represents the **(width, height)** of the thumbnail. The value can be ``None``, what means the size won't be available for that inline type.
 
 It defaults to::
 
     INLINE_MEDIA_CUSTOM_SIZES = { 
-                                  'inline_media.picture':
-                                      { 
-                                        'mini': 80,
-                                        'small': 150,
-                                        'medium': 200,
-                                        'large': 250,
-                                        'full': 'full' 
-                                      },
-                                  'inline_media.pictureset':
-                                      { 
-                                        'mini': (80, 80),
-                                        'small': (150, 150),
-                                        'medium': (200, 200),
-                                        'large': (250, 250),
-                                        'full': (380, 280) 
-                                      } 
-                                }
+        'inline_media.picture': { 
+            'mini': 80,
+            'small': 150,
+            'medium': 200,
+            'large': 250,
+        },
+        'inline_media.pictureset': { 
+            'mini': None,
+            'small': (150, 150),
+            'medium': (200, 200),
+            'large': (250, 250),
+            'full': (380, 280) 
+        } 
+    }
 
+See that the 'full' class size is not defined for the type ``inline_media.picture``. That doesn't disable it. By default the 5 class sizes are active for every inline type defined in ``INLINE_MEDIA_TYPES``. The purpose of this setting is either to pass a custom size in the context to the template, or to disable a class size. 
 
-.. index::
-   single: INLINE_MEDIA_DEFAULT_SIZE
-   pair: Setting; INLINE_MEDIA_DEFAULT_SIZE
+To disable the 'small' size for type ``inline_media.pictureset`` just set it to ``None`` in your settings module::
 
-``INLINE_MEDIA_DEFAULT_SIZE``
-=============================
-
-**Optional**
-
-This setting establishes the default size in case an entry corresponding to an ``app_label.model`` and ``class`` doesn't exist in ``INLINE_MEDIA_CUSTOM_SIZES``.
-
-It defaults to::
-
-    INLINE_MEDIA_DEFAULT_SIZE = 200
-
+    INLINE_MEDIA_CUSTOM_SIZES = {
+        'inline_media.pictureset': {
+            'small': None,
+        }
+    }
 
 .. index::
-   single: INLINE_MEDIA_DEFAULT_SIZE
-   pair: Setting; INLINE_MEDIA_DEFAULT_SIZE
+   single: INLINE_MEDIA_TEXTAREA_ATTRS
+   pair: Setting; INLINE_MEDIA_TEXTAREA_ATTRS
 
 ``INLINE_MEDIA_TEXTAREA_ATTRS``
 ===============================
@@ -79,17 +86,21 @@ To apply common attributes to all ``TextareaWithInline`` widgets use the **defau
 
 You can also apply rendering attributes on a per ``app_label.model`` and ``field`` basis. 
 
-In the following example, fields of type ``TextFieldWithInlines`` get the ``style`` attribute applied by default. Then the ``abstract`` and ``body`` fields of the ``articles.article`` model get the attribute ``rows`` applied too. The ``style`` attribute defined in the **default** key can be overriden by simply defining it again for an ``app_label.model/field`` combination::
+In this example, every ``TextFieldWithInlines`` field will get the ``style`` attribute applied by default. Then, ``abstract`` and ``body`` fields of the ``articles.article`` model will get the attribute ``rows`` applied too. The ``style`` attribute defined in the **default** key can be overriden by simply defining it again for an ``app_label.model/field`` combination::
 
     INLINE_MEDIA_TEXTAREA_ATTRS = {
-                                      'default': {
-                                          'style': 'font: 13px monospace',
-                                      },    
-                                      'articles.article': {
-                                          'abstract': { 'rows':  5 },
-                                          'body':     { 'rows': 20 }
-                                      }    
-                                  }
+        'default': {
+            'style': 'font: 13px monospace',
+        },    
+        'articles.article': {
+            'abstract': { 
+                'rows':  5 
+            },
+            'body': { 
+                'rows': 20 
+            }
+        }    
+    }
 
 Defaults to ``{}`` so that no extra attributes are applied.
 

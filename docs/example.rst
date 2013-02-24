@@ -4,13 +4,13 @@
 Demo projects
 =============
 
-Django-inlines-media comes with two demo projects:
+There are two demo projects:
 
 1. **demo**: An article model with a TextFieldWithInlines
-2. **demo_wysihtml5**: The same article model with a Wysihtml5TextField
+2. **demo_wysihtml5**: The same article model with a Wysihtml5TextField (beta)
 
 
-The example sites in the repository live `here <http://github.com/danirus/django-inline-media/tree/master/example>`.
+Find the code of the example sites `here <http://github.com/danirus/django-inline-media/tree/master/example>`_.
 
 .. index::
    pair: Demo; Setup
@@ -18,23 +18,23 @@ The example sites in the repository live `here <http://github.com/danirus/django
 Demo sites setup
 ================
 
-I recommended you to run the demo sites in a `virtualenv <http://www.virtualenv.org/en/latest/>`_ for this application. Create a virtualenv, clone the code and cd into any of the demo sites.
+Run the demo sites in a `virtualenv <http://www.virtualenv.org/en/latest/>`_ for this app. Create the virtualenv, clone the code and cd into any of the demo sites. Then do as follow.
 
-Example site **demo**::
+For the **demo** project::
 
     $ cd django-inline-media/example/demo
     $ python manage.py syncdb --noinput
     $ python manage.py collectstatic
     $ python manage.py runserver
 
-Example site **demo_wysihtml5**::
+For the **demo_wysihtml5** project::
 
     $ cd django-inline-media/example/demo_wysihtml5
     $ sh install.sh
     $ python manage.py collectstatic
     $ python manage.py runserver
 
-Both example sites have the same admin user available: ``user: admin``, ``pwd: admin``.
+Both sites have the same admin user/pwd: ``admin/admin``.
 
 
 .. index::
@@ -54,7 +54,7 @@ The demo site uses **django-inline-media** with a custom **articles** app. The *
 
 The **Article** model has a **body** field of type **TextFieldWithInlines**. The field uses its own widget **TextareaWithInlines** that renders an extra control to insert inline media in the textarea. The inline media content can be placed at different positions and with different size.
 
-Position can either be **left**, **right**, or **centered**. The size can be **small** (150px width), **medium** (200px width) or **large** (250px width). Pictures positioned centred are shown at **full size**, and centred picture sets use a frame of 380x280 pixels.
+Positions can be **left**, **right**, or **center**. The size can be **mini** (80px width), **small** (150px width), **medium** (200px width), **large** (250px width) and **full**. Pictures at the center are in **full size**, and picturesets in the center render at a default size of 380x280 pixels. All sizes are customizables using the setting ``INLINE_MEDIA_CUSTOM_SIZES``.
 
 
 Example articles

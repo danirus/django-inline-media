@@ -1,19 +1,18 @@
 .. _ref-templatetags:
 
 .. index::
-   pair: Filters; Templatetags
+   single: Filters
 
-=========================
-Filters and Template Tags
-=========================
+=======
+Filters
+=======
 
 Django-inline-media comes with two filters and one tag:
 
  * filter ``render_inlines``
  * filter ``extract_inlines``
- * tag ``get_inline_types``
 
-To use any of them in your templates you first need to load them::
+Load the templatetag module to use them in your templates::
 
     {% load inlines %}
 
@@ -73,22 +72,3 @@ Example usage::
         {% include "inline_media/inline_media_picture.html" with object=inline.object class=inline.class %}
       {% endifequal %}
     {% endfor %}
-
-
-.. index::
-   single: get_inline_types
-   pair: Tag; get_inline_types
-
-Tag: get_inline_types
-=====================
-
-Gets all inline types.
-
-Syntax::
-
-        {% get_inline_types as [var_name] %}
-
-Example usage::
-
-        {% get_inline_types as inline_list %}
-

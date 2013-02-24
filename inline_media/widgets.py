@@ -1,14 +1,28 @@
 #-*- coding: utf-8 -*-
 
+import copy
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.urlresolvers import reverse
 from django.forms.util import flatatt
+from django.utils import simplejson
 from django.utils.encoding import force_unicode
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from inline_media.conf import settings
-from inline_media.models import InlineType
+
+
+default_sizes = ['mini', 'small', 'medium', 'large', 'full']
+
+def build_imSizes_array():
+    im_sizes = {}
+    for inline_type in settings.INLINE_MEDIA_TYPES:
+        im_type = inline_type.replace('.', '/')
+        im_sizes[im_type] = copy.copy(default_sizes)
+        custom_sizes = settings.INLINE_MEDIA_CUSTOM_SIZES.get(inline_type, {})
+        for k in [k for k, v in custom_sizes.iteritems() if not v]:
+            im_sizes[im_type].remove(k)
+    return simplejson.dumps(im_sizes)
 
 
 class BaseInlinesDialogStr(object):
@@ -21,20 +35,44 @@ class BaseInlinesDialogStr(object):
         return self._do_the_widget()
 
     def _do_element_select_type(self, attrs=None):
-        widget = u'\
+        widget = '''
+<script>
+//<![CDATA[
+var imSizes = %(imSizes)s;
+function changeInlineClass(name, type) {
+    var opts = '';
+    if(imSizes[type] == undefined) {
+        opts = '<option>----------</option>';
+    } else 
+        for(var i=0; i<imSizes[type].length; i++) {
+            var size = imSizes[type][i];
+            opts += '<option value="inline_'+size+'_left">'+gettext(size+' left')+'</option>';
+            if(imSizes[type][i]=='full') 
+                opts += '<option value="inline_full_center">'+gettext('full center')+'</option>';
+            opts += '<option value="inline_'+size+'_right">'+gettext(size+' right')+'</option>';
+        }
+    var elem = document.getElementById('id_inline_class_for_'+name);  
+    elem.innerHTML = opts;
+}
+//]]>
+</script>''' % {'imSizes': build_imSizes_array()}
+        widget += '\
 <strong>%(_inline_type_)s:</strong>&nbsp;\
-<select id="id_inline_content_type_for_%(name)s" onchange="document.getElementById(\'lookup_id_inline_for_%(name)s\').href = \'../../../\'+this.value+\'/\';" style="margin-left:2px;margin-right:20px;" '
+<select id="id_inline_content_type_for_%(name)s" onchange="changeInlineClass(\'%(name)s\', this.value);document.getElementById(\'lookup_id_inline_for_%(name)s\').href = \'../../../\'+this.value+\'/\';" style="margin-left:2px;margin-right:20px;" '
         if attrs:
             widget += " ".join([u'%s="%s"' % (key, value) for key, value in attrs.iteritems()])
         widget += u'><option>----------</option>'
-        for inline in InlineType.objects.all():
+        for inline_type in getattr(settings, 'INLINE_MEDIA_TYPES', []):
+            chunks = inline_type.split('.')
+            app_label = '.'.join(chunks[:-1])
+            model_name = chunks[-1]
             widget += u'\
   <option value="%(app_label)s/%(model)s">\
     %(app_label_cap)s: %(model_cap)s\
-  </option>' % { "app_label":     inline.content_type.app_label,
-                 "model":         inline.content_type.model, 
-                 "app_label_cap": inline.content_type.app_label.capitalize(), 
-                 "model_cap":     inline.content_type.model.capitalize() }
+  </option>' % { "app_label":     app_label,
+                 "model":         model_name, 
+                 "app_label_cap": app_label.capitalize(), 
+                 "model_cap":     model_name.capitalize() }
         widget += u'</select>'
         return widget % {"_inline_type_": _("Inline type"), 
                          "name": self.name}
@@ -52,31 +90,8 @@ class BaseInlinesDialogStr(object):
         widget = u'<strong>Class:</strong>&nbsp;<select id="id_inline_class_for_%(name)s" '
         if attrs:
             widget += " ".join(['%s="%s"' % (key, value) for key, value in attrs.iteritems()])
-        widget += u'>\
-  <option value="inline_mini_left">%(_mini_left_)s</option>\
-  <option value="inline_mini_right">%(_mini_right_)s</option>\
-  <option value="inline_small_left">%(_small_left_)s</option>\
-  <option value="inline_small_right">%(_small_right_)s</option>\
-  <option value="inline_medium_left">%(_medium_left_)s</option>\
-  <option value="inline_medium_right">%(_medium_right_)s</option>\
-  <option value="inline_large_left">%(_large_left_)s</option>\
-  <option value="inline_large_right">%(_large_right_)s</option>\
-  <option value="inline_full_left">%(_full_left_)s</option>\
-  <option value="inline_full_right">%(_full_right_)s</option>\
-  <option value="inline_full_center">%(_full_center_)s</option>\
-</select>'
-        return widget % {'name': self.name, 
-                         '_mini_left_': _("Mini left"), 
-                         '_mini_right_': _("Mini right"),
-                         '_small_left_': _("Small left"),
-                         '_small_right_': _("Small right"),
-                         '_medium_left_': _("Medium left"), 
-                         '_medium_right_': _("Medium right"),
-                         '_large_left_': _("Large left"), 
-                         '_large_right_': _("Large right"),
-                         '_full_left_': _("Full left"), 
-                         '_full_right_': _("Full right"),
-                         '_full_center_': _("Full center")}
+        widget += u'><option>----------</option></select>'
+        return widget % {'name': self.name} 
     
     def _do_element_button_add(self, attrs=None):
         widget = u'<input type="button" value="%(_add_)s" style="margin-left:10px;" '

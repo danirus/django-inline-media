@@ -4,13 +4,14 @@ import os
 
 from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 
-from django.contrib.contenttypes.models import ContentType
 from django.core.files.images import ImageFile
+from django.template import TemplateSyntaxError
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.conf import settings
-from inline_media.models import InlineType, Picture
-from inline_media.parser import inlines, render_inline
+from inline_media.models import Picture
+from inline_media.parser import (inlines, render_inline, get_app_model_tuple, 
+                                 get_model, get_css_class, get_size)
 from inline_media.widgets import TextareaWithInlines
 from inline_media.tests.models import TestModel, TestMediaModel
 
@@ -20,10 +21,6 @@ selfClosingTags = ['inline','img','br','input','meta','link','hr']
 
 class ParserTestCase(DjangoTestCase):
     def setUp(self):
-        test_content_type = ContentType.objects.get(app_label="tests", 
-                                                    model="testmediamodel")
-        InlineType.objects.create(title="testobj", 
-                                  content_type=test_content_type)
         self.obj = TestMediaModel.objects.create(title="The Title", 
                                                  description="Blah blah ...")
         self.tag = (u'<inline type="%(type)s" id="%(id)d" class="%(class)s"'
@@ -72,7 +69,6 @@ class BeautifulSoupTestCase(DjangoTestCase):
                     html_content += "%s" % entry
             return html_content
 
-        selfClosingTags = ['inline','img','br','input','meta','link','hr']
         value = u'<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><inline type="inline_media.picture" id="3" class="inline_medium_right" />To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
         docsoup = BeautifulSoup(value, selfClosingTags=selfClosingTags)
 
@@ -93,9 +89,6 @@ class PictureTemplatesTestCase(DjangoTestCase):
         curdir = os.path.dirname(__file__)
         img = ImageFile(open(os.path.join(curdir, "images/android.png"), "rb"))
         pic = Picture.objects.create(title="android original", picture=img)
-        ct_picture = ContentType.objects.get(app_label='inline_media', 
-                                             model='picture')
-        InlineType.objects.create(title="Picture", content_type=ct_picture)
         self.tag = u'<inline type="%(type)s" id="%(id)d" class="%(class)s" />'
         self.params = { "type": "inline_media.picture", "id": pic.id }
 
@@ -142,5 +135,99 @@ class PictureTemplatesTestCase(DjangoTestCase):
         inline_tag = self.tag % self.params
         soup = BeautifulSoup(inline_tag, selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))
+        custom_sizes = settings.INLINE_MEDIA_CUSTOM_SIZES
         self.assertEqual(int(rendered_inline['context']['size']),
-                         settings.INLINE_MEDIA_CUSTOM_SIZES['inline_media.picture']['mini'])
+                         custom_sizes['inline_media.picture']['mini'])
+
+
+class ParserHelpersTestCase(DjangoTestCase):
+    def setUp(self):
+        html = ('<p><inline type="inline_media.picture" id="3" '
+                'class="inline_medium_right" />To kick off this...</p>')
+        selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        self.inline = soup.findAll('inline')[0]
+
+    def test_get_app_model_tuple(self):
+        self.assertEqual(get_app_model_tuple(self.inline),
+                         ('inline_media', 'picture'))
+
+    def test_get_model(self):
+        self.assertEqual(get_model('inline_media', 'picture'), Picture)
+
+    def test_get_css_class(self):
+        self.assertEqual(get_css_class(self.inline), 'inline_medium_right')
+
+class ParserHelpersBadInlineTestCase(DjangoTestCase):
+    def setUp(self):
+        html = ('<p><inline type="inline_media.pictuRRRU" id="3" '
+                'classSSS="inline_medium_right" />To kick off this...</p>')
+        selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        self.inline = soup.findAll('inline')[0]
+
+    def test_get_model_raises_template_syntax_error(self):
+        with self.assertRaises(TemplateSyntaxError):
+            get_model('inline_media', 'picturegkjr')
+
+    def test_get_css_class_raises_template_syntax_error(self):
+        with self.assertRaises(TemplateSyntaxError):
+            get_css_class(self.inline)
+        
+
+class ParserHelperGetSizeTestCase(DjangoTestCase):
+    def test_with_wrong_size_class(self):
+        inline_type = 'inline_media.picture'
+        css_class = 'inlime_mediuN_bright'
+        self.assert_(get_size(inline_type, css_class) == (None, None))
+
+    def test_with_wrong_inline_type(self):
+        inline_type = 'inliMe_meRDE.pictuRR'
+        css_class = 'inline_medium_right'
+        self.assert_(get_size(inline_type, css_class) == (None, 'medium'))
+
+    def test_with_modified_class(self):
+        inline_type = 'inline_media.picture'
+        css_class = 'inline_mini_right'
+        self.assert_(get_size(inline_type, css_class) == ('81', 'mini'))
+
+    def test_with_disabled_class(self):
+        inline_type = 'inline_media.pictureset'
+        css_class = 'inline_small_left'
+        self.assert_(get_size(inline_type, css_class) == (None, None))
+        css_class = 'inline_small_right'
+        self.assert_(get_size(inline_type, css_class) == (None, None))
+
+    def test_with_regular_picture(self):
+        inline_type = 'inline_media.picture'
+        css_class = 'inline_medium_right'
+        self.assert_(get_size(inline_type, css_class) == ('200', 'medium'))
+
+
+class RenderInlineTestCase(DjangoTestCase):
+    def test_raises_when_not_size_class(self):
+        html = ('<p><inline type="inline_media.picture" id="3" '
+                'class="inline_mediuN_right" />To kick off this...</p>')
+        selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        inline = soup.findAll('inline')[0]
+        with self.assertRaises(Exception):
+            render_inline(inline)
+
+    def test_raises_when_object_does_not_exist(self):
+        html = ('<p><inline type="inline_media.picture" id="30000" '
+                'class="inline_medium_right" />To kick off this...</p>')
+        selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        inline = soup.findAll('inline')[0]
+        with self.assertRaises(Picture.DoesNotExist):
+            render_inline(inline)
+
+    def test_raises_when_no_inline_has_no_id_attribute(self):
+        html = ('<p><inline type="inline_media.picture" '
+                'class="inline_medium_right" />To kick off this...</p>')
+        selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        inline = soup.findAll('inline')[0]
+        with self.assertRaises(TemplateSyntaxError):
+            render_inline(inline)

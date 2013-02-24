@@ -1,4 +1,4 @@
-.. django-inlines-media documentation master file, created by
+.. django-inline-media documentation master file, created by
    sphinx-quickstart on Mon Dec 19 19:20:12 2011.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -12,7 +12,7 @@ Introduction
    single: Features
 
 1. Inserts pictures and collection of pictures into your texts using the ``TextAreaWithInlines`` widget.
-2. Positions media content at different places and sizes (small/medium/large at left/right or full at the center).
+2. Positions media content at different places and sizes (mini/small/medium/large at left/right or full at the left/center/right).
 3. Facilitates administration with thumbnails and search by tags, author and license.
 4. Shows a customised control to insert media content in text fields.
 5. Uses jquery `prettyPhoto <http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/>`_ to show pictures and galleries when clicking on them.
@@ -73,7 +73,7 @@ Quick start
 Run the **demo** in ``django-inline-media/examples/demo`` to see an example.
 
 
-If you rather prefer to use the Wysihtml5 widget for your textareas:
+If you prefer to use Wysihtml5 for your textareas (beta):
 
 1. Get the widget from `Django Wysihtml5 <http://github.com/danirus/django-wysihtml5>`_.
 

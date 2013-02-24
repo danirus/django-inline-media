@@ -18,23 +18,6 @@ from inline_media.conf import settings
 
 storage = Storage()
 
-#----------------------------------------------------------------------
-# InlineType code borrowed from django-basic-apps by Nathan Borror
-# https://github.com/nathanborror/django-basic-apps
-
-class InlineType(models.Model):
-    """InlineType model"""
-    title           = models.CharField(max_length=200)
-    content_type    = models.ForeignKey(ContentType)
-
-    class Meta:
-        db_table = 'inline_types'
-
-    def __unicode__(self):
-        return self.title
-
-
-#----------------------------------------------------------------------
 LICENSES = (('http://artlibre.org/licence/lal/en',
              'Free Art License'),
             ('http://creativecommons.org/licenses/by/2.0/',

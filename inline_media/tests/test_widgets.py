@@ -1,13 +1,12 @@
 #-*- coding: utf-8 -*-
 
-from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.forms.models import modelform_factory
 from django.test import TestCase as DjangoTestCase
+from django.utils import simplejson
 from django.utils.html import conditional_escape
 
-from inline_media.models import InlineType
-from inline_media.widgets import TextareaWithInlines, InlinesDialogStr
+from inline_media.widgets import (TextareaWithInlines, InlinesDialogStr, 
+                                  BaseInlinesDialogStr, build_imSizes_array)
 from inline_media.tests.models import TestModel, AnotherTestModel
 
 
@@ -30,16 +29,6 @@ class TextareaWithInlinesWidgetAttrs(DjangoTestCase):
 
 
 class AdminTextareaWithInlinesWidgetTestCase(DjangoTestCase):
-    def setUp(self):
-        ct_picture = ContentType.objects.get(
-            app_label="inline_media", model="picture")
-        ct_pictureset = ContentType.objects.get(
-            app_label="inline_media", model="pictureset")
-        InlineType.objects.create(title="Picture", 
-                                  content_type=ct_picture)
-        InlineType.objects.create(title="PictureSet", 
-                                  content_type=ct_pictureset)
-        
     def test_render_textareawithinlines_widget(self):
         neilmsg = TestModel.objects.create(
             first_text="One small step for man", 
@@ -57,4 +46,13 @@ class AdminTextareaWithInlinesWidgetTestCase(DjangoTestCase):
             conditional_escape(widget.render("test", neilmsg.second_text)), 
             manually_rendered)
 
-        
+
+class IMSizesArrayTestsCase(DjangoTestCase):
+    def test_imSizes_array_creation(self):
+        default = ['mini', 'small', 'medium', 'large', 'full']
+        expected = simplejson.dumps({
+            'inline_media/picture': default,
+            'inline_media/pictureset': ['medium', 'large', 'full'],
+            'inline_media/tests/testmediamodel': default
+        })
+        self.assertEqual(expected, build_imSizes_array())

@@ -74,9 +74,9 @@ Your own InlineTypes
 
 If the django-inline-media models, Picture and PictureSet, are not suitable for your project or need another ones, just create your own and bind them to the app. 
 
-Once you have your model (say ``MyPicture``), go to the admin site and add an ``InlineType`` object associated with it. Your model will show up in the dropdown list of types for inlines that you can see at the bottom of ``TextFieldWithInlines`` fields (like the ``body`` field in the Article model of the demo).
+Once you have your model (say ``MyPicture``), declare it the setting ``INLINE_MEDIA_TYPES``. Your model will then show up in the dropdown list of inline types at the bottom of your ``TextFieldWithInlines`` fields (like the ``body`` field in the Article model of the demo).
 
-Finally create templates to render your own media content. Name your templates after the correspoding ``app_label`` for your model:
+Then create templates to render your own media content. Name your templates after the correspoding ``app_label`` for your model:
 
   * ``inline_media/<my_app_label>.mypicture.<size>.html``
   * ``inline_media/<my_app_label>.mypicture.default.html``

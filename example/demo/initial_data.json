@@ -93,27 +93,10 @@
     },
     {
         "pk": 1,
-        "model": "inline_media.inlinetype",
-        "fields": {
-            "content_type": 13,
-            "title": "Picture"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "inline_media.inlinetype",
-        "fields": {
-            "content_type": 14,
-            "title": "Picture Set"
-        }
-    },
-    {
-        "pk": 1,
         "model": "inline_media.license",
         "fields": {
             "link": "http://artlibre.org/licence/lal/en",
-            "name": "Free Art License",
-            "tags": "programming python"
+            "name": "Free Art License"
         }
     },
     {
@@ -121,8 +104,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by/2.0/",
-            "name": "CC Attribution",
-            "tags": "django framework programming python web"
+            "name": "CC Attribution"
         }
     },
     {
@@ -130,8 +112,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by-nd/2.0/",
-            "name": "CC Attribution-NoDerivs",
-            "tags": "fedora linux"
+            "name": "CC Attribution-NoDerivs"
         }
     },
     {
@@ -139,8 +120,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by-nc-nd/2.0/",
-            "name": "CC Attribution-NonCommercial-NoDerivs",
-            "tags": "freebsd"
+            "name": "CC Attribution-NonCommercial-NoDerivs"
         }
     },
     {
@@ -148,8 +128,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by-nc/2.0/",
-            "name": "CC Attribution-NonCommercial",
-            "tags": "gentoo linux"
+            "name": "CC Attribution-NonCommercial"
         }
     },
     {
@@ -157,8 +136,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
-            "name": "CC Attribution-NonCommercial-ShareAlike",
-            "tags": "debian linux"
+            "name": "CC Attribution-NonCommercial-ShareAlike"
         }
     },
     {
@@ -166,8 +144,7 @@
         "model": "inline_media.license",
         "fields": {
             "link": "http://creativecommons.org/licenses/by-sa/2.0/",
-            "name": "CC Attribution-ShareAlike",
-            "tags": "macosx"
+            "name": "CC Attribution-ShareAlike"
         }
     },
     {
@@ -961,7 +938,7 @@
         "fields": {
             "tag": 3,
             "object_id": 3,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -970,7 +947,7 @@
         "fields": {
             "tag": 4,
             "object_id": 3,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -979,7 +956,7 @@
         "fields": {
             "tag": 5,
             "object_id": 2,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -988,7 +965,7 @@
         "fields": {
             "tag": 6,
             "object_id": 2,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -997,7 +974,7 @@
         "fields": {
             "tag": 7,
             "object_id": 2,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1006,7 +983,7 @@
         "fields": {
             "tag": 8,
             "object_id": 2,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1015,7 +992,7 @@
         "fields": {
             "tag": 9,
             "object_id": 2,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1024,7 +1001,7 @@
         "fields": {
             "tag": 7,
             "object_id": 1,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1033,7 +1010,7 @@
         "fields": {
             "tag": 8,
             "object_id": 1,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1042,7 +1019,7 @@
         "fields": {
             "tag": 10,
             "object_id": 4,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1051,7 +1028,7 @@
         "fields": {
             "tag": 11,
             "object_id": 5,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1060,7 +1037,7 @@
         "fields": {
             "tag": 4,
             "object_id": 5,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1069,7 +1046,7 @@
         "fields": {
             "tag": 12,
             "object_id": 6,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1078,7 +1055,7 @@
         "fields": {
             "tag": 4,
             "object_id": 6,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1087,7 +1064,7 @@
         "fields": {
             "tag": 13,
             "object_id": 7,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1096,7 +1073,7 @@
         "fields": {
             "tag": 4,
             "object_id": 8,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1105,7 +1082,7 @@
         "fields": {
             "tag": 14,
             "object_id": 8,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1114,7 +1091,7 @@
         "fields": {
             "tag": 4,
             "object_id": 9,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1123,7 +1100,7 @@
         "fields": {
             "tag": 15,
             "object_id": 9,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1132,7 +1109,7 @@
         "fields": {
             "tag": 4,
             "object_id": 10,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1141,7 +1118,7 @@
         "fields": {
             "tag": 16,
             "object_id": 10,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1150,7 +1127,7 @@
         "fields": {
             "tag": 17,
             "object_id": 11,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1159,7 +1136,7 @@
         "fields": {
             "tag": 4,
             "object_id": 12,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1168,7 +1145,7 @@
         "fields": {
             "tag": 18,
             "object_id": 12,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1177,7 +1154,7 @@
         "fields": {
             "tag": 19,
             "object_id": 13,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1186,7 +1163,7 @@
         "fields": {
             "tag": 20,
             "object_id": 13,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1195,7 +1172,7 @@
         "fields": {
             "tag": 21,
             "object_id": 14,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1204,7 +1181,7 @@
         "fields": {
             "tag": 22,
             "object_id": 14,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1213,7 +1190,7 @@
         "fields": {
             "tag": 23,
             "object_id": 16,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1222,7 +1199,7 @@
         "fields": {
             "tag": 24,
             "object_id": 16,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1231,7 +1208,7 @@
         "fields": {
             "tag": 25,
             "object_id": 17,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1240,7 +1217,7 @@
         "fields": {
             "tag": 26,
             "object_id": 18,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1249,7 +1226,7 @@
         "fields": {
             "tag": 22,
             "object_id": 18,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1258,7 +1235,7 @@
         "fields": {
             "tag": 27,
             "object_id": 1,
-            "content_type": 15
+            "content_type": 14
         }
     },
     {
@@ -1267,7 +1244,7 @@
         "fields": {
             "tag": 29,
             "object_id": 20,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1276,7 +1253,7 @@
         "fields": {
             "tag": 29,
             "object_id": 19,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1285,7 +1262,7 @@
         "fields": {
             "tag": 29,
             "object_id": 21,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1294,7 +1271,7 @@
         "fields": {
             "tag": 28,
             "object_id": 21,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1303,7 +1280,7 @@
         "fields": {
             "tag": 29,
             "object_id": 22,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1312,7 +1289,7 @@
         "fields": {
             "tag": 31,
             "object_id": 22,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1321,7 +1298,7 @@
         "fields": {
             "tag": 28,
             "object_id": 22,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1330,7 +1307,7 @@
         "fields": {
             "tag": 28,
             "object_id": 23,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1339,7 +1316,7 @@
         "fields": {
             "tag": 28,
             "object_id": 2,
-            "content_type": 15
+            "content_type": 14
         }
     },
     {
@@ -1348,7 +1325,7 @@
         "fields": {
             "tag": 22,
             "object_id": 2,
-            "content_type": 15
+            "content_type": 14
         }
     },
     {
@@ -1357,7 +1334,7 @@
         "fields": {
             "tag": 32,
             "object_id": 15,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1366,7 +1343,7 @@
         "fields": {
             "tag": 28,
             "object_id": 20,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1375,7 +1352,7 @@
         "fields": {
             "tag": 28,
             "object_id": 19,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1384,7 +1361,7 @@
         "fields": {
             "tag": 29,
             "object_id": 23,
-            "content_type": 14
+            "content_type": 13
         }
     },
     {
@@ -1393,7 +1370,7 @@
         "fields": {
             "tag": 33,
             "object_id": 23,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1402,7 +1379,7 @@
         "fields": {
             "tag": 20,
             "object_id": 23,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1411,7 +1388,7 @@
         "fields": {
             "tag": 22,
             "object_id": 23,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1420,7 +1397,7 @@
         "fields": {
             "tag": 33,
             "object_id": 20,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1429,7 +1406,7 @@
         "fields": {
             "tag": 20,
             "object_id": 20,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1438,7 +1415,7 @@
         "fields": {
             "tag": 22,
             "object_id": 20,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1447,7 +1424,7 @@
         "fields": {
             "tag": 34,
             "object_id": 18,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1456,7 +1433,7 @@
         "fields": {
             "tag": 20,
             "object_id": 18,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1465,7 +1442,7 @@
         "fields": {
             "tag": 22,
             "object_id": 18,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1474,7 +1451,7 @@
         "fields": {
             "tag": 35,
             "object_id": 1,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1483,7 +1460,7 @@
         "fields": {
             "tag": 35,
             "object_id": 2,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1492,7 +1469,7 @@
         "fields": {
             "tag": 35,
             "object_id": 11,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1501,7 +1478,7 @@
         "fields": {
             "tag": 4,
             "object_id": 8,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1510,7 +1487,7 @@
         "fields": {
             "tag": 35,
             "object_id": 8,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1519,7 +1496,7 @@
         "fields": {
             "tag": 4,
             "object_id": 10,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1528,7 +1505,7 @@
         "fields": {
             "tag": 35,
             "object_id": 10,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1537,7 +1514,7 @@
         "fields": {
             "tag": 4,
             "object_id": 12,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1546,7 +1523,7 @@
         "fields": {
             "tag": 35,
             "object_id": 12,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1555,7 +1532,7 @@
         "fields": {
             "tag": 33,
             "object_id": 22,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1564,7 +1541,7 @@
         "fields": {
             "tag": 20,
             "object_id": 22,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1573,7 +1550,7 @@
         "fields": {
             "tag": 22,
             "object_id": 22,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1582,7 +1559,7 @@
         "fields": {
             "tag": 33,
             "object_id": 19,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1591,7 +1568,7 @@
         "fields": {
             "tag": 20,
             "object_id": 19,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1600,7 +1577,7 @@
         "fields": {
             "tag": 22,
             "object_id": 19,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1609,7 +1586,7 @@
         "fields": {
             "tag": 33,
             "object_id": 15,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1618,7 +1595,7 @@
         "fields": {
             "tag": 20,
             "object_id": 15,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1627,7 +1604,7 @@
         "fields": {
             "tag": 36,
             "object_id": 15,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1636,7 +1613,7 @@
         "fields": {
             "tag": 33,
             "object_id": 21,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1645,7 +1622,7 @@
         "fields": {
             "tag": 20,
             "object_id": 21,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1654,7 +1631,7 @@
         "fields": {
             "tag": 22,
             "object_id": 21,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1663,7 +1640,7 @@
         "fields": {
             "tag": 37,
             "object_id": 17,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1672,7 +1649,7 @@
         "fields": {
             "tag": 20,
             "object_id": 17,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1681,7 +1658,7 @@
         "fields": {
             "tag": 38,
             "object_id": 17,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1690,7 +1667,7 @@
         "fields": {
             "tag": 20,
             "object_id": 16,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1699,7 +1676,7 @@
         "fields": {
             "tag": 38,
             "object_id": 16,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1708,7 +1685,7 @@
         "fields": {
             "tag": 39,
             "object_id": 16,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1717,7 +1694,7 @@
         "fields": {
             "tag": 40,
             "object_id": 14,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1726,7 +1703,7 @@
         "fields": {
             "tag": 20,
             "object_id": 14,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1735,7 +1712,7 @@
         "fields": {
             "tag": 22,
             "object_id": 14,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1744,7 +1721,7 @@
         "fields": {
             "tag": 40,
             "object_id": 13,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1753,7 +1730,7 @@
         "fields": {
             "tag": 20,
             "object_id": 13,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1762,7 +1739,7 @@
         "fields": {
             "tag": 36,
             "object_id": 13,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1771,7 +1748,7 @@
         "fields": {
             "tag": 4,
             "object_id": 9,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1780,7 +1757,7 @@
         "fields": {
             "tag": 35,
             "object_id": 9,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1789,7 +1766,7 @@
         "fields": {
             "tag": 41,
             "object_id": 7,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1798,7 +1775,7 @@
         "fields": {
             "tag": 35,
             "object_id": 7,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1807,7 +1784,7 @@
         "fields": {
             "tag": 4,
             "object_id": 6,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1816,7 +1793,7 @@
         "fields": {
             "tag": 35,
             "object_id": 6,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1825,7 +1802,7 @@
         "fields": {
             "tag": 4,
             "object_id": 5,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1834,7 +1811,7 @@
         "fields": {
             "tag": 35,
             "object_id": 5,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1843,7 +1820,7 @@
         "fields": {
             "tag": 35,
             "object_id": 4,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1852,7 +1829,7 @@
         "fields": {
             "tag": 42,
             "object_id": 4,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1861,7 +1838,7 @@
         "fields": {
             "tag": 4,
             "object_id": 3,
-            "content_type": 13
+            "content_type": 12
         }
     },
     {
@@ -1870,69 +1847,6 @@
         "fields": {
             "tag": 35,
             "object_id": 3,
-            "content_type": 13
-        }
-    },
-    {
-        "pk": 113,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 7,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 114,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 1,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 115,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 2,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 116,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 3,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 117,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 4,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 118,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 5,
-            "content_type": 12
-        }
-    },
-    {
-        "pk": 119,
-        "model": "tagging.taggeditem",
-        "fields": {
-            "tag": 43,
-            "object_id": 6,
             "content_type": 12
         }
     }

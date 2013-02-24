@@ -14,8 +14,7 @@ class ConfTestCase(DjangoTestCase):
     def test_custom_sizes_setting(self):
         self.assertEqual(CUSTOM_SIZES['inline_media.picture']['mini'], 81)
         self.assertEqual(CUSTOM_SIZES['inline_media.picture']['small'], 150)
-        self.assertEqual(CUSTOM_SIZES['inline_media.pictureset']['mini'], 
-                         (58, 58))
+        self.assertEqual(CUSTOM_SIZES['inline_media.pictureset']['mini'], None)
         
     def test_textarea_attrs_setting(self):
         self.assertTrue(TEXTAREA_ATTRS.get('default', False)) 
