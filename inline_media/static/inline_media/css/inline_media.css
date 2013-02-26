@@ -20,12 +20,6 @@
     margin: 10px auto;
 }
 
-/* .inline_full_left,  */
-/* .inline_full_right,  */
-/* .inline_full_center {  */
-/*     width: 400px  */
-/* } */
-
 .inline_large_left, 
 .inline_large_right { 
     width: 250px
@@ -96,7 +90,14 @@ width: 80px
 .inline_full_center .pictureset3, 
 .inline_full_left .pictureset3, 
 .inline_full_right .pictureset3 { 
-    height: 304px 
+    width: 400px;
+    height: 304px;
+}
+
+.inline_full_center .pictureset1, 
+.inline_full_center .pictureset2, 
+.inline_full_center .pictureset3 {
+    margin: 0 auto;
 }
 
 .pictureset1 img, 
