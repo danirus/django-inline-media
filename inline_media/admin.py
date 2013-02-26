@@ -63,11 +63,10 @@ class PictureSetAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('title', 'slug',
                            ('description', 'show_description_inline'),
-                           'cover', 'pictures', 'order', 
+                           'pictures', 'order', 
                            'show_counter', 'tags'),
         }),
     )
-    raw_id_fields = ("cover",)
     list_per_page = 50
 
     class Media:
@@ -76,16 +75,6 @@ class PictureSetAdmin(admin.ModelAdmin):
               "prettyphoto-3.1.3/js/jquery.prettyPhoto.js",
               "admin/inline_media/js/pictureset.js")
 
-    def change_view(self, request, object_id, extra_context=None):
-        response = super(PictureSetAdmin, self).change_view(
-            request, object_id, extra_context=extra_context)
-        obj = self.get_object(request, unquote(object_id))
-        if obj.cover not in obj.pictures.all():
-            obj.pictures.add(obj.cover)
-        return response
-
-
-# admin.site.register(InlineType)
 admin.site.register(License, LicenseAdmin)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(PictureSet, PictureSetAdmin)

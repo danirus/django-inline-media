@@ -31,9 +31,12 @@
   {% else %}
   <p>{% trans "Pictures appear in the following order. Reorder them by typing a comma separated list of IDs in the field Order." %}</p>
   {% for item in original.next_picture %}
-  {% thumbnail item.picture "180" as im %}
-  <div style="border-top: 1px solid #ddd">
-    <p>{% trans "Id" %} {{ item.id }}, {{ item.title }}:</p>
+  {% thumbnail item.picture "180" upscale=False as im %}
+  <div style="border-top: 2px solid #ccc; margin-bottom: 20px">
+    <p>
+      <span style="font-weight:bold">{% trans "Id" %} {{ item.id }}</span>,
+      {{ item.title }}:
+    </p>
     <a href="{{ item.picture.url }}" rel="prettyPhoto[item.slug]" title="{{ item.description }}" style="display: block;text-align:center"><img src="{{ im.url }}" alt="{{ item.title }}"></a>
   {% endthumbnail %}
   </div>

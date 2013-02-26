@@ -31,8 +31,10 @@
   {% if add %}
   <p style="padding:10px; background:#eee; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "no picture" %}</p>
   {% else %}
-  {% thumbnail original.picture "216" as im %}
-  <a href="{{ original.picture.url }}" class="prettyPhoto" rel="{{ original.sha1 }}" title="{{ original.description }}"><img src="{{ im.url }}" alt="{{ original.title }}"></a>
+  {% thumbnail original.picture "216" upscale=False as im %}
+  <div style="margin:0 auto; text-align:center">
+    <a href="{{ original.picture.url }}" class="prettyPhoto" rel="{{ original.sha1 }}" title="{{ original.description }}"><img src="{{ im.url }}" alt="{{ original.title }}"></a>
+  </div>
   {% endthumbnail %}
   <div style="text-align:center; font-size:0.9em">{% trans "click to preview" %}</div>
   {% with original.duplicates as duplicates %}

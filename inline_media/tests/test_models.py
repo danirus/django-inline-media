@@ -75,22 +75,34 @@ class PictureSetTestCase(DjangoTestCase):
         self.picture_1 = create_picture_1()
         self.picture_2 = create_picture_2()
         self.picture_3 = create_picture_3()
-        self.picset = PictureSet.objects.create(
-            title="example set", slug="example-set", cover=self.picture_3, 
-            order="3,1,2")
+        self.values = {
+            'title': 'example set', 
+            'slug': 'example-set', 
+            'order': '3,1,2'
+        }
+
+    def create_object(self, **kwargs):
+        self.picset = PictureSet.objects.create(**kwargs)
         self.picset.pictures.add(self.picture_1)
         self.picset.pictures.add(self.picture_2)
         self.picset.pictures.add(self.picture_3) 
                                   
     def test_pictureset_get_picture_titles_as_ul(self):
+        self.create_object(**self.values)
         self.assertEqual(
             self.picset.picture_titles_as_ul(),
             '<ul><li>the web (cover)</li><li>android original</li><li>android clone</li></ul>')
 
     def test_pictureset_get_picture_titles_as_ul(self):
+        self.create_object(**self.values)
         self.assertEqual(
             [pic for pic in self.picset.next_picture()], 
             [self.picture_3, self.picture_1, self.picture_2])
+
+    def test_should_not_fail_when_no_order(self):
+        self.values.pop('order')
+        self.create_object(**self.values)
+        self.assert_(self.picset.cover() == self.picture_3)
 
 
 class ModelFormTestCase(DjangoTestCase):

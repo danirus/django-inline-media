@@ -141,8 +141,6 @@ class PictureSet(models.Model):
         help_text=_("Only visible in the inline under sizes "
                     "small, medium, large or full."), blank=True)
     show_description_inline = models.BooleanField(default=True)
-    cover = models.ForeignKey("Picture", blank=True, null=True,
-                              help_text=_("Front cover picture."))
     pictures = models.ManyToManyField("Picture", related_name="picture_sets")
     order = models.CommaSeparatedIntegerField(
         blank=True, max_length=512, 
@@ -163,7 +161,7 @@ class PictureSet(models.Model):
 
     # used in admin 'list_display' to show the thumbnail of self.picture
     def cover_thumbnail(self):
-        im = get_thumbnail(self.cover.picture, "x50")
+        im = get_thumbnail(self.cover().picture, "x50")
         return '<div style="text-align:center"><img src="%s"></div>' % im.url
     cover_thumbnail.allow_tags = True
 
@@ -171,7 +169,7 @@ class PictureSet(models.Model):
     def picture_titles_as_ul(self):
         titles = []
         for picture in self.next_picture():
-            if picture == self.cover:
+            if picture == self.cover():
                 titles.append("<li>%s (cover)</li>" % picture.title)
             else:
                 titles.append("<li>%s</li>" % picture.title)
@@ -186,3 +184,11 @@ class PictureSet(models.Model):
         else:
             for picture in self.pictures.all():
                 yield picture
+
+    def cover(self):
+        if self.order:
+            first_pic_id = int(self.order.split(',', 1)[0])
+            return self.pictures.get(pk=first_pic_id)
+        else:
+            return self.pictures.all()[0]
+            

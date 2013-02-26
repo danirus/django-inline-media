@@ -248,8 +248,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
     def setUp(self):
         self.pics = create_picture_1(), create_picture_2(), create_picture_3()
         self.picset = PictureSet.objects.create(
-            title="example set", slug="example-set", cover=self.pics[2], 
-            order="3,1,2")
+            title="example set", slug="example-set", order="3,1,2")
         self.picset.pictures.add(self.pics[0])
         self.picset.pictures.add(self.pics[1])
         self.picset.pictures.add(self.pics[2]) 
