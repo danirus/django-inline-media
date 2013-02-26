@@ -37,7 +37,8 @@
 width: 80px 
 }
 
-.pictureset1, .pictureset2, .pictureset3 { 
+.pictureset1, .pictureset2, .pictureset3 {
+    display: block;
     position: relative;
     left: -100px; 
     margin: 0 auto;
@@ -157,6 +158,7 @@ width: 80px
 .inline_credits, 
 .inline_description, 
 .inline_counter {
+    display: block;
     margin: 0;
     padding: 2px 0;
     font-size: 0.8em;

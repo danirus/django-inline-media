@@ -1,7 +1,7 @@
 {% load i18n thumbnail %}
 
-<div id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}">
-  <div class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
+<span id="{{ object.slug }}" class="inline {% if object.pictures.count == 2 %}inline-ps2{% else %}{% if object.pictures.count > 2 %}inline-ps3{% endif %}{% endif %} {{ class }}">
+  <span class="{% if object.pictures.count == 2 %}pictureset2{% else %}{% if object.pictures.count > 2 %}pictureset3{% else %}pictureset1{% endif %}{% endif %}">
     {% thumbnail object.cover.picture size crop="center" as im %}
     <a href="{{ object.cover.picture.url }}" rel="pictureset[{{ object.slug }}]" title="{{ object.cover.description|striptags }}"><img src="{{ im.url }}" alt="{{ object.cover.title }}" class="picture"></a>
     {% endthumbnail %}
@@ -16,11 +16,11 @@
     {% endthumbnail %}
     {% endifnotequal %}
     {% endfor %}
-  </div>
+  </span>
   {% if object.show_description_inline %}
-  <p class="inline_description">{{ object.description|safe }}</p>
+  <span class="inline_description">{{ object.description|safe }}</span>
   {% endif %}
   {% if object.show_counter %}
-  <p class="inline_counter">{% with count=object.pictures.count %}[{% if object.cover not in object.pictures.all %}{{ count|add:"1" }}{% else %}{{ count }}{% endif %} {% ifequal count 1 %}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endifequal %}]{% endwith %}</p>
+  <span class="inline_counter">{% with count=object.pictures.count %}[{% if object.cover not in object.pictures.all %}{{ count|add:"1" }}{% else %}{{ count }}{% endif %} {% ifequal count 1 %}{% trans "picture" %}{% else %}{% trans "pictures" %}{% endifequal %}]{% endwith %}</span>
   {% endif %}
-</div>
+</span>

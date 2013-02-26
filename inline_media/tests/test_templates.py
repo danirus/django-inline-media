@@ -67,7 +67,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -86,7 +86,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -105,7 +105,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -126,7 +126,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0) # no link in full mode
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -292,7 +292,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
@@ -312,7 +312,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
@@ -334,7 +334,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('p', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span', attrs={'class':'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
@@ -372,7 +372,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('p', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class':'inline_counter'})
             self.assert_(len(counter) == 1)
 
     def test_large_with_reversed_default_options(self):
@@ -393,7 +393,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('p', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class':'inline_counter'})
             self.assert_(len(counter) == 1)
 
     def test_full_with_reversed_default_options(self):
@@ -416,5 +416,5 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('p', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class':'inline_counter'})
             self.assert_(len(counter) == 1)
