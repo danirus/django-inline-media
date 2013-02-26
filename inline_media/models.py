@@ -177,18 +177,22 @@ class PictureSet(models.Model):
     picture_titles_as_ul.allow_tags = True
 
     def next_picture(self):
-        if self.order:
-            picids = [ int(pid) for pid in self.order.split(',') ]
-            for picid in picids:
-                yield self.pictures.get(pk=picid)
-        else:
-            for picture in self.pictures.all():
-                yield picture
+        picids = [p.id for p in self.pictures.all()]
+        for elem in self.order.split(','):
+            try:
+                pid = int(elem)
+                picids.remove(pid)
+            except ValueError:
+                break
+            yield self.pictures.get(pk=pid)
+        for pid in picids:
+            yield self.pictures.get(pk=pid)
 
     def cover(self):
         if self.order:
             first_pic_id = int(self.order.split(',', 1)[0])
-            return self.pictures.get(pk=first_pic_id)
-        else:
-            return self.pictures.all()[0]
-            
+            try:
+                return self.pictures.get(pk=first_pic_id)
+            except:
+                pass
+        return self.pictures.all()[0]

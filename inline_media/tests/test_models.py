@@ -83,9 +83,9 @@ class PictureSetTestCase(DjangoTestCase):
 
     def create_object(self, **kwargs):
         self.picset = PictureSet.objects.create(**kwargs)
-        self.picset.pictures.add(self.picture_1)
-        self.picset.pictures.add(self.picture_2)
-        self.picset.pictures.add(self.picture_3) 
+        self.picset.pictures.add(self.picture_1,
+                                 self.picture_2,
+                                 self.picture_3) 
                                   
     def test_pictureset_get_picture_titles_as_ul(self):
         self.create_object(**self.values)
@@ -103,6 +103,31 @@ class PictureSetTestCase(DjangoTestCase):
         self.values.pop('order')
         self.create_object(**self.values)
         self.assert_(self.picset.cover() == self.picture_3)
+
+    def test_should_not_fail_when_order_is_uncomplete(self):
+        self.values['order'] = "2,"
+        self.create_object(**self.values)
+        expected_order = [2] + [p.id for p in self.picset.pictures.all() 
+                                if p.id!=2]
+        retrieved_order = []
+        for pic in self.picset.next_picture():
+            retrieved_order.append(pic.id)
+        self.assertEqual(expected_order, retrieved_order)
+
+    def test_should_not_fail_when_order_has_unrelated_ids(self):
+        self.values['order'] = "2234,3123,45656,23"
+        self.create_object(**self.values)
+        expected_order = [p.id for p in self.picset.pictures.all()]
+        retrieved_order = []
+        for pic in self.picset.next_picture():
+            retrieved_order.append(pic.id)
+        self.assertEqual(expected_order, retrieved_order)
+
+    def test_cover_when_order_has_unrelated_ids(self):
+        self.values['order'] = "2234,3123,45656,23"
+        self.create_object(**self.values)
+        self.assertEqual(self.picset.cover(),
+                         self.picset.pictures.all()[0])
 
 
 class ModelFormTestCase(DjangoTestCase):
