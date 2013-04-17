@@ -3,6 +3,7 @@ import shutil
 import sys
 import unittest
 
+
 def setup_django_settings():
     os.chdir(os.path.join(os.path.dirname(__file__), ".."))
     sys.path.insert(0, os.getcwd())
@@ -18,8 +19,8 @@ def run_tests():
 
     TestRunner = get_runner(settings)
     test_suite = TestRunner(verbosity=2, interactive=True, failfast=False)
-    test_suite.run_tests(["inline_media"])
-
+    return test_suite.run_tests(["inline_media"])
+    
 
 def delete_tmp_dirs():
     from django.conf import settings

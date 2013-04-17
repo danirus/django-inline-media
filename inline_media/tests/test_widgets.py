@@ -34,17 +34,9 @@ class AdminTextareaWithInlinesWidgetTestCase(DjangoTestCase):
             first_text="One small step for man", 
             second_text="One giant leap for mankind")
         widget = TextareaWithInlines()
-        manually_rendered = (u'<textarea rows="10" cols="40" name="test" '
-                             u'class="vLargeTextField">One giant leap for '
-                             u'mankind</textarea><div style="margin-top:10px">'
-                             u'<label>Inlines:</label>')
-        manually_rendered += InlinesDialogStr("id_test").widget_string()
-        manually_rendered += (u'<p class="help">Insert inlines into your body '
-                              u'by choosing an inline type, then an object, '
-                              u'then a class.</p></div>')
-        self.assertEqual(
-            conditional_escape(widget.render("test", neilmsg.second_text)), 
-            manually_rendered)
+        self.assert_(
+            InlinesDialogStr("id_test").widget_string() in
+            conditional_escape(widget.render("test", neilmsg.second_text)))
 
 
 class IMSizesArrayTestsCase(DjangoTestCase):

@@ -1,10 +1,15 @@
+import sys
 from setuptools import setup, find_packages
 from setuptools.command.test import test
 
 def run_tests(*args):
     from inline_media.tests import run_tests, delete_tmp_dirs
-    run_tests()
+    errors = run_tests()
     delete_tmp_dirs()
+    if errors:
+        sys.exit(1)
+    else:
+        sys.exit(0)
 
 test.run_tests = run_tests
 

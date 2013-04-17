@@ -5,7 +5,9 @@ import os
 from BeautifulSoup import BeautifulSoup, NavigableString, Tag
 
 from django.core.files.images import ImageFile
-from django.template import TemplateSyntaxError
+from django.http import HttpResponse
+from django.template import loader, TemplateSyntaxError
+from django.template.context import Context
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.conf import settings
@@ -92,43 +94,28 @@ class PictureTemplatesTestCase(DjangoTestCase):
         self.tag = u'<inline type="%(type)s" id="%(id)d" class="%(class)s" />'
         self.params = { "type": "inline_media.picture", "id": pic.id }
 
-    def test_picture_mini_template(self):
-        self.params['class'] = 'inline_mini_right'
+    def _inline_with_css_class(self, css_class):
+        self.params['class'] = css_class
         inline_tag = self.tag % self.params
-        content = u'Blah blah blah %s blah blah blah' % inline_tag
-        response = inlines(content)
-        self.assertTemplateUsed(response, 
-                                'inline_media/inline_media.picture.mini.html')
+        soup = BeautifulSoup(inline_tag, selfClosingTags=['inline'])
+        result_dict = render_inline(soup.find('inline'))
+        return result_dict['template']
+
+    def test_picture_mini_template(self):
+        self.assert_('inline_media/inline_media.picture.mini.html' in 
+                     self._inline_with_css_class('inline_mini_right'))
 
     def test_picture_default_template(self):
-        self.params['class'] = 'inline_small_right'
-        inline_tag = self.tag % self.params
-        content = u'Blah blah blah %s blah blah blah' % inline_tag
-        response = inlines(content)
-        self.assertTemplateUsed(response, 
-                                'inline_media/inline_media.picture.default.html')
-
-        self.params['class'] = 'inline_medium_right'
-        inline_tag = self.tag % self.params
-        content = u'Blah blah blah %s blah blah blah' % inline_tag
-        response = inlines(content)
-        self.assertTemplateUsed(response, 
-                                'inline_media/inline_media.picture.default.html')
-
-        self.params['class'] = 'inline_large_right'
-        inline_tag = self.tag % self.params
-        content = u'Blah blah blah %s blah blah blah' % inline_tag
-        response = inlines(content)
-        self.assertTemplateUsed(response, 
-                                'inline_media/inline_media.picture.default.html')
+        self.assert_('inline_media/inline_media.picture.default.html' in
+                     self._inline_with_css_class('inline_small_right'))
+        self.assert_('inline_media/inline_media.picture.default.html' in
+                     self._inline_with_css_class('inline_medium_right'))
+        self.assert_('inline_media/inline_media.picture.default.html' in
+                     self._inline_with_css_class('inline_large_right'))
 
     def test_picture_full_template(self):
-        self.params['class'] = 'inline_full_center'
-        inline_tag = self.tag % self.params
-        content = u'Blah blah blah %s blah blah blah' % inline_tag
-        response = inlines(content)
-        self.assertTemplateUsed(response, 
-                                'inline_media/inline_media.picture.full.html')
+        self.assert_('inline_media/inline_media.picture.full.html' in
+                     self._inline_with_css_class('inline_full_center'))
 
     def test_mini_picture_custom_size_setting(self):
         self.params['class'] = 'inline_mini_right'

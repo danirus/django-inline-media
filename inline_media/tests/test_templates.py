@@ -8,7 +8,7 @@ from django.template import TemplateSyntaxError
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.models import PictureSet
-from inline_media.parser import inlines
+from inline_media.parser import inlines, render_inline
 from inline_media.tests.test_models import (create_picture_1, 
                                             create_picture_2,
                                             create_picture_3)
@@ -33,12 +33,16 @@ class PictureTemplateTestCase(DjangoTestCase):
         self.picture.show_license = True
         self.picture.save()
 
+    def _inline_with_css_class(self, css_class):
+        soup = BeautifulSoup(self.tag % css_class, selfClosingTags=['inline'])
+        result_dict = render_inline(soup.find('inline'))
+        return result_dict['template']
+
     def test_mini_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_as_link = True
             #  - show_description_inline = True
@@ -46,6 +50,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             # But! template for size 'mini' never includes 
             # picture's author, license or description
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 1)
@@ -57,13 +62,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_small_left', 'inline_small_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_as_link = True
             #  - show_description_inline = True
             #  - show_author = False
             #  - show_license = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
@@ -76,13 +81,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_as_link = True
             #  - show_description_inline = True
             #  - show_author = False
             #  - show_license = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
@@ -95,13 +100,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_large_left', 'inline_large_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_as_link = True
             #  - show_description_inline = True
             #  - show_author = False
             #  - show_license = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 1)
@@ -116,13 +121,13 @@ class PictureTemplateTestCase(DjangoTestCase):
                      'inline_full_center', 
                      'inline_full_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_as_link = True
             #  - show_description_inline = True
             #  - show_author = False
             #  - show_license = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0) # no link in full mode
@@ -136,8 +141,7 @@ class PictureTemplateTestCase(DjangoTestCase):
         positions = ['inline_mini_left', 'inline_mini_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # reversed default options:
             #  - show_as_link = False
             #  - show_description_inline = False
@@ -145,6 +149,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             # But! template for size 'mini' never includes 
             # picture's author, license or description
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 0)
@@ -157,13 +162,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         positions = ['inline_small_left', 'inline_small_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # reversed default options:
             #  - show_as_link = False
             #  - show_description_inline = False
             #  - show_author = True
             #  - show_license = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0)
@@ -178,13 +183,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         positions = ['inline_medium_left', 'inline_medium_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # reversed default options:
             #  - show_as_link = False
             #  - show_description_inline = False
             #  - show_author = True
             #  - show_license = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0)
@@ -199,13 +204,13 @@ class PictureTemplateTestCase(DjangoTestCase):
         positions = ['inline_large_left', 'inline_large_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # reversed default options:
             #  - show_as_link = False
             #  - show_description_inline = False
             #  - show_author = True
             #  - show_license = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0)
@@ -222,13 +227,13 @@ class PictureTemplateTestCase(DjangoTestCase):
                      'inline_full_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # reversed default options:
             #  - show_as_link = False
             #  - show_description_inline = False
             #  - show_author = True
             #  - show_license = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a', attrs={'class':'picture'})
             self.assert_(len(links) == 0) # no link ever in full mode
@@ -260,6 +265,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         self.picset.show_counter = True
         self.picset.save()
 
+    def _inline_with_css_class(self, css_class):
+        soup = BeautifulSoup(self.tag % css_class, selfClosingTags=['inline'])
+        result_dict = render_inline(soup.find('inline'))
+        return result_dict['template']
+
     def test_mini_with_default_options(self):
         # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
         tmpl = 'inline_media/inline_media.pictureset.mini.html'
@@ -280,11 +290,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = True
             #  - show_counter = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
@@ -300,11 +310,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_large_left', 'inline_large_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = True
             #  - show_counter = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
@@ -322,11 +332,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
                      'inline_full_center', 
                      'inline_full_right']
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = True
             #  - show_counter = False
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
@@ -359,11 +369,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         positions = ['inline_medium_left', 'inline_medium_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = False
             #  - show_counter = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
@@ -380,11 +390,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         positions = ['inline_large_left', 'inline_large_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = False
             #  - show_counter = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
@@ -403,11 +413,11 @@ class PictureSetTemplateTestCase(DjangoTestCase):
                      'inline_full_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
-            html = inlines(self.tag % cssclass, return_list=False)
-            self.assertTemplateUsed(html, tmpl)
+            self.assert_(tmpl in self._inline_with_css_class(cssclass))
             # default options:
             #  - show_description_inline = False
             #  - show_counter = True
+            html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
             self.assert_(len(links) == 3)
