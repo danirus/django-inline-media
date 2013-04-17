@@ -339,7 +339,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
             links = soup.findAll('a')
-            self.assert_(len(links) == 3)
+            self.assertEqual(len(links), 3)
             # check order
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
