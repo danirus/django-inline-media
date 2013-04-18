@@ -4,6 +4,10 @@ try:
 except ImportError:
     from beautifulsoup import BeautifulSoup, NavigableString
 
+import os
+from sorl.thumbnail import default
+import unittest
+
 from django.template import TemplateSyntaxError
 from django.test import TestCase as DjangoTestCase
 
@@ -12,6 +16,21 @@ from inline_media.parser import inlines, render_inline
 from inline_media.tests.test_models import (create_picture_1, 
                                             create_picture_2,
                                             create_picture_3)
+
+
+def skipIfGetThumbnailFails(f):
+    def func(self):
+        curdir = os.path.dirname(__file__)
+        filenames = ['images/android.png', 'images/theweb.jpg']
+        try:
+            for filename in filenames:
+                filepath = os.path.join(curdir, filename)
+                f = open(filepath, 'r')
+                thumbpic = default.backend.get_thumbnail(f, '100x100')
+        except Exception, e:
+            raise unittest.SkipTest(e)
+        return lambda f: f
+    return func
 
 
 class PictureTemplateTestCase(DjangoTestCase):
@@ -38,6 +57,7 @@ class PictureTemplateTestCase(DjangoTestCase):
         result_dict = render_inline(soup.find('inline'))
         return result_dict['template']
 
+    @skipIfGetThumbnailFails
     def test_mini_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
@@ -58,6 +78,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_small_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_small_left', 'inline_small_right']
@@ -77,6 +98,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_medium_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
@@ -96,6 +118,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_large_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_large_left', 'inline_large_right']
@@ -115,6 +138,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_full_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.full.html'
         positions = ['inline_full_left', 
@@ -136,6 +160,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_mini_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
@@ -157,6 +182,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
 
+    @skipIfGetThumbnailFails
     def test_small_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_small_left', 'inline_small_right']
@@ -178,6 +204,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             license = soup.findAll('span', attrs={'class':'inline_license'})
             self.assert_(len(license) == 1)
 
+    @skipIfGetThumbnailFails
     def test_medium_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
@@ -199,6 +226,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             license = soup.findAll('span', attrs={'class':'inline_license'})
             self.assert_(len(license) == 1)
 
+    @skipIfGetThumbnailFails
     def test_large_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.default.html'
         positions = ['inline_large_left', 'inline_large_right']
@@ -220,6 +248,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             license = soup.findAll('span', attrs={'class':'inline_license'})
             self.assert_(len(license) == 1)
 
+    @skipIfGetThumbnailFails
     def test_full_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.full.html'
         positions = ['inline_full_left', 
@@ -270,6 +299,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         result_dict = render_inline(soup.find('inline'))
         return result_dict['template']
 
+    @skipIfGetThumbnailFails
     def test_mini_with_default_options(self):
         # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
         tmpl = 'inline_media/inline_media.pictureset.mini.html'
@@ -278,6 +308,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             with self.assertRaises(Exception):
                 html = inlines(self.tag % cssclass, return_list=False)
 
+    @skipIfGetThumbnailFails
     def test_small_with_default_options(self):
         # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
         tmpl = 'inline_media/inline_media.pictureset.default.html'
@@ -286,6 +317,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             with self.assertRaises(Exception):
                 html = inlines(self.tag % cssclass, return_list=False)
 
+    @skipIfGetThumbnailFails
     def test_medium_with_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
@@ -306,6 +338,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
+    @skipIfGetThumbnailFails
     def test_large_with_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_large_left', 'inline_large_right']
@@ -326,6 +359,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
+    @skipIfGetThumbnailFails
     def test_full_with_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.full.html'
         positions = ['inline_full_left', 
@@ -348,6 +382,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
+    @skipIfGetThumbnailFails
     def test_mini_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
@@ -356,6 +391,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             with self.assertRaises(Exception):
                 html = inlines(self.tag % cssclass, return_list=False)
 
+    @skipIfGetThumbnailFails
     def test_small_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_small_left', 'inline_small_right']
@@ -364,6 +400,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             with self.assertRaises(Exception):
                 html = inlines(self.tag % cssclass, return_list=False)
 
+    @skipIfGetThumbnailFails
     def test_medium_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_medium_left', 'inline_medium_right']
@@ -385,6 +422,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             counter = soup.findAll('span', attrs={'class':'inline_counter'})
             self.assert_(len(counter) == 1)
 
+    @skipIfGetThumbnailFails
     def test_large_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_large_left', 'inline_large_right']
@@ -406,6 +444,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             counter = soup.findAll('span', attrs={'class':'inline_counter'})
             self.assert_(len(counter) == 1)
 
+    @skipIfGetThumbnailFails
     def test_full_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.full.html'
         positions = ['inline_full_left', 
