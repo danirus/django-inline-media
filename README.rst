@@ -3,7 +3,7 @@ Django-inline-media
 
 |TravisCI|_
 
-.. |TravisCI| image:: http://secure.travis-ci.org/danirus/django-inline-media.pnh?branch=master
+.. |TravisCI| image:: https://secure.travis-ci.org/danirus/django-inline-media.png?branch=master
 .. _TravisCI: https://travis-ci.org/danirus/django-inline-media
 
 By Daniel Rus Morales <http://danir.us/>
