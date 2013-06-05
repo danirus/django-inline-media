@@ -1,11 +1,10 @@
 Django-inline-media
 ===================
 
-Buildbot CI:
- * `Testing with Django-1.5 <http://bbot.danir.us/builders/django-inline-media-dj15>`_
- * `Testing with Django-1.4 <http://bbot.danir.us/builders/django-inline-media-dj14>`_
- * `Testing with Django-1.3 <http://bbot.danir.us/builders/django-inline-media-dj13>`_
+|TravisCI|_
 
+.. |TravisCI| image:: http://secure.travis-ci.org/danirus/django-inline-media.pnh?branch=master
+.. _TravisCI: https://travis-ci.org/danirus/django-inline-media
 
 By Daniel Rus Morales <http://danir.us/>
 
