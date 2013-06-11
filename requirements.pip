@@ -1,6 +1,6 @@
 six
 Django
-PIL
+Pillow
 beautifulsoup4
 South
 
