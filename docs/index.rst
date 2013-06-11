@@ -12,11 +12,22 @@ Introduction
    single: Features
 
 1. Inserts pictures and collection of pictures into your texts using the ``TextAreaWithInlines`` widget.
+
 2. Positions media content at different places and sizes (mini/small/medium/large at left/right or full at the left/center/right).
+
 3. Facilitates administration with thumbnails and search by tags, author and license.
+
 4. Shows a customised control to insert media content in text fields.
+
 5. Uses jquery `prettyPhoto <http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/>`_ to show pictures and galleries when clicking on them.
-6. Replaces django-wysihtml5 ``insertImage`` command with a custom ``insertInlinePicture``.
+
+6. Tested under:
+
+* Python 3.2 and Django 1.5.1
+
+* Python 2.7 and Django 1.5.1
+
+* Python 2.7 and Django 1.4.5
 
 
 The following sample shows a centered inline picture set inserted in a text, on mouseover event the first 3 photos unfold:
@@ -41,18 +52,17 @@ Run the demo project to see django-inline-media in action.
 Quick start
 ===========
 
-1. Get the dependencies:
+1. Get the dependencies::
 
- * `Django Sorl-Thumbnail <http://thumbnail.sorl.net/>`_
- * `Django Tagging <http://code.google.com/p/django-tagging/>`_
+    $ pip install -r requirements.pip
 
 2. In your ``settings.py``:
 
- * Add ``inline_media``, ``sorl.thumbnail`` and ``tagging`` to ``INSTALLED_APPS``.
+* Add ``inline_media``, ``sorl.thumbnail`` and ``tagging`` to ``INSTALLED_APPS``.
 
- * Add ``THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"``
+* Add ``THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"``
 
- * Add ``THUMBNAIL_FORMAT = "JPEG"``
+* Add ``THUMBNAIL_FORMAT = "JPEG"``
 
 3. Create a model with a field of type ``TextFieldWithInlines``.
 
@@ -71,29 +81,6 @@ Quick start
 9. Hit your app's URL!
 
 Run the **demo** in ``django-inline-media/examples/demo`` to see an example.
-
-
-If you prefer to use Wysihtml5 for your textareas (beta):
-
-1. Get the widget from `Django Wysihtml5 <http://github.com/danirus/django-wysihtml5>`_.
-
-2. In your ``settings.py``:
-
- * Add ``wysihtml5 to ``INSTALLED_APPS``.
-
- * Add ``WYSIHTML5_CMD_INSERT_IMAGE = "insertInlinePicture"``
-
- * Add ``WYSIHTML5_FUNC_INSERT_IMAGE_DIALOG = "inline_media.widgets.render_insert_inline_picture_dialog"``
-
-3. Add ``url(r'^inline-media/', include('inline_media.urls'))`` to your urls module.
-
-4. Create a model with a field of type ``Wysihtml5TextField``.
-
-5. Create an admin class for that model by inheriting from both ``inline_media.admin.AdminWysihtml5TextFieldMixin`` and Django's ``admin.ModelAdmin``.
-
-6. Hit your app's URL!
-
-Run the **wysihtml5_demo** in ``django-inline-media/examples/demo_wysihtml5`` to see an example.
 
 
 Indices and tables
