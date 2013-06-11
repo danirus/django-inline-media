@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.http import HttpResponse
 from django.template import TemplateSyntaxError
@@ -14,7 +15,7 @@ def render_inline(request, size, align, oid):
         picture = Picture.objects.get(pk=oid)
     except Picture.DoesNotExist:
         if settings.DEBUG:
-            raise Picture.DoesNotExist, "Picture id '%s' does not exist"
+            raise Picture.DoesNotExist("Picture id '%s' does not exist")
         else:
             return ''
     im = get_thumbnail(picture.picture, size)

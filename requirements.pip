@@ -5,5 +5,5 @@ beautifulsoup4
 South
 
 # For compat with Python 3.2/Django1.5
--e git+git://github.com/danirus/django-tagging3.git#egg=django-tagging3
+-e git+git://github.com/danirus/django-tagging.git#egg=django-tagging
 -e git+git://github.com/danirus/sorl-thumbnail.git#egg=sorl-thumbnail
