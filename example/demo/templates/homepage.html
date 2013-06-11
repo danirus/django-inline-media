@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load url from future %}
 
 {% block header %}{{ block.super }}Homepage{% endblock %}
 
 {% block content %}
 <p>{% trans "The demo site has an Articles App with a model <code>Article</code>. Articles may have inline media content included in the body." %}</p>
 <ul>
-  <li><a href="{% url articles-index %}">{% trans "Article list" %}</a></li>
+  <li><a href="{% url 'articles-index' %}">{% trans "Article list" %}</a></li>
 </ul>
 <p style="padding: 5px 15px; background:#ddd; font-weight:bold; text-align:right">django-inline-media</p
 {% endblock %}

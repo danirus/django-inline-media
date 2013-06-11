@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 
 import copy
+import six
+
 from django.db.models import fields, get_model
 
 from inline_media.conf import settings
@@ -11,7 +13,7 @@ textarea_attrs = None
 
 def build_textarea_attrs(attrdict):
     newdict = {}
-    for k, v in attrdict.iteritems():
+    for k, v in six.iteritems(attrdict):
         if k == 'default':
             newdict[k] = v
             continue
@@ -37,7 +39,8 @@ def get_attrs(model, formfield):
 class TextFieldWithInlines(fields.TextField):
 
     def formfield(self, **kwargs):
-        attrs = get_attrs(self.model, self.formfield.im_self.name)
+        # attrs = get_attrs(self.model, self.formfield.im_self.name)
+        attrs = get_attrs(self.model, self.name)
         if attrs:
             widget = TextareaWithInlines(attrs=attrs)
         else: widget = TextareaWithInlines
@@ -45,5 +48,8 @@ class TextFieldWithInlines(fields.TextField):
         kwargs.update(defaults)
         return super(TextFieldWithInlines, self).formfield(**kwargs)
 
-from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^inline_media\.fields\.TextFieldWithInlines"])
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^inline_media\.fields\.TextFieldWithInlines"])
+except:
+    pass

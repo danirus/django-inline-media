@@ -1,27 +1,27 @@
 # code borrowed from django-basic-apps by Nathan Borror
 # https://github.com/nathanborror/django-basic-apps
+from __future__ import unicode_literals
 
 import re
+import six
+
+from bs4 import BeautifulSoup, NavigableString
 
 from django.template import TemplateSyntaxError
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
-
-try:
-    from BeautifulSoup import BeautifulSoup, NavigableString
-except ImportError:
-    from beautifulsoup import BeautifulSoup, NavigableString
 
 from inline_media.conf import settings
 
 
 def inlines(value, return_list=False):
-    selfClosingTags = ['inline','img','br','input','meta','link','hr',]
-    soup = BeautifulSoup(value, selfClosingTags=selfClosingTags)
+    # selfClosingTags = ['inline','img','br','input','meta','link','hr',]
+    soup = BeautifulSoup(value, 'html.parser')
+# selfClosingTags=selfClosingTags)
     inline_list = []
     if return_list:
         for inline in soup.findAll('inline'):
@@ -36,7 +36,8 @@ def inlines(value, return_list=False):
                 rendered_item = BeautifulSoup(
                     render_to_string(rendered_inline['template'], 
                                      rendered_inline['context']),
-                    selfClosingTags=selfClosingTags)
+                    'html.parser')
+                    # selfClosingTags=selfClosingTags)
             else:
                 rendered_item = ''
             inline.replaceWith(rendered_item)
@@ -56,10 +57,10 @@ def get_app_model_tuple(inline):
         chunks = inline_type.split('.')
         app_label = '.'.join(chunks[:-1])
         model_name = chunks[-1]
-    except:
+    except Exception as exc:
         if settings.INLINE_MEDIA_DEBUG:
-            raise TemplateSyntaxError, _(u"Couldn't find the attribute "
-                                         "'type' in the <inline> tag.")
+            raise TemplateSyntaxError(_("Couldn't find the attribute "
+                                        "'type' in the <inline> tag."))
         return ''
     else:
         return app_label, model_name
@@ -71,9 +72,9 @@ def get_model(app_label, model_name):
         content_type = ContentType.objects.get(app_label=app_label, 
                                                model=model_name)
         model = content_type.model_class()
-    except ContentType.DoesNotExist:
+    except ContentType.DoesNotExist as exc:
         if settings.INLINE_MEDIA_DEBUG:
-            raise TemplateSyntaxError, _(u"Inline ContentType not found.")
+            raise TemplateSyntaxError(_("Inline ContentType not found."))
         return None
     return model
 
@@ -81,11 +82,11 @@ def get_model(app_label, model_name):
 def get_css_class(inline):
     """Retrieve the CSS class from a given inline tag."""
     try:
-        css_class = smart_unicode(inline['class'])
-    except:
+        css_class = smart_text(inline['class'][0])
+    except Exception as exc:
         if settings.INLINE_MEDIA_DEBUG:
-            raise TemplateSyntaxError, _(u"Couldn't find the attribute "
-                                         "'class' in the <inline> tag.")
+            raise TemplateSyntaxError(_("Couldn't find the attribute "
+                                        "'class' in the <inline> tag."))
         return ''
     return css_class
 
@@ -113,7 +114,7 @@ def get_size(inline_type, css_class):
     else:
         size_class = None
     custom_sizes = settings.INLINE_MEDIA_CUSTOM_SIZES.get(inline_type, None)
-    if custom_sizes and custom_sizes.has_key(size_class):
+    if custom_sizes and size_class in custom_sizes:
         size = custom_sizes[size_class]
         if not size:
             size_class = None
@@ -139,9 +140,12 @@ def render_inline(inline):
 
     if not size_class: 
         if settings.INLINE_MEDIA_DEBUG:
-            raise Exception("Size for class '%s' is explicitly disabled "
-                            "in settings.INLINE_MEDIA_CUSTOM_SIZES "
-                            "for app.model '%s.%s'." % (app_label, model_name))
+            raise Exception("Size for class '%(size_class)s' is explicitly "
+                            "disabled in settings.INLINE_MEDIA_CUSTOM_SIZES "
+                            "for app.model '%(app)s.%(model)s'." % {
+                    'size_class': size_class, 
+                    'app': app_label, 
+                    'model': model_name})
         else:
             return ""
         
@@ -151,15 +155,15 @@ def render_inline(inline):
                     'object':obj, 
                     'class': css_class,
                     'size': size }
-    except model.DoesNotExist:
+    except model.DoesNotExist as exc:
         if settings.INLINE_MEDIA_DEBUG:
-            raise model.DoesNotExist("Object matching '%s' does not exist")
+            raise model.DoesNotExist(_("Object matching '%s' does not exist"))
         else:
             return ""
-    except:
+    except Exception as exc:
         if settings.INLINE_MEDIA_DEBUG:
-            raise TemplateSyntaxError("The <inline> id attribute is "
-                                      "missing or invalid.")
+            raise TemplateSyntaxError(_("The <inline> id attribute is "
+                                        "missing or invalid."))
         else:
             return ""
 

@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import os
+import six
 
 from django.core.files.images import ImageFile
 from django.test import TestCase as DjangoTestCase
@@ -140,5 +141,5 @@ class ModelFormTestCase(DjangoTestCase):
         attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS['tests.TestModel']['second_text'])
         form = TestModelForm()
         widget = form.fields['second_text'].widget
-        for k, v in attrs.iteritems():
+        for k, v in six.iteritems(attrs):
             self.assert_(widget.attrs.get(k, '') == v)

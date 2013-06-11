@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import hashlib
 import os
@@ -8,6 +9,7 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.contrib.contenttypes.models import ContentType
 from django.core import urlresolvers
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail import get_thumbnail, ImageField
@@ -33,6 +35,8 @@ LICENSES = (('http://artlibre.org/licence/lal/en',
             ('http://creativecommons.org/licenses/by-sa/2.0/',
              'CC Attribution-ShareAlike'))
 
+
+@python_2_unicode_compatible
 class License(models.Model):
     """Licenses under whose terms and conditions media is publicly accesible""" 
 
@@ -48,7 +52,7 @@ class License(models.Model):
         return '<a href="%s" target="_new">%s</a>' % tuple([self.link]*2)
     homepage.allow_tags = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 #----------------------------------------------------------------------
@@ -60,6 +64,7 @@ class PictureManager(models.Manager):
         return [ p for p in self.exclude(pk=pic.pk).filter(sha1=pic.sha1) ]
         
 
+@python_2_unicode_compatible
 class Picture(models.Model):
     """Picture model"""
 
@@ -92,11 +97,11 @@ class Picture(models.Model):
             self.picture.seek(0)
             sha.update(self.picture.read())
             self.sha1 = sha.hexdigest()
-        except Exception, e:
+        except Exception:
             self.sha1 = ""
         super(Picture, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s' % self.title
 
     @property
@@ -119,7 +124,7 @@ class Picture(models.Model):
     def thumbnail(self):
         try:
             im = get_thumbnail(self.picture, "x50")
-        except Exception, e:
+        except Exception:
             return "unavailable"
         return '<div style="text-align:center"><img src="%s"></div>' % im.url
     thumbnail.allow_tags = True
@@ -131,6 +136,7 @@ def delete_picture(sender, instance, **kwargs):
 pre_delete.connect(delete_picture, sender=Picture)
 
 
+@python_2_unicode_compatible
 class PictureSet(models.Model):
     """ PictureSet model """
     title = models.CharField(
@@ -156,7 +162,7 @@ class PictureSet(models.Model):
     class Meta:
         db_table = "inline_media_picture_sets"
   
-    def __unicode__(self):
+    def __str__(self):
         return "%s" % self.title
 
     # used in admin 'list_display' to show the thumbnail of self.picture

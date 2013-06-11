@@ -1,8 +1,9 @@
 #-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 import os
 
-from BeautifulSoup import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 from django.core.files.images import ImageFile
 from django.http import HttpResponse
@@ -18,32 +19,33 @@ from inline_media.widgets import TextareaWithInlines
 from inline_media.tests.models import TestModel, TestMediaModel
 
 
-selfClosingTags = ['inline','img','br','input','meta','link','hr']
+# selfClosingTags = ['inline','img','br','input','meta','link','hr']
 
 
 class ParserTestCase(DjangoTestCase):
     def setUp(self):
         self.obj = TestMediaModel.objects.create(title="The Title", 
                                                  description="Blah blah ...")
-        self.tag = (u'<inline type="%(type)s" id="%(id)d" class="%(class)s"'
-                    u'/>') % {"type": "tests.testmediamodel", 
+        self.tag = ('<inline type="%(type)s" id="%(id)d" class="%(class)s"'
+                    '/>') % {"type": "tests.testmediamodel", 
                               "id": self.obj.id, 
                               "class": "inline_small_left"}
                     
     def test_render_inline(self):
-        soup = BeautifulSoup(self.tag, selfClosingTags=selfClosingTags)
+        soup = BeautifulSoup(self.tag, 'html.parser')
+                             # selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))
         self.assert_(rendered_inline.get("context", None) != None)
         self.assert_(rendered_inline.get("template", None) != None)
         self.assert_(rendered_inline["context"]["object"] == self.obj)
         self.assertEqual(rendered_inline["context"]["class"],
-                         u'inline_small_left')
+                         'inline_small_left')
         self.assertEqual(rendered_inline["context"]["content_type"],
-                         u'tests.testmediamodel')
+                         'tests.testmediamodel')
         self.assertEqual(rendered_inline["template"][0],
-                         u'inline_media/tests.testmediamodel.small.html')
+                         'inline_media/tests.testmediamodel.small.html')
         self.assertEqual(rendered_inline["template"][1],
-                         u'inline_media/tests.testmediamodel.default.html')
+                         'inline_media/tests.testmediamodel.default.html')
 
     def test_inlines_with_return_list_false(self):
         html_content = inlines(self.tag, return_list=False)
@@ -55,8 +57,8 @@ class ParserTestCase(DjangoTestCase):
         inline_list = inlines(self.tag, return_list=True)
         self.assert_(len(inline_list) == 1)
         self.assert_(inline_list[0]["object"] == self.obj)
-        self.assert_(inline_list[0]["class"] == u'inline_small_left')
-        self.assert_(inline_list[0]["content_type"] == u'tests.testmediamodel')
+        self.assert_(inline_list[0]["class"] == 'inline_small_left')
+        self.assert_(inline_list[0]["content_type"] == 'tests.testmediamodel')
 
 
 class BeautifulSoupTestCase(DjangoTestCase):
@@ -71,17 +73,19 @@ class BeautifulSoupTestCase(DjangoTestCase):
                     html_content += "%s" % entry
             return html_content
 
-        value = u'<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><inline type="inline_media.picture" id="3" class="inline_medium_right" />To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
-        docsoup = BeautifulSoup(value, selfClosingTags=selfClosingTags)
+        value = '<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><inline type="inline_media.picture" id="3" class="inline_medium_right" />To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
+        docsoup = BeautifulSoup(value, 'html.parser')
+# selfClosingTags=selfClosingTags)
 
-        rendered_string = u'<div class="inline inline_medium_right"><img src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png" alt="Django" /><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>'
-        picsoup = BeautifulSoup(rendered_string, selfClosingTags=selfClosingTags)
+        rendered_string = '<div class="inline inline_medium_right"><img src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png" alt="Django" /><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>'
+        picsoup = BeautifulSoup(rendered_string, 'html.parser')
+# selfClosingTags=selfClosingTags)
         inline = docsoup.find('inline')
         inline.replaceWith(picsoup)
         self.html_content = "%s" % docsoup
 
     def test_beautifulsoup_replace_with(self):
-        expected = u'<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><div class="inline inline_medium_right"><img src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png" alt="Django" /><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
+        expected = '<p>The <a href="https://www.djangoproject.com/foundation/">Django Software Foundation (DSF)</a> is kicking off the new year with a <a href="https://www.djangoproject.com/foundation/corporate-membership/">corporate membership</a> drive. Membership of the DSF is one tangible way that your company can publicly demonstrate its support for the Django project, and give back to the Open Source community that has developed Django.</p><p><div class="inline inline_medium_right"><img alt="Django" src="/media/cache/86/a7/86a7fce73e5af30cde30bbbcd2e598f6.png"/><p class="inline_description"><a href="https://www.djangoproject.com/">The Web Framework for perfectionists with deadlines</a></p></div>To kick off this membership drive, we\'re proud to announce our first two corporate members: <a href="http://www.imagescape.com/">Imaginary Landscapes</a> and the <a href="http://www.caktusgroup.com/">Caktus Consulting Group</a>. The DSF would like to thank these two companies for their generous contributions, and for their public support of the DSF and it\'s mission.</p>'
         self.assertEqual(expected, self.html_content)
 
 
@@ -91,13 +95,14 @@ class PictureTemplatesTestCase(DjangoTestCase):
         curdir = os.path.dirname(__file__)
         img = ImageFile(open(os.path.join(curdir, "images/android.png"), "rb"))
         pic = Picture.objects.create(title="android original", picture=img)
-        self.tag = u'<inline type="%(type)s" id="%(id)d" class="%(class)s" />'
+        self.tag = '<inline type="%(type)s" id="%(id)d" class="%(class)s" />'
         self.params = { "type": "inline_media.picture", "id": pic.id }
 
     def _inline_with_css_class(self, css_class):
         self.params['class'] = css_class
         inline_tag = self.tag % self.params
-        soup = BeautifulSoup(inline_tag, selfClosingTags=['inline'])
+        soup = BeautifulSoup(inline_tag, 'html.parser')
+# selfClosingTags=['inline'])
         result_dict = render_inline(soup.find('inline'))
         return result_dict['template']
 
@@ -120,7 +125,8 @@ class PictureTemplatesTestCase(DjangoTestCase):
     def test_mini_picture_custom_size_setting(self):
         self.params['class'] = 'inline_mini_right'
         inline_tag = self.tag % self.params
-        soup = BeautifulSoup(inline_tag, selfClosingTags=selfClosingTags)
+        soup = BeautifulSoup(inline_tag, 'html.parser')
+# selfClosingTags=selfClosingTags)
         rendered_inline = render_inline(soup.find("inline"))
         custom_sizes = settings.INLINE_MEDIA_CUSTOM_SIZES
         self.assertEqual(int(rendered_inline['context']['size']),
@@ -131,8 +137,9 @@ class ParserHelpersTestCase(DjangoTestCase):
     def setUp(self):
         html = ('<p><inline type="inline_media.picture" id="3" '
                 'class="inline_medium_right" />To kick off this...</p>')
-        selfClosingTags = ['inline',]        
-        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        # selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, 'html.parser')
+# selfClosingTags=selfClosingTags)
         self.inline = soup.findAll('inline')[0]
 
     def test_get_app_model_tuple(self):
@@ -149,8 +156,9 @@ class ParserHelpersBadInlineTestCase(DjangoTestCase):
     def setUp(self):
         html = ('<p><inline type="inline_media.pictuRRRU" id="3" '
                 'classSSS="inline_medium_right" />To kick off this...</p>')
-        selfClosingTags = ['inline',]        
-        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        # selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, 'html.parser')
+# selfClosingTags=selfClosingTags)
         self.inline = soup.findAll('inline')[0]
 
     def test_get_model_raises_template_syntax_error(self):
@@ -195,8 +203,9 @@ class RenderInlineTestCase(DjangoTestCase):
     def test_raises_when_not_size_class(self):
         html = ('<p><inline type="inline_media.picture" id="3" '
                 'class="inline_mediuN_right" />To kick off this...</p>')
-        selfClosingTags = ['inline',]        
-        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        # selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, 'html.parser')
+# selfClosingTags=selfClosingTags)
         inline = soup.findAll('inline')[0]
         with self.assertRaises(Exception):
             render_inline(inline)
@@ -204,8 +213,9 @@ class RenderInlineTestCase(DjangoTestCase):
     def test_raises_when_object_does_not_exist(self):
         html = ('<p><inline type="inline_media.picture" id="30000" '
                 'class="inline_medium_right" />To kick off this...</p>')
-        selfClosingTags = ['inline',]        
-        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        # selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, 'html.parser')
+# selfClosingTags=selfClosingTags)
         inline = soup.findAll('inline')[0]
         with self.assertRaises(Picture.DoesNotExist):
             render_inline(inline)
@@ -213,8 +223,9 @@ class RenderInlineTestCase(DjangoTestCase):
     def test_raises_when_no_inline_has_no_id_attribute(self):
         html = ('<p><inline type="inline_media.picture" '
                 'class="inline_medium_right" />To kick off this...</p>')
-        selfClosingTags = ['inline',]        
-        soup = BeautifulSoup(html, selfClosingTags=selfClosingTags)
+        # selfClosingTags = ['inline',]        
+        soup = BeautifulSoup(html, 'html.parser')
+# selfClosingTags=selfClosingTags)
         inline = soup.findAll('inline')[0]
         with self.assertRaises(TemplateSyntaxError):
             render_inline(inline)

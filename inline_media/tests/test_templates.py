@@ -1,10 +1,9 @@
 #-*- coding: utf-8
-try:
-    from BeautifulSoup import BeautifulSoup, NavigableString
-except ImportError:
-    from beautifulsoup import BeautifulSoup, NavigableString
+from __future__ import unicode_literals
 
+from bs4 import BeautifulSoup, NavigableString
 import os
+
 from sorl.thumbnail import default
 import unittest
 
@@ -27,8 +26,8 @@ def skipIfGetThumbnailFails(f):
                 filepath = os.path.join(curdir, filename)
                 f = open(filepath, 'r')
                 thumbpic = default.backend.get_thumbnail(f, '100x100')
-        except Exception, e:
-            raise unittest.SkipTest(e)
+        except Exception as exc:
+            raise unittest.SkipTest(exc)
         return lambda f: f
     return func
 
@@ -42,8 +41,8 @@ class PictureTemplateTestCase(DjangoTestCase):
     """
     def setUp(self):
         self.picture = create_picture_1()
-        self.tag = (u'<inline type="inline_media.picture" '
-                    u'id="%d"' % self.picture.id + u' class="%s"/>')
+        self.tag = ('<inline type="inline_media.picture" '
+                    'id="%d"' % self.picture.id + ' class="%s"/>')
 
     def _reverse_default_boolean_field_values(self):
         self.picture.show_as_link = False
@@ -286,8 +285,8 @@ class PictureSetTemplateTestCase(DjangoTestCase):
         self.picset.pictures.add(self.pics[0])
         self.picset.pictures.add(self.pics[1])
         self.picset.pictures.add(self.pics[2]) 
-        self.tag = (u'<inline type="inline_media.pictureset" '
-                    u'id="%d"' % self.picset.id + u' class="%s"/>')
+        self.tag = ('<inline type="inline_media.pictureset" '
+                    'id="%d"' % self.picset.id + ' class="%s"/>')
 
     def _reverse_default_boolean_field_values(self):
         self.picset.show_description_inline = False

@@ -1,5 +1,6 @@
 import os
 import shutil
+import six
 import sys
 import unittest
 
@@ -27,9 +28,9 @@ def delete_tmp_dirs():
     try:
         shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'pictures'))
         shutil.rmtree(os.path.join(settings.MEDIA_ROOT, 'cache'))
-    except OSError, e:
-        if e.errno != 2:
-            raise e
+    except OSError as exc:
+        if exc.errno != 2:
+            six.reraise(e)
 
 
 def suite():

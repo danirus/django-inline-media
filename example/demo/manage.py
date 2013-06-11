@@ -7,7 +7,7 @@ sys.path.insert(0, '..')
 import os
 os.environ["DJANGO_SETTINGS_MODULE"] = "demo.settings"
 
-from django.core.management import execute_manager
+from django.core.management import execute_from_command_line
 import imp
 try:
     imp.find_module('settings') # Assumed to be in the same directory.
@@ -19,4 +19,4 @@ except ImportError:
 import settings
 
 if __name__ == "__main__":
-    execute_manager(settings)
+    execute_from_command_line(sys.argv)

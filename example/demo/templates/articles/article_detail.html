@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n inlines %}
+{% load url from future %}
 
 {% block extracss %}
 <link rel="stylesheet" href="{{ STATIC_URL }}inline_media/css/inline_media.css" type="text/css" media="screen" />
@@ -25,5 +26,5 @@
   {{ object.body|render_inlines }}
 </div>
 
-<a href="{% url articles-index %}">{% trans "back to the articles list" %}</a>
+<a href="{% url 'articles-index' %}">{% trans "back to the articles list" %}</a>
 {% endblock %}

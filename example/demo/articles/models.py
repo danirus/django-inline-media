@@ -1,7 +1,11 @@
+#-*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from datetime import datetime
 
 from django.db import models
 from django.db.models import permalink
+from django.utils.encoding import python_2_unicode_compatible
 
 from inline_media.fields import TextFieldWithInlines
 
@@ -12,7 +16,7 @@ class PublicManager(models.Manager):
     def published(self):
         return self.get_query_set().filter(publish__lte=datetime.now())
 
-
+@python_2_unicode_compatible
 class Article(models.Model):
     """Article, that accepts comments."""
 
@@ -28,8 +32,8 @@ class Article(models.Model):
         db_table = 'demo_articles'
         ordering = ('-publish',)
 
-    def __unicode__(self):
-        return u'%s' % self.title
+    def __str__(self):
+        return '%s' % self.title
 
     @permalink
     def get_absolute_url(self):
