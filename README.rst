@@ -1,10 +1,14 @@
 django-inline-media
 ===================
 
-|TravisCI|_
+|downloads|_ |TravisCI|_
 
 .. |TravisCI| image:: https://secure.travis-ci.org/danirus/django-inline-media.png?branch=master
 .. _TravisCI: https://travis-ci.org/danirus/django-inline-media
+.. |downloads| image:: https://pypip.in/d/django-inline-media/badge.png
+        :target: https://pypi.python.org/pypi/django-inline-media
+.. _downloads: https://pypi.python.org/pypi/django-inline-media
+
 
 Tested under:
 
