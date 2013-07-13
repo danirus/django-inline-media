@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from inline_media.conf import settings
 
@@ -10,13 +11,13 @@ def unescape_inline(value):
         return s
 
     init = 0
-    newval = u''
+    newval = ''
 
     while True:
-        istarts = value.find(u'&lt;inline', init)
+        istarts = value.find('&lt;inline', init)
         if istarts == -1:
             break
-        iends = value.find(u'&gt;', istarts) + 4
+        iends = value.find('&gt;', istarts) + 4
         newval += value[init:istarts]
         newval += unescape(value[istarts:iends])
         init = iends
