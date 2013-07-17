@@ -163,7 +163,7 @@ class PictureSet(models.Model):
         db_table = "inline_media_picture_sets"
   
     def __str__(self):
-        return "%s" % self.title
+        return self.title
 
     # used in admin 'list_display' to show the thumbnail of self.picture
     def cover_thumbnail(self):
