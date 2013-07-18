@@ -44,3 +44,9 @@ INLINE_MEDIA_CUSTOM_SIZES =  {
 
 # Quick way to site-wide change attributes of TextareaWithInlines widget
 INLINE_MEDIA_TEXTAREA_ATTRS = {}
+
+# TextFieldWithInlines parsing is done through BeautifulSoup4 and the 
+# 'html.parser' which add closing tags to elements that are not supposed to 
+# have closing tags. Use this setting to list all the tags you want to get 
+# removed from resulting parsed TextFieldWithInlines
+INLINE_MEDIA_REMOVE_TAGS = ['</br>']

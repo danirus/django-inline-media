@@ -44,7 +44,8 @@ def suite():
 
     from inline_media.tests import (test_fields, test_models, 
                                     test_parser, test_widgets,
-                                    test_conf, test_templates)
+                                    test_conf, test_templates,
+                                    test_utils)
 
     testsuite = unittest.TestSuite([
         unittest.TestLoader().loadTestsFromModule(test_conf),
@@ -53,6 +54,7 @@ def suite():
         unittest.TestLoader().loadTestsFromModule(test_parser),
         unittest.TestLoader().loadTestsFromModule(test_widgets),
         unittest.TestLoader().loadTestsFromModule(test_templates),
+        unittest.TestLoader().loadTestsFromModule(test_utils),
     ])
     return testsuite
 

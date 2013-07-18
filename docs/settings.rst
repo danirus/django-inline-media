@@ -106,6 +106,24 @@ Defaults to ``{}`` so that no extra attributes are applied.
 
 
 .. index::
+   single: INLINE_MEDIA_REMOVE_TAGS
+   pair: Setting; INLINE_MEDIA_REMOVE_TAGS
+
+``INLINE_MEDIA_REMOVE_TAGS``
+============================
+
+**Optional**
+
+This setting list all the tags that could be added by the parser 'html.parser' used with BeautifulSoup4 to render the content of TextFieldWithInlines. 'html.parser' is the only parser available under Python 3 at the moment.
+
+An example::
+
+    INLINE_MEDIA_REMOVE_TAGS = ['</br>', </whatever>']
+
+Defaults to ``['</br>']``
+
+
+.. index::
    single: ADMIN_IMAGES_PATH
    pair: Setting; ADMIN_IMAGES_PATH
 

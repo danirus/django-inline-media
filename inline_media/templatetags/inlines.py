@@ -3,7 +3,7 @@
 
 from django import template
 from inline_media.parser import inlines
-# from inline_media.models import InlineType
+
 import re
 
 register = template.Library()

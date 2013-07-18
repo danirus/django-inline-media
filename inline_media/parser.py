@@ -16,12 +16,12 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
 from inline_media.conf import settings
+from inline_media.utils import remove_tags
 
 
 def inlines(value, return_list=False):
-    # selfClosingTags = ['inline','img','br','input','meta','link','hr',]
-    soup = BeautifulSoup(value, 'html.parser')
-# selfClosingTags=selfClosingTags)
+    selfClosingTags = ['inline','img','br','input','meta','link','hr',]
+    soup = BeautifulSoup(value, 'html.parser', selfClosingTags=selfClosingTags)
     inline_list = []
     if return_list:
         for inline in soup.findAll('inline'):
@@ -36,12 +36,14 @@ def inlines(value, return_list=False):
                 rendered_item = BeautifulSoup(
                     render_to_string(rendered_inline['template'], 
                                      rendered_inline['context']),
-                    'html.parser')
-                    # selfClosingTags=selfClosingTags)
+                    'html.parser',
+                    selfClosingTags=selfClosingTags)
             else:
                 rendered_item = ''
             inline.replaceWith(rendered_item)
-        return mark_safe(soup)
+        result = remove_tags(mark_safe(soup), 
+                             settings.INLINE_MEDIA_REMOVE_TAGS)
+        return result
 
 
 #--------------------------------------------------

@@ -229,3 +229,4 @@ class RenderInlineTestCase(DjangoTestCase):
         inline = soup.findAll('inline')[0]
         with self.assertRaises(TemplateSyntaxError):
             render_inline(inline)
+
