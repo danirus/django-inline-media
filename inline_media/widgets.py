@@ -2,17 +2,22 @@
 from __future__ import unicode_literals
 
 import copy
+import django
 import six
 
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.urlresolvers import reverse
 from django.forms.util import flatatt
-from django.utils import simplejson
 from django.utils.encoding import force_text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from inline_media.conf import settings
+
+if django.VERSION <= (1, 5):
+    from django.utils import simplejson as json
+else:
+    import json
 
 
 default_sizes = ['mini', 'small', 'medium', 'large', 'full']
@@ -25,7 +30,7 @@ def build_imSizes_array():
         custom_sizes = settings.INLINE_MEDIA_CUSTOM_SIZES.get(inline_type, {})
         for k in [k for k, v in six.iteritems(custom_sizes) if not v]:
             im_sizes[im_type].remove(k)
-    return simplejson.dumps(im_sizes)
+    return json.dumps(im_sizes)
 
 
 class BaseInlinesDialogStr(object):
