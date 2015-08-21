@@ -1,10 +1,11 @@
-#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+try:
+    import json
+except ImportError:
+    from django.utils import simplejson as json
+
 from django.http import HttpResponse
-from django.template import TemplateSyntaxError
-from django.shortcuts import render_to_response
-from django.utils import simplejson
 from sorl.thumbnail import get_thumbnail
 from inline_media.conf import settings
 from inline_media.models import Picture
@@ -19,8 +20,8 @@ def render_inline(request, size, align, oid):
         else:
             return ''
     im = get_thumbnail(picture.picture, size)
-    json = simplejson.dumps({"src": im.url, 
-                             "title": picture.title, 
-                             "width": size, 
-                             "align": align})
-    return HttpResponse(json, mimetype='application/json')
+    data = json.dumps({"src": im.url,
+                       "title": picture.title,
+                       "width": size,
+                       "align": align})
+    return HttpResponse(data, mimetype='application/json')

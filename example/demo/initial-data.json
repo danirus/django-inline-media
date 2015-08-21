@@ -1,0 +1,632 @@
+[
+    {
+        "pk": 1,
+        "model": "sites.site",
+        "fields": {
+            "domain": "localhost:8000",
+            "name": "localhost:8000"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "admin",
+            "first_name": "Administrator",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2013-02-02T11:54:08.739",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$eAQk6frguOtB$Yu/+3zd1IrwQtjVWoRhcvN6UUuYgEVoiUM5atyrRPzw=",
+            "email": "admin@example.com",
+            "date_joined": "2012-01-12T10:49:55"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "articles.article",
+        "fields": {
+            "body": "<p>Just the good ol' boys, never meanin' no harm. Beats all you've ever saw, been in trouble with the law since the day they was born. Straight'nin' the curve, flat'nin' the hills. Someday the mountain might get 'em, but the law never will. Makin' their way, the only way they know how, that's just a little bit more than the law will allow. Just good ol' boys, wouldn't change if they could, fightin' the system like a true modern day Robin Hood.</p>\r\n\r\n<inline type=\"inline_media.pictureset\" id=\"1\" class=\"inline_full_center\" />\r\n\r\n<p>Mutley, you snickering, floppy eared hound. When courage is needed, you're never around. Those medals you wear on your moth-eaten chest should be there for bungling at which you are best. So, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon. Howwww! Nab him, jab him, tab him, grab him, stop that pigeon now.</p>\r\n",
+            "abstract": "<p>80 days around the world, we'll find a pot of gold just sitting where the rainbow's ending. Time - we'll fight against the time, and we'll fly on the white wings of the wind. 80 days around the world, no we won't say a word before the ship is really back. Round, round, all around the world. Round, all around the world. Round, all around the world. Round, all around the world.</p>",
+            "slug": "article-number-six",
+            "publish": "2012-02-16T18:04:03",
+            "title": "Article number six"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "articles.article",
+        "fields": {
+            "body": "<inline type=\"inline_media.pictureset\" id=\"2\" class=\"inline_large_right\" /><p>Hey there where ya goin', not exactly knowin', who says you have to call just one place home. He's goin' everywhere, B.J. McKay and his best friend Bear. He just keeps on movin', ladies keep improvin', every day is better than the last. New dreams and better scenes, and best of all I don't pay property tax. Rollin' down to Dallas, who's providin' my palace, off to New Orleans or who knows where. Places new and ladies, too, I'm B.J. McKay and this is my best friend Bear.</p>\r\n\r\n<p>This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!</p>\r\n\r\n<p>Barnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name. Birds taught me to sing, when they took me to their king, first I had to fly, in the sky so high so high, so high so high so high, so - if you want to sing this way, think of what you'd like to say, add a tune and you will see, just how easy it can be. Treacle pudding, fish and chips, fizzy drinks and liquorice, flowers, rivers, sand and sea, snowflakes and the stars are free. La la la la la, la la la la la la la, la la la la la la la, la la la la la la la la la la la la la, so - Barnaby The Bear's my name, never call me Jack or James, I will sing my way to fame, Barnaby the Bear's my name.</p>\r\n",
+            "abstract": "<p>Children of the sun, see your time has just begun, searching for your ways, through adventures every day. Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold. Do-do-do-do ah-ah-ah, do-do-do-do, Cities of Gold. Do-do-do-do, Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold.</p>",
+            "slug": "article-number-five",
+            "publish": "2012-02-15T18:01:36",
+            "title": "Article number five"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "articles.article",
+        "fields": {
+            "body": "<p>The show_description_inline field (Boolean) for the following picture has been disabled, so that you won't see the description. Neither you can see the description by clicking on the image, as it happens when pictures are shown in sizes other than full. This one has an inline_full_center CSS class. Full size pictures are never clickable. As the goal of the clickable feature is to show the picture in a bigger size. You can still make full size pictures clickable by creating a new inline_media.picture.full.html template file for your own project.</p>\r\n\r\n<inline type=\"inline_media.picture\" id=\"11\" class=\"inline_full_center\" /><p>Mutley, you snickering, floppy eared hound. When courage is needed, you're never around. Those medals you wear on your moth-eaten chest should be there for bungling at which you are best. So, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon, stop that pigeon. Howwww! Nab him, jab him, tab him, grab him, stop that pigeon now.</p>\r\n\r\n<p>Just the good ol' boys, never meanin' no harm. Beats all you've ever saw, been in trouble with the law since the day they was born. Straight'nin' the curve, flat'nin' the hills. Someday the mountain might get 'em, but the law never will. Makin' their way, the only way they know how, that's just a little bit more than the law will allow. Just good ol' boys, wouldn't change if they could, fightin' the system like a true modern day Robin Hood.</p>\r\n",
+            "abstract": "<p>Hey there where ya goin', not exactly knowin', who says you have to call just one place home. He's goin' everywhere, B.J. McKay and his best friend Bear. He just keeps on movin', ladies keep improvin', every day is better than the last. New dreams and better scenes, and best of all I don't pay property tax. Rollin' down to Dallas, who's providin' my palace, off to New Orleans or who knows where. Places new and ladies, too, I'm B.J. McKay and this is my best friend Bear.</p>",
+            "slug": "article-number-four",
+            "publish": "2012-02-14T17:01:16",
+            "title": "Article number four"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "articles.article",
+        "fields": {
+            "body": "<p>Ulysses, Ulysses - Soaring through all the galaxies. In search of Earth, flying in to the night. Ulysses, Ulysses - Fighting evil and tyranny, with all his power, and with all of his might. Ulysses - no-one else can do the things you do. Ulysses - like a bolt of thunder from the blue. Ulysses - always fighting all the evil forces bringing peace and justice to all.</p>\r\n\r\n<inline type=\"inline_media.picture\" id=\"10\" class=\"inline_medium_left\" /><p>This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!</p>\r\n\r\n<p>Thunder, thunder, thundercats, Ho! Thundercats are on the move, Thundercats are loose. Feel the magic, hear the roar, Thundercats are loose. Thunder, thunder, thunder, Thundercats! Thunder, thunder, thunder, Thundercats! Thunder, thunder, thunder, Thundercats! Thunder, thunder, thunder, Thundercats! Thundercats!</p>\r\n\r\n<p>I never spend much time in school but I taught ladies plenty. It's true I hire my body out for pay, hey hey. I've gotten burned over Cheryl Tiegs, blown up for Raquel Welch. But when I end up in the hay it's only hay, hey hey. I might jump an open drawbridge, or Tarzan from a vine. 'Cause I'm the unknown stuntman that makes Eastwood look so fine.</p>",
+            "abstract": "<p>Just the good ol' boys, never meanin' no harm. Beats all you've ever saw, been in trouble with the law since the day they was born. Straight'nin' the curve, flat'nin' the hills. Someday the mountain might get 'em, but the law never will. Makin' their way, the only way they know how, that's just a little bit more than the law will allow. Just good ol' boys, wouldn't change if they could, fightin' the system like a true modern day Robin Hood.</p>",
+            "slug": "article-number-three",
+            "publish": "2012-02-13T16:59:36",
+            "title": "Article number three"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "articles.article",
+        "fields": {
+            "body": "<inline type=\"inline_media.picture\" id=\"1\" class=\"inline_large_right\" /><p>Children of the sun, see your time has just begun, searching for your ways, through adventures every day. Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold. Do-do-do-do ah-ah-ah, do-do-do-do, Cities of Gold. Do-do-do-do, Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold.</p>\r\n\r\n<inline type=\"inline_media.picture\" id=\"2\" class=\"inline_medium_right\" /><p>Hong Kong Phooey, number one super guy. Hong Kong Phooey, quicker than the human eye. He's got style, a groovy style, and a car that just won't stop. When the going gets tough, he's really rough, with a Hong Kong Phooey chop (Hi-Ya!). Hong Kong Phooey, number one super guy. Hong Kong Phooey, quicker than the human eye. Hong Kong Phooey, he's fan-riffic!</p>\r\n\r\n<p>There's a voice that keeps on calling me. Down the road, that's where I'll always be. Every stop I make, I make a new friend. Can't stay for long, just turn around and I'm gone again. Maybe tomorrow, I'll want to settle down, Until tomorrow, I'll just keep moving on.</p>\r\n\r\n<p>There's a voice that keeps on calling me. Down the road, that's where I'll always be. Every stop I make, I make a new friend. Can't stay for long, just turn around and I'm gone again. Maybe tomorrow, I'll want to settle down, Until tomorrow, I'll just keep moving on.</p>",
+            "abstract": "<p>Children of the sun, see your time has just begun, searching for your ways, through adventures every day. Every day and night, with the condor in flight, with all your friends in tow, you search for the Cities of Gold. Ah-ah-ah-ah-ah... wishing for The Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold. Do-do-do-do ah-ah-ah, do-do-do-do, Cities of Gold. Do-do-do-do, Cities of Gold. Ah-ah-ah-ah-ah... some day we will find The Cities of Gold.</p>",
+            "slug": "article-number-two",
+            "publish": "2012-02-12T16:53:13",
+            "title": "Article number two"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "articles.article",
+        "fields": {
+            "body": "<inline type=\"inline_media.picture\" id=\"8\" class=\"inline_large_right\" /><p>One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, it's a pretty story. Sharing everything with fun, that's the way to be. One for all and all for one, Muskehounds are always ready. One for all and all for one, helping everybody. One for all and all for one, can sound pretty corny. If you've got a problem chum, think how it could be.</p>\r\n\r\n<p>Ten years ago a crack commando unit was sent to prison by a military court for a crime they didn't commit. These men promptly escaped from a maximum security stockade to the Los Angeles underground. Today, still wanted by the government, they survive as soldiers of fortune. If you have a problem and no one else can help, and if you can find them, maybe you can hire the A-team.</p>\r\n\r\n<p>Hong Kong Phooey, number one super guy. Hong Kong Phooey, quicker than the human eye. He's got style, a groovy style, and a car that just won't stop. When the going gets tough, he's really rough, with a Hong Kong Phooey chop (Hi-Ya!). Hong Kong Phooey, number one super guy. Hong Kong Phooey, quicker than the human eye. Hong Kong Phooey, he's fan-riffic!</p>\r\n\r\n<p>Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.</p>",
+            "abstract": "<p>Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.</p>",
+            "slug": "article-number-one",
+            "publish": "2012-02-11T16:42:55",
+            "title": "Article number one"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://artlibre.org/licence/lal/en",
+            "name": "Free Art License"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by/2.0/",
+            "name": "CC Attribution"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by-nd/2.0/",
+            "name": "CC Attribution-NoDerivs"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by-nc-nd/2.0/",
+            "name": "CC Attribution-NonCommercial-NoDerivs"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by-nc/2.0/",
+            "name": "CC Attribution-NonCommercial"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+            "name": "CC Attribution-NonCommercial-ShareAlike"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "inline_media.license",
+        "fields": {
+            "link": "http://creativecommons.org/licenses/by-sa/2.0/",
+            "name": "CC Attribution-ShareAlike"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "inline_media.pictureset",
+        "fields": {
+            "description": "A quick walk around my 2010 in photos.",
+            "show_description_inline": true,
+            "pictures": [
+                18,
+                17,
+                16,
+                15,
+                14,
+                13
+            ],
+            "title": "Quick year in photos",
+            "modified": "2013-02-03T00:49:18.739",
+            "slug": "quick-year-photos",
+            "created": "2012-02-16T16:37:35",
+            "show_counter": false,
+            "order": "18,14,16,17,13,15",
+            "tags": ""
+        }
+    },
+    {
+        "pk": 2,
+        "model": "inline_media.pictureset",
+        "fields": {
+            "description": "Assorted photos of the Winter 2005 in Munich",
+            "show_description_inline": true,
+            "pictures": [
+                23,
+                22,
+                21,
+                20,
+                19
+            ],
+            "title": "Assorted photos of a Winter in Munich",
+            "modified": "2012-02-19T19:08:55",
+            "slug": "assorted-photos-winter-munich",
+            "created": "2012-02-16T18:00:30",
+            "show_counter": false,
+            "order": "23,22,19,20,21",
+            "tags": ""
+        }
+    },
+    {
+        "pk": 23,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T17:58:29",
+            "picture": "pictures/2012/Feb/16/muc-winter-2005-05.jpg",
+            "show_license": false,
+            "description": "Skyline of Munich, from the top of the hill at the Olympia Park, 2005",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:11.616",
+            "show_as_link": true,
+            "sha1": "b459fd8457f14da2d85fb0d411afe2bb21cefe4f",
+            "title": "Skyline of Munich",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 22,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T17:57:25",
+            "picture": "pictures/2012/Feb/16/muc-winter-2005-04.jpg",
+            "show_license": false,
+            "description": "Playing curling on the Nymphenburg channel, Munich 2005",
+            "license": 5,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:14.355",
+            "show_as_link": true,
+            "sha1": "48d35c0df9fa5053668e3c075746c8153e395109",
+            "title": "Curling",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 21,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T17:42:15",
+            "picture": "pictures/2012/Feb/16/muc-winter-2005-03.jpg",
+            "show_license": false,
+            "description": "Ski jump in the Olympia Park, Munich 2005",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:15.445",
+            "show_as_link": true,
+            "sha1": "787d0cf0436753a1a0981937348d0e99c0cc6423",
+            "title": "Olympia Park",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 20,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T17:27:15",
+            "picture": "pictures/2012/Feb/16/muc-winter-2005-02.jpg",
+            "show_license": false,
+            "description": "Snowfall over the rooftops, Munich",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:12.084",
+            "show_as_link": true,
+            "sha1": "75315db6d853070e3e6c855ac8aa50301363e061",
+            "title": "Snowfall over the rooftops",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 19,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T17:24:26",
+            "picture": "pictures/2012/Feb/16/muc-winter-2005-01.jpg",
+            "show_license": true,
+            "description": "Snowfall in the neighborhood of Neuhausen, Munich, January 2005",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:14.693",
+            "show_as_link": true,
+            "sha1": "514b1f79fe3081fc611ba7a70b331268bc00f6f8",
+            "title": "Neuhausen, Munich",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 18,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:33:41",
+            "picture": "pictures/2012/Feb/16/for-slider-02.jpg",
+            "show_license": true,
+            "description": "Leuven, Winter of 2010, like if it was Winter of 59.",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:12.413",
+            "show_as_link": true,
+            "sha1": "db9687b9baa7b46d9f49957613c6d4dd0f46f77c",
+            "title": "Leuven",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 17,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:32:54",
+            "picture": "pictures/2012/Feb/16/for-slider-05.jpg",
+            "show_license": false,
+            "description": "Playa de La Concha, San Sebasti\u00e1n, Pais Vasco, Espa\u00f1a.",
+            "license": 6,
+            "author": "Carlos Ortiz Duque",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:15.783",
+            "show_as_link": true,
+            "sha1": "548c270163507008a7dd61e2d35d2bdeb1cadd49",
+            "title": "La Concha",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 16,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:32:14",
+            "picture": "pictures/2012/Feb/16/for-slider-06.jpg",
+            "show_license": true,
+            "description": "Barcas de pesca, Puerto de Mah\u00f3n, Menorca",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:16.264",
+            "show_as_link": true,
+            "sha1": "e6301098fe05a45628eb9481118166389c1ed7ef",
+            "title": "Menorca",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 15,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:31:24",
+            "picture": "pictures/2012/Feb/16/for-slider-01.jpg",
+            "show_license": true,
+            "description": "Hirsberg, near Tegernsee, Bayern, Germany.",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:15.044",
+            "show_as_link": true,
+            "sha1": "fd8f64982e32f7feb68a1285b89a38f2d719e430",
+            "title": "Hirsberg",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 14,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:30:05",
+            "picture": "pictures/2012/Feb/16/for-slider-04.jpg",
+            "show_license": true,
+            "description": "Isolated house in the middle of a snow field. Salzburg, Austria.",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:16.680",
+            "show_as_link": true,
+            "sha1": "0ff75202e4f58e542e2a5331f83b638a0b0e5d04",
+            "title": "Isolation",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 13,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T16:29:01",
+            "picture": "pictures/2012/Feb/16/for-slider-03.jpg",
+            "show_license": true,
+            "description": "Spider webs in the Austrian Alps.",
+            "license": 6,
+            "author": "Daniel Rus Morales",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:17.073",
+            "show_as_link": true,
+            "sha1": "34920e2a89558d4eaa9a9f12a048da7e26777e51",
+            "title": "Spider Webs",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 12,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:32:40",
+            "picture": "pictures/2012/Feb/16/redhat-logo.jpg",
+            "show_license": false,
+            "description": "Ready to do more today? Standardize on <a href=\"http://gb.redhat.com/products/enterprise-linux/\" target=\"_new\">Red Hat\u00ae Enterprise Linux\u00ae</a> and get more of everything you expect from an enterprise-class open source operating system with flexibility, efficiency, and control. Red Hat Enterprise Linux is your solution across a broad range of hardware architectures, hypervisors, and clouds.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:14.082",
+            "show_as_link": true,
+            "sha1": "5294ce76f1716c11d1b870ffa4769d21cc940e0c",
+            "title": "Red Hat",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 11,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:31:35",
+            "picture": "pictures/2012/Feb/16/windows8_original_1.jpg",
+            "show_license": true,
+            "description": "Windows 8 Developer Preview is available for you to try now.",
+            "license": 7,
+            "author": "Fulanito Detal",
+            "show_description_inline": false,
+            "modified": "2013-02-03T00:04:21.768",
+            "show_as_link": true,
+            "sha1": "03d75c54274d79307346335a69de63bc7a9d8878",
+            "title": "Windows 8",
+            "show_author": true,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 10,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:27:13",
+            "picture": "pictures/2012/Feb/16/open-suse-logo.png",
+            "show_license": false,
+            "description": "<a href=\"http://www.opensuse.org/en/\" target=\"_new\">openSUSE</a> is a free and Linux-based operating system for your PC, Laptop or Server. You can surf the web, manage your e-mails and photos, do office work, play videos or music and have a lot of fun!",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:13.800",
+            "show_as_link": true,
+            "sha1": "8280e2c7a11b0928f44c62ba79db31b872279cac",
+            "title": "OpenSUSE",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 9,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:26:15",
+            "picture": "pictures/2012/Feb/16/slackware_logo.jpg",
+            "show_license": false,
+            "description": "The Official Release of Slackware Linux by Patrick Volkerding is an advanced Linux operating system, designed with the twin goals of ease of use and stability as top priorities. Including the latest popular software while retaining a sense of tradition, providing simplicity and ease of use alongside flexibility and power, Slackware brings the best of all worlds to the table.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:17.428",
+            "show_as_link": true,
+            "sha1": "1c546416bd87afd8f6efdfa742fb23909a02c8cb",
+            "title": "Slackware",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 8,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:24:42",
+            "picture": "pictures/2012/Feb/16/logo-ubuntu.jpg",
+            "show_license": false,
+            "description": "Super-fast, easy to use and free, the Ubuntu operating system powers millions of desktops, netbooks and servers around the world. Ubuntu does everything you need it to. It'll work with your existing PC files, printers, cameras and MP3 players. And it comes with thousands of free apps.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:13.525",
+            "show_as_link": true,
+            "sha1": "317a7556d2711503f97798392f9d06ce364c26fa",
+            "title": "Ubuntu",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 7,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:23:44",
+            "picture": "pictures/2012/Feb/16/mac-logo.jpg",
+            "show_license": false,
+            "description": "Built on a rock-solid UNIX foundation, OS X is engineered to take full advantage of the technologies in every new Mac. And to deliver the most intuitive and integrated computer experience.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:17.699",
+            "show_as_link": true,
+            "sha1": "98231e7cf6d986a2b25f5f6f8125752c5d5ce97c",
+            "title": "Mac OS X",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 6,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:21:23",
+            "picture": "pictures/2012/Feb/16/debian-logo.jpg",
+            "show_license": false,
+            "description": "A free operating system (OS) for your computer. Debian uses the Linux kernel (the core of an operating system), but most of the basic OS tools come from the GNU project.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:18.103",
+            "show_as_link": true,
+            "sha1": "7c70f2999352996bca4f4e76858c300890d6fb9e",
+            "title": "Debian GNU Linux",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 5,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T13:20:06",
+            "picture": "pictures/2012/Feb/16/gentoo-logo.jpg",
+            "show_license": false,
+            "description": "Gentoo Linux, a special flavor of Linux that can be automatically optimized and customized for just about any application or need.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:18.438",
+            "show_as_link": true,
+            "sha1": "27f958f5ca179d172d6132235ff10678f9f40a9e",
+            "title": "Gentoo Linux",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 4,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T10:41:14",
+            "picture": "pictures/2012/Feb/16/freebsd-logo.png",
+            "show_license": false,
+            "description": "FreeBSD\u00ae is an advanced operating system for modern server, desktop, and embedded computer platforms.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:18.786",
+            "show_as_link": true,
+            "sha1": "2d31617e0678070ac46e692b4177cc57f93e8a1b",
+            "title": "FreeBSD",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 3,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T10:23:43",
+            "picture": "pictures/2012/Feb/16/fedora-logo.png",
+            "show_license": false,
+            "description": "Fedora is a fast, stable, and powerful operating system for everyday use built by a worldwide community of friends",
+            "license": null,
+            "author": "Red Hat, Inc",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:19.194",
+            "show_as_link": true,
+            "sha1": "06d16e26f16287221ef45aa8ad133e09c8d8bdc3",
+            "title": "Fedora ",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 2,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T09:14:39",
+            "picture": "pictures/2012/Feb/16/django-logo-negative.png",
+            "show_license": false,
+            "description": "<a href=\"http://www.www.djangoproject.com\" target=\"_new\">Django</a> is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:13.060",
+            "show_as_link": true,
+            "sha1": "4f1b7cc48fabc8730f5e8ec633f7ecc324c5f386",
+            "title": "Django Web Framework",
+            "show_author": false,
+            "tags": ""
+        }
+    },
+    {
+        "pk": 1,
+        "model": "inline_media.picture",
+        "fields": {
+            "uploaded": "2012-02-16T09:11:05",
+            "picture": "pictures/2012/Feb/16/python-logo-master-v3-TM.png",
+            "show_license": false,
+            "description": "<a href=\"http://www.python.org\" target=\"_new\">Python</a> is a programming language that lets you work more quickly and integrate your systems more effectively.",
+            "license": null,
+            "author": "",
+            "show_description_inline": true,
+            "modified": "2013-02-01T19:52:12.793",
+            "show_as_link": true,
+            "sha1": "c8a756475599e6e3c904b24077b4b0a31983752c",
+            "title": "Python Programming Language",
+            "show_author": false,
+            "tags": ""
+        }
+    }
+]

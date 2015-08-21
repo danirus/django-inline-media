@@ -1,5 +1,3 @@
-#-*- coding: utf-8 -*-
-
 import copy
 import six
 
@@ -10,6 +8,7 @@ from inline_media.widgets import TextareaWithInlines
 
 
 textarea_attrs = None
+
 
 def build_textarea_attrs(attrdict):
     newdict = {}
@@ -23,9 +22,10 @@ def build_textarea_attrs(attrdict):
         newdict[klass] = v
     return newdict
 
+
 def get_attrs(model, formfield):
     global textarea_attrs
-    if textarea_attrs == None:
+    if textarea_attrs is None:
         textarea_attrs = build_textarea_attrs(
             settings.INLINE_MEDIA_TEXTAREA_ATTRS)
     if textarea_attrs.get('default', False):
@@ -36,6 +36,7 @@ def get_attrs(model, formfield):
         attrs.update(textarea_attrs[model].get(formfield, {}))
     return attrs
 
+
 class TextFieldWithInlines(fields.TextField):
 
     def formfield(self, **kwargs):
@@ -43,10 +44,12 @@ class TextFieldWithInlines(fields.TextField):
         attrs = get_attrs(self.model, self.name)
         if attrs:
             widget = TextareaWithInlines(attrs=attrs)
-        else: widget = TextareaWithInlines
+        else:
+            widget = TextareaWithInlines
         defaults = {"widget": widget}
         kwargs.update(defaults)
         return super(TextFieldWithInlines, self).formfield(**kwargs)
+
 
 try:
     from south.modelsinspector import add_introspection_rules

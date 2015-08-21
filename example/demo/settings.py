@@ -109,7 +109,8 @@ INSTALLED_APPS = (
     "django.contrib.admin",
 
     "sorl.thumbnail",
-    "tagging",
+    # "tagging",
+    "taggit",
     "inline_media",
 
     "demo.articles",

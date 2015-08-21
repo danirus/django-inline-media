@@ -1,18 +1,16 @@
-#-*- coding: utf-8
 from __future__ import unicode_literals
 
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 import os
 
 from sorl.thumbnail import default
 import unittest
 
-from django.template import TemplateSyntaxError
 from django.test import TestCase as DjangoTestCase
 
 from inline_media.models import PictureSet
 from inline_media.parser import inlines, render_inline
-from inline_media.tests.test_models import (create_picture_1, 
+from inline_media.tests.test_models import (create_picture_1,
                                             create_picture_2,
                                             create_picture_3)
 
@@ -25,7 +23,7 @@ def skipIfGetThumbnailFails(f):
             for filename in filenames:
                 filepath = os.path.join(curdir, filename)
                 f = open(filepath, 'r')
-                thumbpic = default.backend.get_thumbnail(f, '100x100')
+                default.backend.get_thumbnail(f, '100x100')
         except Exception as exc:
             raise unittest.SkipTest(exc)
         return lambda f: f
@@ -67,7 +65,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_description_inline = True
             #  - show_author = False
             #  - show_license = False
-            # But! template for size 'mini' never includes 
+            # But! template for size 'mini' never includes
             # picture's author, license or description
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
@@ -90,9 +88,10 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -110,9 +109,10 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -130,9 +130,10 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 1)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -140,8 +141,8 @@ class PictureTemplateTestCase(DjangoTestCase):
     @skipIfGetThumbnailFails
     def test_full_with_default_options(self):
         tmpl = 'inline_media/inline_media.picture.full.html'
-        positions = ['inline_full_left', 
-                     'inline_full_center', 
+        positions = ['inline_full_left',
+                     'inline_full_center',
                      'inline_full_right']
         for cssclass in positions:
             self.assert_(tmpl in self._inline_with_css_class(cssclass))
@@ -152,9 +153,10 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = False
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
-            self.assert_(len(links) == 0) # no link in full mode
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
+            self.assert_(len(links) == 0)  # no link in full mode
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_author') == -1)
             self.assert_(html.find('inline_license') == -1)
@@ -171,7 +173,7 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_description_inline = False
             #  - show_author = False
             #  - show_license = False
-            # But! template for size 'mini' never includes 
+            # But! template for size 'mini' never includes
             # picture's author, license or description
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
@@ -195,12 +197,12 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = True
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 0)
             self.assert_(html.find('inline_description') == -1)
-            author = soup.findAll('span', attrs={'class':'inline_author'})
+            author = soup.findAll('span', attrs={'class': 'inline_author'})
             self.assert_(len(author) == 1)
-            license = soup.findAll('span', attrs={'class':'inline_license'})
+            license = soup.findAll('span', attrs={'class': 'inline_license'})
             self.assert_(len(license) == 1)
 
     @skipIfGetThumbnailFails
@@ -217,12 +219,12 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = True
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 0)
             self.assert_(html.find('inline_description') == -1)
-            author = soup.findAll('span', attrs={'class':'inline_author'})
+            author = soup.findAll('span', attrs={'class': 'inline_author'})
             self.assert_(len(author) == 1)
-            license = soup.findAll('span', attrs={'class':'inline_license'})
+            license = soup.findAll('span', attrs={'class': 'inline_license'})
             self.assert_(len(license) == 1)
 
     @skipIfGetThumbnailFails
@@ -239,19 +241,19 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = True
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
+            links = soup.findAll('a', attrs={'class': 'picture'})
             self.assert_(len(links) == 0)
             self.assert_(html.find('inline_description') == -1)
-            author = soup.findAll('span', attrs={'class':'inline_author'})
+            author = soup.findAll('span', attrs={'class': 'inline_author'})
             self.assert_(len(author) == 1)
-            license = soup.findAll('span', attrs={'class':'inline_license'})
+            license = soup.findAll('span', attrs={'class': 'inline_license'})
             self.assert_(len(license) == 1)
 
     @skipIfGetThumbnailFails
     def test_full_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.picture.full.html'
-        positions = ['inline_full_left', 
-                     'inline_full_center', 
+        positions = ['inline_full_left',
+                     'inline_full_center',
                      'inline_full_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
@@ -263,12 +265,12 @@ class PictureTemplateTestCase(DjangoTestCase):
             #  - show_license = True
             html = inlines(self.tag % cssclass, return_list=False)
             soup = BeautifulSoup(html)
-            links = soup.findAll('a', attrs={'class':'picture'})
-            self.assert_(len(links) == 0) # no link ever in full mode
+            links = soup.findAll('a', attrs={'class': 'picture'})
+            self.assert_(len(links) == 0)  # no link ever in full mode
             self.assert_(html.find('inline_description') == -1)
-            author = soup.findAll('span', attrs={'class':'inline_author'})
+            author = soup.findAll('span', attrs={'class': 'inline_author'})
             self.assert_(len(author) == 1)
-            license = soup.findAll('span', attrs={'class':'inline_license'})
+            license = soup.findAll('span', attrs={'class': 'inline_license'})
             self.assert_(len(license) == 1)
 
 
@@ -284,7 +286,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             title="example set", slug="example-set", order="3,1,2")
         self.picset.pictures.add(self.pics[0])
         self.picset.pictures.add(self.pics[1])
-        self.picset.pictures.add(self.pics[2]) 
+        self.picset.pictures.add(self.pics[2])
         self.tag = ('<inline type="inline_media.pictureset" '
                     'id="%d"' % self.picset.id + ' class="%s"/>')
 
@@ -301,20 +303,18 @@ class PictureSetTemplateTestCase(DjangoTestCase):
     @skipIfGetThumbnailFails
     def test_mini_with_default_options(self):
         # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
-        tmpl = 'inline_media/inline_media.pictureset.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
         for cssclass in positions:
             with self.assertRaises(Exception):
-                html = inlines(self.tag % cssclass, return_list=False)
+                inlines(self.tag % cssclass, return_list=False)
 
     @skipIfGetThumbnailFails
     def test_small_with_default_options(self):
         # size disabled in tests.settings.INLINE_MEDIA_CUSTOM_SIZES
-        tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_small_left', 'inline_small_right']
         for cssclass in positions:
             with self.assertRaises(Exception):
-                html = inlines(self.tag % cssclass, return_list=False)
+                inlines(self.tag % cssclass, return_list=False)
 
     @skipIfGetThumbnailFails
     def test_medium_with_default_options(self):
@@ -333,7 +333,8 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
@@ -354,15 +355,16 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
     @skipIfGetThumbnailFails
     def test_full_with_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.full.html'
-        positions = ['inline_full_left', 
-                     'inline_full_center', 
+        positions = ['inline_full_left',
+                     'inline_full_center',
                      'inline_full_right']
         for cssclass in positions:
             self.assert_(tmpl in self._inline_with_css_class(cssclass))
@@ -377,27 +379,26 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             order = [int(x)-1 for x in self.picset.order.split(",")]
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
-            descrip = soup.findAll('span', attrs={'class':'inline_description'})
+            descrip = soup.findAll('span',
+                                   attrs={'class': 'inline_description'})
             self.assert_(len(descrip) == 1)
             self.assert_(html.find('inline_counter') == -1)
 
     @skipIfGetThumbnailFails
     def test_mini_with_reversed_default_options(self):
-        tmpl = 'inline_media/inline_media.pictureset.mini.html'
         positions = ['inline_mini_left', 'inline_mini_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
             with self.assertRaises(Exception):
-                html = inlines(self.tag % cssclass, return_list=False)
+                inlines(self.tag % cssclass, return_list=False)
 
     @skipIfGetThumbnailFails
     def test_small_with_reversed_default_options(self):
-        tmpl = 'inline_media/inline_media.pictureset.default.html'
         positions = ['inline_small_left', 'inline_small_right']
         self._reverse_default_boolean_field_values()
         for cssclass in positions:
             with self.assertRaises(Exception):
-                html = inlines(self.tag % cssclass, return_list=False)
+                inlines(self.tag % cssclass, return_list=False)
 
     @skipIfGetThumbnailFails
     def test_medium_with_reversed_default_options(self):
@@ -418,7 +419,7 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('span', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class': 'inline_counter'})
             self.assert_(len(counter) == 1)
 
     @skipIfGetThumbnailFails
@@ -440,13 +441,13 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('span', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class': 'inline_counter'})
             self.assert_(len(counter) == 1)
 
     @skipIfGetThumbnailFails
     def test_full_with_reversed_default_options(self):
         tmpl = 'inline_media/inline_media.pictureset.full.html'
-        positions = ['inline_full_left', 
+        positions = ['inline_full_left',
                      'inline_full_center',
                      'inline_full_right']
         self._reverse_default_boolean_field_values()
@@ -464,5 +465,5 @@ class PictureSetTemplateTestCase(DjangoTestCase):
             for idx, link in zip(order, links):
                 self.assert_(link['href'] == self.pics[idx].url)
             self.assert_(html.find('inline_description') == -1)
-            counter = soup.findAll('span', attrs={'class':'inline_counter'})
+            counter = soup.findAll('span', attrs={'class': 'inline_counter'})
             self.assert_(len(counter) == 1)

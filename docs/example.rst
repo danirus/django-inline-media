@@ -4,11 +4,7 @@
 Demo projects
 =============
 
-There are two demo projects:
-
-1. **demo**: An article model with a TextFieldWithInlines
-2. **demo_wysihtml5**: The same article model with a Wysihtml5TextField (beta)
-
+There is a demo project showing stories (custom model Article) with a TextFieldWithInlines, so that the user may insert inline media content in the text.
 
 Find the code of the example sites `here <http://github.com/danirus/django-inline-media/tree/master/example>`_.
 
@@ -20,21 +16,12 @@ Demo sites setup
 
 Run the demo sites in a `virtualenv <http://www.virtualenv.org/en/latest/>`_ for this app. Create the virtualenv, clone the code and cd into any of the demo sites. Then do as follow.
 
-For the **demo** project::
-
     $ cd django-inline-media/example/demo
     $ python manage.py syncdb --noinput
     $ python manage.py collectstatic
     $ python manage.py runserver
 
-For the **demo_wysihtml5** project::
-
-    $ cd django-inline-media/example/demo_wysihtml5
-    $ sh install.sh
-    $ python manage.py collectstatic
-    $ python manage.py runserver
-
-Both sites have the same admin user/pwd: ``admin/admin``.
+Admin user/pwd: ``admin/admin``.
 
 
 .. index::
@@ -106,40 +93,3 @@ An inline picture set has different looks:
 The overlaid gallery view of the picture set of article five:
 
 .. image:: images/demo_article_5_gallery.png
-
-
-.. index::
-   single: Wysihtml5
-   pair: Wysihtml5; Demo
-
-.. _ref-wysihtml5-demo:
-
-Wysihtml5 demo project
-======================
-
-**django-inline-media** comes with a new command *insertInlineMedia** for the Wysihtml5 rich text editor. The ``demo_wysihtml5`` shows it in action.
-
-The demo settings file customise two **django-wysihtml5** settings that allow replace the *insertImage* command by your own::
-
-    WYSIHTML5_CMD_INSERT_IMAGE = "insertInlinePicture"
-    WYSIHTML5_FUNC_INSERT_IMAGE_DIALOG = "inline_media.widgets.render_insert_inline_picture_dialog"
-
-In the **Article** models file we make use of **Wysihtml5TextField**::
-
-    from wysihtml5.fields import Wysihtml5TextField
-
-    class Article(models.Model):
-        [...]
-        abstract = models.TextField()   # a regular django TextField
-        body     = Wysihtml5TextField() # a Textfield that uses a Wysihtml5 widget editor
-
-The admin class for that model looks like::
-
-    from wysihtml5.admin import AdminWysihtml5TextFieldMixin
-
-    class ArticleAdmin(AdminWysihtml5TextFieldMixin, admin.ModelAdmin):
-        [...]
-
-And finally include the django-wysihtml5 specific ``stylesheet.css`` file in your templates whenever you render the content of the **body** field::
-
-    <link rel="stylesheet" href="{{ STATIC_URL }}wysihtml5/css/stylesheet.css" type="text/css" media="screen" />

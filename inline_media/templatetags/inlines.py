@@ -4,8 +4,6 @@
 from django import template
 from inline_media.parser import inlines
 
-import re
-
 register = template.Library()
 
 
@@ -45,6 +43,7 @@ def render_inlines(value):
     you know for sure one or the other will only be present.
     """
     return inlines(value)
+
 
 @register.filter
 def extract_inlines(value):

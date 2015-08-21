@@ -1,5 +1,3 @@
-#-*- coding: utf-8 -*-
-
 import os
 import six
 
@@ -8,7 +6,8 @@ from django.test import TestCase as DjangoTestCase
 
 from inline_media.conf import settings
 from inline_media.models import License, Picture, PictureSet
-from inline_media.tests.forms import TestModelForm
+from inline_media.tests.forms import ModelTestForm
+
 
 def get_license():
     try:
@@ -17,6 +16,7 @@ def get_license():
         return License.objects.create(
             name="default license",
             link="http://creativecommons.org/licenses/by-sa/3.0/")
+
 
 def create_picture_1():
     curdir = os.path.dirname(__file__)
@@ -29,6 +29,7 @@ def create_picture_1():
                                        picture=image_1)
     return picture_1
 
+
 def create_picture_2():
     curdir = os.path.dirname(__file__)
     file_2 = os.path.join(curdir, "images/palandroid.png")
@@ -40,11 +41,12 @@ def create_picture_2():
                                        picture=image_2)
     return picture_2
 
+
 def create_picture_3():
     curdir = os.path.dirname(__file__)
     file_3 = os.path.join(curdir, "images/theweb.jpg")
     image_3 = ImageFile(open(file_3, "rb"))
-    picture_3 = Picture.objects.create(title="the web", 
+    picture_3 = Picture.objects.create(title="the web",
                                        description="picture 3 description",
                                        author="picture 3 author",
                                        license=get_license(),
@@ -77,8 +79,8 @@ class PictureSetTestCase(DjangoTestCase):
         self.picture_2 = create_picture_2()
         self.picture_3 = create_picture_3()
         self.values = {
-            'title': 'example set', 
-            'slug': 'example-set', 
+            'title': 'example set',
+            'slug': 'example-set',
             'order': '3,1,2'
         }
 
@@ -86,18 +88,19 @@ class PictureSetTestCase(DjangoTestCase):
         self.picset = PictureSet.objects.create(**kwargs)
         self.picset.pictures.add(self.picture_1,
                                  self.picture_2,
-                                 self.picture_3) 
-                                  
-    def test_pictureset_get_picture_titles_as_ul(self):
-        self.create_object(**self.values)
-        self.assertEqual(
-            self.picset.picture_titles_as_ul(),
-            '<ul><li>the web (cover)</li><li>android original</li><li>android clone</li></ul>')
+                                 self.picture_3)
 
     def test_pictureset_get_picture_titles_as_ul(self):
         self.create_object(**self.values)
         self.assertEqual(
-            [pic for pic in self.picset.next_picture()], 
+            self.picset.picture_titles_as_ul(),
+            ('<ul><li>the web (cover)</li><li>android original</li>'
+             '<li>android clone</li></ul>'))
+
+    def test_pictureset_next_picture(self):
+        self.create_object(**self.values)
+        self.assertEqual(
+            [pic for pic in self.picset.next_picture()],
             [self.picture_3, self.picture_1, self.picture_2])
 
     def test_should_not_fail_when_no_order(self):
@@ -108,8 +111,8 @@ class PictureSetTestCase(DjangoTestCase):
     def test_should_not_fail_when_order_is_uncomplete(self):
         self.values['order'] = "2,"
         self.create_object(**self.values)
-        expected_order = [2] + [p.id for p in self.picset.pictures.all() 
-                                if p.id!=2]
+        expected_order = [2] + [p.id for p in self.picset.pictures.all()
+                                if p.id != 2]
         retrieved_order = []
         for pic in self.picset.next_picture():
             retrieved_order.append(pic.id)
@@ -138,8 +141,9 @@ class ModelFormTestCase(DjangoTestCase):
     def test_field(self):
         attrs = {}
         attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS['default'])
-        attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS['tests.TestModel']['second_text'])
-        form = TestModelForm()
+        attrs.update(settings.INLINE_MEDIA_TEXTAREA_ATTRS
+                     ['tests.ModelTest']['second_text'])
+        form = ModelTestForm()
         widget = form.fields['second_text'].widget
         for k, v in six.iteritems(attrs):
             self.assert_(widget.attrs.get(k, '') == v)

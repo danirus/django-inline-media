@@ -1,5 +1,3 @@
-#-*- coding: utf-8 -*-
-
 import os
 
 DEBUG = True
@@ -13,12 +11,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.sqlite3', 
-        'NAME':     'django_inline_media_test',
-        'USER':     '', 
-        'PASSWORD': '', 
-        'HOST':     '', 
-        'PORT':     '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'django_inline_media_test',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -66,7 +64,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'inline_media.tests.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # os.path.join(os.path.dirname(__file__), "..", "templates"),
@@ -79,7 +78,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'sorl.thumbnail',
-    'tagging',
+    'taggit',
     'inline_media',
 
     'inline_media.tests',
@@ -88,7 +87,7 @@ INSTALLED_APPS = [
 THUMBNAIL_BACKEND = "inline_media.sorl_backends.AutoFormatBackend"
 THUMBNAIL_FORMAT = "JPEG"
 
-#THUMBNAIL_STORAGE = "inline_media.tests.storage.TestStorage"
+# THUMBNAIL_STORAGE = "inline_media.tests.storage.TestStorage"
 # ADMIN_IMAGES_PATH = "%s/admin/img/admin" % STATIC_URL # Django 1.3
 
 INLINE_MEDIA_TYPES = [
@@ -98,8 +97,8 @@ INLINE_MEDIA_TYPES = [
 ]
 
 INLINE_MEDIA_CUSTOM_SIZES = {
-    'inline_media.picture': { 'mini': 81 },
-    'inline_media.pictureset': { 
+    'inline_media.picture': {'mini': 81},
+    'inline_media.pictureset': {
         # by default -> 'mini': None # see inline_media/conf/defaults.py
         'small': None
     }
@@ -109,8 +108,8 @@ INLINE_MEDIA_TEXTAREA_ATTRS = {
     'default': {
         'style': 'font: 13px monospace'
     },
-    'tests.TestModel': {
-        'second_text': { 'rows': '20' }
+    'tests.ModelTest': {
+        'second_text': {'rows': '20'}
     }
 }
 

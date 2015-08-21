@@ -1,24 +1,22 @@
-#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import hashlib
-import os
-import os.path
 
 from django.db import models
 from django.db.models.signals import pre_delete
-from django.contrib.contenttypes.models import ContentType
 from django.core import urlresolvers
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail import get_thumbnail, ImageField
 from sorl.thumbnail.default import Storage
-from tagging.fields import TagField
+from taggit.managers import TaggableManager
 
 from inline_media.conf import settings
 
+
 storage = Storage()
+
 
 LICENSES = (('http://artlibre.org/licence/lal/en',
              'Free Art License'),
@@ -38,12 +36,11 @@ LICENSES = (('http://artlibre.org/licence/lal/en',
 
 @python_2_unicode_compatible
 class License(models.Model):
-    """Licenses under whose terms and conditions media is publicly accesible""" 
+    """Licenses under whose terms and conditions media is publicly accesible"""
 
     name = models.CharField(max_length=255)
     link = models.URLField(unique=True)
-    tags = TagField(help_text=_("i.e: creativecommons, comercial, "
-                                "non-commercial, ..."))
+    tags = TaggableManager()
 
     class Meta:
         db_table = 'inline_media_licenses'
@@ -55,14 +52,15 @@ class License(models.Model):
     def __str__(self):
         return self.name
 
-#----------------------------------------------------------------------
+# ---------------------------------------------------------------------
 # find_duplicates idea borrowed from django-filer by Stefan Foulis
 # https://github.com/stefanfoulis/django-filer.git
 
+
 class PictureManager(models.Manager):
     def find_duplicates(self, pic):
-        return [ p for p in self.exclude(pk=pic.pk).filter(sha1=pic.sha1) ]
-        
+        return [p for p in self.exclude(pk=pic.pk).filter(sha1=pic.sha1)]
+
 
 @python_2_unicode_compatible
 class Picture(models.Model):
@@ -81,9 +79,9 @@ class Picture(models.Model):
     show_license = models.BooleanField(default=False)
     uploaded = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    sha1 = models.CharField(max_length=40, db_index=True, 
+    sha1 = models.CharField(max_length=40, db_index=True,
                             blank=True, default="")
-    tags = TagField(help_text=_("i.e: logo, photo, country, season, ..."))
+    tags = TaggableManager()
 
     objects = PictureManager()
 
@@ -149,7 +147,7 @@ class PictureSet(models.Model):
     show_description_inline = models.BooleanField(default=True)
     pictures = models.ManyToManyField("Picture", related_name="picture_sets")
     order = models.CommaSeparatedIntegerField(
-        blank=True, max_length=512, 
+        blank=True, max_length=512,
         help_text=_("Establish pictures order by typing the comma "
                     "separated list of their picture IDs."))
     show_counter = models.BooleanField(
@@ -157,11 +155,11 @@ class PictureSet(models.Model):
                                    "contains the pictureset."))
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    tags = TagField(help_text=_("i.e: exposition, holidays, party, ..."))
-    
+    tags = TaggableManager()
+
     class Meta:
         db_table = "inline_media_picture_sets"
-  
+
     def __str__(self):
         return self.title
 

@@ -1,10 +1,10 @@
-#-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import re
 
 from django.utils.functional import allow_lazy
 from inline_media.conf import settings
+
 
 def unescape_inline(value):
     def unescape(s):
@@ -45,6 +45,7 @@ def get_css_classes_for_app_model(inline_type):
         css_classes.append('inline_full_center')
         css_classes.append('inline_full_right')
     return css_classes
+
 
 def remove_tags(value, tags):
     for tag in tags:

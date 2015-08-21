@@ -1,9 +1,8 @@
-#-*- coding: utf-8 -*-
-
 from django import forms
-from inline_media.tests.models import TestModel
+from inline_media.tests.models import ModelTest
 
 
-class TestModelForm(forms.ModelForm):
+class ModelTestForm(forms.ModelForm):
     class Meta:
-        model = TestModel
+        model = ModelTest
+        fields = ['first_text', 'second_text']

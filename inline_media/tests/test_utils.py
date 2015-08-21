@@ -1,8 +1,7 @@
-#-*- coding: utf-8 -*-
-
 from django.test import TestCase as DjangoTestCase
 from inline_media.conf import settings
 from inline_media.utils import remove_tags
+
 
 class RemoveTagsTestCase(DjangoTestCase):
     def test_remove_tags(self):

@@ -10,6 +10,7 @@ class LazySettings(LazyObject):
     def _setup(self):
         self._wrapped = Settings(app_settings, django_settings)
 
+
 def update_dict_in_depth(a, b):
     """Updates dict a in depth with values of dict b (not for sequences)"""
     for k, v in six.iteritems(b):
@@ -17,6 +18,7 @@ def update_dict_in_depth(a, b):
                 update_dict_in_depth(a[k], v)
         else:
             a[k] = v
+
 
 class Settings(object):
     def __init__(self, *args):

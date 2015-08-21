@@ -3,13 +3,11 @@
 from __future__ import unicode_literals
 
 import re
-import six
 
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 
 from django.template import TemplateSyntaxError
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404
 from django.utils.encoding import smart_text
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -33,18 +31,18 @@ def inlines(value, return_list=False):
             rendered_inline = render_inline(inline)
             if rendered_inline:
                 rendered_item = BeautifulSoup(
-                    render_to_string(rendered_inline['template'], 
+                    render_to_string(rendered_inline['template'],
                                      rendered_inline['context']),
                     'html.parser')
             else:
                 rendered_item = ''
             inline.replaceWith(rendered_item)
-        result = remove_tags(mark_safe(soup), 
+        result = remove_tags(mark_safe(soup),
                              settings.INLINE_MEDIA_REMOVE_TAGS)
         return result
 
 
-#--------------------------------------------------
+# --------------------------------------------------
 # Helpers for function 'render_inline'
 
 def get_app_model_tuple(inline):
@@ -57,7 +55,7 @@ def get_app_model_tuple(inline):
         chunks = inline_type.split('.')
         app_label = '.'.join(chunks[:-1])
         model_name = chunks[-1]
-    except Exception as exc:
+    except Exception:
         if settings.INLINE_MEDIA_DEBUG:
             raise TemplateSyntaxError(_("Couldn't find the attribute "
                                         "'type' in the <inline> tag."))
@@ -69,10 +67,10 @@ def get_app_model_tuple(inline):
 def get_model(app_label, model_name):
     """Retrive the model class from a given app_label & model strings."""
     try:
-        content_type = ContentType.objects.get(app_label=app_label, 
+        content_type = ContentType.objects.get(app_label=app_label,
                                                model=model_name)
         model = content_type.model_class()
-    except ContentType.DoesNotExist as exc:
+    except ContentType.DoesNotExist:
         if settings.INLINE_MEDIA_DEBUG:
             raise TemplateSyntaxError(_("Inline ContentType not found."))
         return None
@@ -83,7 +81,7 @@ def get_css_class(inline):
     """Retrieve the CSS class from a given inline tag."""
     try:
         css_class = smart_text(inline['class'][0])
-    except Exception as exc:
+    except Exception:
         if settings.INLINE_MEDIA_DEBUG:
             raise TemplateSyntaxError(_("Couldn't find the attribute "
                                         "'class' in the <inline> tag."))
@@ -93,20 +91,21 @@ def get_css_class(inline):
 
 size_regexp = re.compile(r'^inline_(?P<size_class>\w+)_\w+$')
 
+
 def get_size(inline_type, css_class):
     """Get the size for the given inline tag.
-    
+
     :param str inline_type: an 'app_label.model_name' for an inline type.
     :param str css_class: any of the valid inline_media css classes.
-    
+
     Valid values for css_class are:
     'inline_(mini|small|medium|large|full)_(left|right)' and
     'inline_full_center'.
 
     Inline type registration in INLINE_MEDIA_CUSTOM_SIZES is not mandatory.
     It might be that the 'inline_type' is not registered in the setting,
-    but if the 'css_class' is correct, a template will be use to render the 
-    inline. 
+    but if the 'css_class' is correct, a template will be use to render the
+    inline.
     """
     match = size_regexp.match(css_class)
     if match:
@@ -138,29 +137,29 @@ def render_inline(inline):
     css_class = get_css_class(inline)
     size, size_class = get_size(inline['type'], css_class)
 
-    if not size_class: 
+    if not size_class:
         if settings.INLINE_MEDIA_DEBUG:
             raise Exception("Size for class '%(size_class)s' is explicitly "
                             "disabled in settings.INLINE_MEDIA_CUSTOM_SIZES "
                             "for app.model '%(app)s.%(model)s'." % {
-                    'size_class': size_class, 
-                    'app': app_label, 
-                    'model': model_name})
+                                'size_class': size_class,
+                                'app': app_label,
+                                'model': model_name})
         else:
             return ""
-        
+
     try:
         obj = model.objects.get(pk=inline['id'])
-        context = { 'content_type':"%s.%s" % (app_label, model_name), 
-                    'object':obj, 
-                    'class': css_class,
-                    'size': size }
-    except model.DoesNotExist as exc:
+        context = {'content_type': "%s.%s" % (app_label, model_name),
+                   'object': obj,
+                   'class': css_class,
+                   'size': size}
+    except model.DoesNotExist:
         if settings.INLINE_MEDIA_DEBUG:
             raise model.DoesNotExist(_("Object matching '%s' does not exist"))
         else:
             return ""
-    except Exception as exc:
+    except Exception:
         if settings.INLINE_MEDIA_DEBUG:
             raise TemplateSyntaxError(_("The <inline> id attribute is "
                                         "missing or invalid."))
@@ -170,6 +169,7 @@ def render_inline(inline):
     rendered_inline = {
         'template': [
             "inline_media/%s.%s.%s.html" % (app_label, model_name, size_class),
-            "inline_media/%s.%s.default.html" % (app_label, model_name) ],
+            "inline_media/%s.%s.default.html" % (app_label, model_name)
+        ],
         'context': context}
     return rendered_inline
