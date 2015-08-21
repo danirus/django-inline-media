@@ -7,7 +7,7 @@ django-inline-media
     :target: https://travis-ci.org/danirus/django-inline-media
 .. |pypi| image:: https://badge.fury.io/py/django-inline-media.png
     :target: http://badge.fury.io/py/django-inline-media
-.. |coveralls|: image:: https://coveralls.io/repos/danirus/django-inline-media/badge.png?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/danirus/django-inline-media/badge.png?branch=master
     :target: https://coveralls.io/r/danirus/django-inline-media?branch=master
 
 
