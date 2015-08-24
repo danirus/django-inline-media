@@ -40,7 +40,7 @@ class License(models.Model):
 
     name = models.CharField(max_length=255)
     link = models.URLField(unique=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         db_table = 'inline_media_licenses'
@@ -81,7 +81,7 @@ class Picture(models.Model):
     modified = models.DateTimeField(auto_now=True)
     sha1 = models.CharField(max_length=40, db_index=True,
                             blank=True, default="")
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     objects = PictureManager()
 
@@ -155,7 +155,7 @@ class PictureSet(models.Model):
                                    "contains the pictureset."))
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         db_table = "inline_media_picture_sets"

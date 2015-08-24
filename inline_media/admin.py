@@ -6,8 +6,7 @@ from inline_media.widgets import TextareaWithInlines
 
 
 class LicenseAdmin(admin.ModelAdmin):
-    list_display = ("name", "tags", "homepage")
-    list_editable = ("tags",)
+    list_display = ("name", "homepage")
     list_filter = ("tags",)
     search_fields = ("name", "tags")
 
@@ -22,8 +21,8 @@ class AdminTextFieldWithInlinesMixin(object):
 
 
 class PictureAdmin(admin.ModelAdmin):
-    list_display = ("thumbnail", "title", "tags", "modified")
-    list_editable = ("title", "tags")
+    list_display = ("thumbnail", "title", "modified")
+    list_editable = ("title",)
     list_filter = ("tags", "author", "license")
     search_fields = ("title", "tags", "description", "author")
     date_hierarchy = "uploaded"
