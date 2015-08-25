@@ -10,5 +10,6 @@ dist/
 example/demo*/media/cache/
 example/demo*/server-static/
 example/demo*/static/
+inline_media/tests/pictures/
 .emacs.desktop*
 .tox

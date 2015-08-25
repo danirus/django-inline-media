@@ -364,7 +364,7 @@
         "show_description_inline": true,
         "sha1": "8280e2c7a11b0928f44c62ba79db31b872279cac",
         "description": "<a href=\"http://www.opensuse.org/en/\" target=\"_new\">openSUSE</a> is a free and Linux-based operating system for your PC, Laptop or Server. You can surf the web, manage your e-mails and photos, do office work, play videos or music and have a lot of fun!",
-        "show_as_link": true,
+        "show_as_link": false,
         "show_author": false,
         "uploaded": "2012-02-16T13:27:13",
         "license": null
