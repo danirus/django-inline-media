@@ -24,4 +24,4 @@ def render_inline(request, size, align, oid):
                        "title": picture.title,
                        "width": size,
                        "align": align})
-    return HttpResponse(data, mimetype='application/json')
+    return HttpResponse(data, content_type='application/json')

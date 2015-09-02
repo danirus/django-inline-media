@@ -109,12 +109,10 @@ INSTALLED_APPS = (
     "django.contrib.admin",
 
     "sorl.thumbnail",
-    # "tagging",
     "taggit",
     "inline_media",
 
     "demo.articles",
-    # "south",
 )
 
 # A sample logging configuration. The only tangible logging

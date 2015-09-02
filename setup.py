@@ -14,15 +14,22 @@ class TestCommand(test):
         
 setup(
     name = "django-inline-media",
-    version = "1.3.0b1",
+    version = "1.3.0",
     packages = find_packages(),
     license = "MIT",
-    description = "Simple Django app that allows insertion of inline media objects in text fields, with support for rich text editor Wysihtml5.",
-    long_description = "Simple Django app that allows insertion of inline media in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-tagging, and the jquery plugin prettyPhoto. It also handles the insertImage command of Wysihtml5. See it in action running the demo projects.",
+    description = ("django-inline-media allows insertion of inline media "
+                   "objects in text fields."),
+    long_description = ("django-inline-media allows insertion of inline "
+                        "media in text fields. Based on "
+                        "django-basic-apps/inlines, comes with two models, "
+                        "Picture and PictureSet. It uses sorl.thumbnail, "
+                        "django-taggit and the jquery plugin prettyPhoto. "
+                        "See it in action running the demo projects."),
+    keywords = 'django apps',    
     author = "Daniel Rus Morales",
-    author_email = "inbox@danir.us",
+    author_email = "mbox@danir.us",
     maintainer = "Daniel Rus Morales",
-    maintainer_email = "inbox@danir.us",
+    maintainer_email = "mbox@danir.us",
     url = "http://pypi.python.org/pypi/django-inline-media/",
     classifiers = [
         'Development Status :: 5 - Production/Stable',
