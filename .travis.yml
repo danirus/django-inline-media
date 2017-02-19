@@ -1,7 +1,8 @@
 language: python
 
 python:
-  - "3.4"
+  . 2.7
+  - 3.6
 
 cache:
   pip:
@@ -10,10 +11,12 @@ cache:
     - .tox
 
 env:
-  - TOX_ENV=py27-django17
   - TOX_ENV=py27-django18
-  - TOX_ENV=py34-django17
-  - TOX_ENV=py34-django18
+  - TOX_ENV=py27-django19
+  - TOX_ENV=py27-django110
+  - TOX_ENV=py36-django18
+  - TOX_ENV=py36-django19
+  - TOX_ENV=py36-django110
 
 before_install:
   - sudo apt-get update -qq
