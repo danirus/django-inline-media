@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from bs4 import BeautifulSoup
-import os
 
 from sorl.thumbnail import default
 import unittest
@@ -27,6 +26,7 @@ def skipIfGetThumbnailFails(*args):
             return lambda f: f
         return func
     return decorator
+
 
 class PictureTemplateTestCase(DjangoTestCase):
     """Test all combination of templates and Picture options.

@@ -132,6 +132,8 @@ class Picture(models.Model):
 def delete_picture(sender, instance, **kwargs):
     if sender == Picture:
         instance.picture.delete()
+
+
 pre_delete.connect(delete_picture, sender=Picture)
 
 

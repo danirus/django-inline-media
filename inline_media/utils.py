@@ -55,4 +55,6 @@ def remove_tags(value, tags):
     for tag in tags:
         value = re.sub(tag, ' ', value)
     return value
+
+
 _tags = keep_lazy(remove_tags)

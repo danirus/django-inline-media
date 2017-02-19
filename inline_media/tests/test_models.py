@@ -49,8 +49,8 @@ def create_picture_3():
                                        author="picture 3 author",
                                        license=get_license())
     with open(os.path.join(curdir, "images/theweb.jpg"), 'rb') as f:
-              image_3 = ImageFile(f)
-              picture_3.picture.save('theweb.jpg', image_3, True)
+        image_3 = ImageFile(f)
+        picture_3.picture.save('theweb.jpg', image_3, True)
     return picture_3
 
 

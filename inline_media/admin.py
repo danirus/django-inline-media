@@ -70,6 +70,7 @@ class PictureSetAdmin(admin.ModelAdmin):
               "prettyphoto-3.1.3/js/jquery.prettyPhoto.js",
               "admin/inline_media/js/pictureset.js")
 
+
 admin.site.register(License, LicenseAdmin)
 admin.site.register(Picture, PictureAdmin)
 admin.site.register(PictureSet, PictureSetAdmin)

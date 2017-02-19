@@ -34,4 +34,5 @@ class Settings(object):
         else:
             object.__setattr__(self, name, value)
 
+
 settings = LazySettings()
