@@ -1,5 +1,6 @@
 six
-Django>=1.10,Django<1.11
+sphinx
+Django>=1.10,<1.11
 Pillow>=4.0,<4.1
 sorl-thumbnail>=12.4,<12.5
 beautifulsoup4>=4.5,<4.6
