@@ -19,13 +19,11 @@ class PublicManager(models.Manager):
 @python_2_unicode_compatible
 class Article(models.Model):
     """Article, that accepts comments."""
-
-    title    = models.CharField(max_length=200)
-    slug     = models.SlugField(unique_for_date='publish')
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique_for_date='publish')
     abstract = models.TextField()
-    body     = TextFieldWithInlines()
-    publish  = models.DateTimeField(default=datetime.now)
-
+    body = TextFieldWithInlines()
+    publish = models.DateTimeField(default=datetime.now)
     objects = PublicManager()
 
     class Meta:

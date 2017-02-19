@@ -5,6 +5,7 @@ import hashlib
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.core import urlresolvers
+from django.core.validators import validate_comma_separated_integer_list
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -146,8 +147,9 @@ class PictureSet(models.Model):
                     "small, medium, large or full."), blank=True)
     show_description_inline = models.BooleanField(default=True)
     pictures = models.ManyToManyField("Picture", related_name="picture_sets")
-    order = models.CommaSeparatedIntegerField(
+    order = models.CharField(
         blank=True, max_length=512,
+        validators=[validate_comma_separated_integer_list],
         help_text=_("Establish pictures order by typing the comma "
                     "separated list of their picture IDs."))
     show_counter = models.BooleanField(

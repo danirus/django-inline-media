@@ -1,6 +1,7 @@
 import os
 import six
 
+from django.core.files import File
 from django.core.files.images import ImageFile
 from django.test import TestCase as DjangoTestCase
 
@@ -20,37 +21,37 @@ def get_license():
 
 def create_picture_1():
     curdir = os.path.dirname(__file__)
-    file_1 = os.path.join(curdir, "images/android.png")
-    image_1 = ImageFile(open(file_1, "rb"))
     picture_1 = Picture.objects.create(title="android original",
                                        description="picture 1 description",
                                        author="picture 1 author",
-                                       license=get_license(),
-                                       picture=image_1)
+                                       license=get_license())
+    with open(os.path.join(curdir, "images/android.png"), 'rb') as f:
+        image_1 = ImageFile(f)
+        picture_1.picture.save('android.png', image_1, True)
     return picture_1
 
 
 def create_picture_2():
     curdir = os.path.dirname(__file__)
-    file_2 = os.path.join(curdir, "images/palandroid.png")
-    image_2 = ImageFile(open(file_2, "rb"))
     picture_2 = Picture.objects.create(title="android clone",
                                        description="picture 2 description",
                                        author="picture 2 author",
-                                       license=get_license(),
-                                       picture=image_2)
+                                       license=get_license())
+    with open(os.path.join(curdir, "images/palandroid.png"), 'rb') as f:
+        image_2 = ImageFile(f)
+        picture_2.picture.save('palandroid.png', image_2, True)
     return picture_2
 
 
 def create_picture_3():
     curdir = os.path.dirname(__file__)
-    file_3 = os.path.join(curdir, "images/theweb.jpg")
-    image_3 = ImageFile(open(file_3, "rb"))
     picture_3 = Picture.objects.create(title="the web",
                                        description="picture 3 description",
                                        author="picture 3 author",
-                                       license=get_license(),
-                                       picture=image_3)
+                                       license=get_license())
+    with open(os.path.join(curdir, "images/theweb.jpg"), 'rb') as f:
+              image_3 = ImageFile(f)
+              picture_3.picture.save('theweb.jpg', image_3, True)
     return picture_3
 
 

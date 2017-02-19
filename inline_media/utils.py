@@ -2,7 +2,11 @@ from __future__ import unicode_literals
 
 import re
 
-from django.utils.functional import allow_lazy
+try:
+    from django.utils.functional import keep_lazy
+except ImportError:
+    from django.utils.functional import allow_lazy as keep_lazy
+
 from inline_media.conf import settings
 
 
@@ -51,4 +55,4 @@ def remove_tags(value, tags):
     for tag in tags:
         value = re.sub(tag, ' ', value)
     return value
-_tags = allow_lazy(remove_tags)
+_tags = keep_lazy(remove_tags)

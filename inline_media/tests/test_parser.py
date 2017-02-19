@@ -128,8 +128,10 @@ class PictureTemplatesTestCase(DjangoTestCase):
 
     def setUp(self):
         curdir = os.path.dirname(__file__)
-        img = ImageFile(open(os.path.join(curdir, "images/android.png"), "rb"))
-        pic = Picture.objects.create(title="android original", picture=img)
+        pic = Picture.objects.create(title="android original")
+        with open(os.path.join(curdir, "images/android.png"), "rb") as f:
+            image_file = ImageFile(f)
+            pic.picture.save('android.png', image_file, True)
         self.tag = '<inline type="%(type)s" id="%(id)d" class="%(class)s" />'
         self.params = {"type": "inline_media.picture", "id": pic.id}
 

@@ -1,4 +1,5 @@
 from django.test import TestCase as DjangoTestCase
+
 from inline_media.conf import settings
 from inline_media.utils import remove_tags
 
