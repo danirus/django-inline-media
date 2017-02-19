@@ -35,5 +35,4 @@ install:
 script:
   - env | sort
   - tox -e $TOX_ENV
-  - flake8 --show-source --max-line-length=80 --exclude=.tox,docs,inline_media/tests/settings,inline_media/__init__.py,inline_media/migrations inline_media/
-
+  - flake8 --show-source --max-line-length=80 --exclude=.tox,docs,inline_media/tests/settings.py,inline_media/__init__.py,inline_media/migrations inline_media
