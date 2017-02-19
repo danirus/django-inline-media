@@ -23,11 +23,8 @@ Introduction
 
 6. Tested under:
 
-* Python 3.2 and Django 1.5.1
-
-* Python 2.7 and Django 1.5.1
-
-* Python 2.7 and Django 1.4.5
+   * Python 2.7 and Python 3 (3.2, 3.4, 3.5, 3.6)
+   * Django 1.8, Django 1.9 and Django 1.10
 
 
 The following sample shows a centered inline picture set inserted in a text, on mouseover event the first 3 photos unfold:

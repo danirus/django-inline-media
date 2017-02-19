@@ -13,8 +13,22 @@ django-inline-media
 
 A reusable Django app that allows insertion of inline media objects in text fields. Based on django-basic-apps/inlines, comes with two models, Picture and PictureSet, uses sorl.thumbnail, django-taggit, and the jquery plugin prettyPhoto.
 
-* Tested under Python 2.7 and 3.4, Django 1.7 and 1.8.
-* Django-inline-media v1.2 is compatible with Django 1.4 - Django 1.6 
+1. Inserts pictures and collection of pictures into your texts using the ``TextAreaWithInlines`` widget.
+
+2. Positions media content at different places and sizes (mini/small/medium/large at left/right or full at the left/center/right).
+
+3. Facilitates administration with thumbnails and search by tags, author and license.
+
+4. Shows a customised control to insert media content in text fields.
+
+5. Uses jquery `prettyPhoto <http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/>`_ to show pictures and galleries when clicking on them.
+
+Demo site and tests working in Django 1.8, 1.9 and 1.10 under Python 2.7 and Python 3 (3.2, 3.4, 3.5 and 3.6).
+
+
+The following sample shows a centered inline picture set inserted in a text, on mouseover event the first 3 photos unfold:
+
+.. image:: https://github.com/danirus/django-inline-media/blob/master/docs/images/cover.png
 
 Read the documentation at:
 

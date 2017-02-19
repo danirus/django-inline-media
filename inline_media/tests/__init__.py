@@ -12,6 +12,25 @@ def setup_django_settings():
     os.environ["DJANGO_SETTINGS_MODULE"] = "tests.settings"
 
 
+def run_tests():
+    if not os.environ.get("DJANGO_SETTINGS_MODULE", False):
+        setup_django_settings()
+
+    import django
+    from django.conf import settings
+    from django.test.utils import get_runner
+
+    if django.VERSION[1] >= 7: # Django 1.7.x or above
+        django.setup()
+        runner = get_runner(settings,"django.test.runner.DiscoverRunner")
+    else:
+        runner = get_runner(settings,"django.test.simple.DjangoTestSuiteRunner")
+    test_suite = runner(verbosity=2, interactive=True, failfast=False)
+    results = test_suite.run_tests(["inline_media"])
+    delete_tmp_dirs()
+    return results
+
+
 def delete_tmp_dirs():
     from django.conf import settings
     try:

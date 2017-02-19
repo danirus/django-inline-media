@@ -1,7 +1,6 @@
 import os
 import six
 
-from django.core.files import File
 from django.core.files.images import ImageFile
 from django.test import TestCase as DjangoTestCase
 
