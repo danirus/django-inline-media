@@ -17,7 +17,7 @@ test.run_tests = run_tests
 
 setup(
     name="django-inline-media",
-    version="1.4.1",
+    version="1.4.2",
     packages=find_packages(),
     license="MIT",
     description=("django-inline-media allows insertion of inline media "

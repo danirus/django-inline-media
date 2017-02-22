@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
 import copy
-import django
+from django import VERSION
+import json
 import six
 
 from django.contrib.admin.widgets import AdminTextareaWidget
@@ -12,11 +13,6 @@ from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from inline_media.conf import settings
-
-if django.VERSION <= (1, 5):
-    from django.utils import simplejson as json
-else:
-    import json
 
 
 default_sizes = ['mini', 'small', 'medium', 'large', 'full']
@@ -72,7 +68,7 @@ function changeInlineClass(name, type) {
 <select id="id_inline_content_type_for_%(name)s" \
 onchange="changeInlineClass(\'%(name)s\', this.value);\
 document.getElementById(\'lookup_id_inline_for_%(name)s\').href \
-= \'../../../\'+this.value+\'/\';" style="margin-left:2px;margin-right:20px;" '
+= \'/admin/\'+this.value+\'/\';" style="margin-left:2px;margin-right:20px;" '
         if attrs:
             widget += " ".join(['%s="%s"' % (key, value)
                                 for key, value in six.iteritems(attrs)])
@@ -93,22 +89,27 @@ document.getElementById(\'lookup_id_inline_for_%(name)s\').href \
                          "name": self.name}
 
     def _do_element_input_object(self, attrs=None):
-        widget = ('<strong>Object:</strong>&nbsp;'
-                  '<input type="text" class="vIntegerField" '
-                  'id="id_inline_for_%(name)s" size="10" ')
+        html = ('<strong>Object:</strong>&nbsp;'
+                '<input type="text" class="vIntegerField" '
+                'id="id_inline_for_%(name)s" size="10" ')
         if attrs:
-            widget += " ".join(['%s="%s"' % (key, value)
-                                for key, value in six.iteritems(attrs)])
-        widget += ('/><a id="lookup_id_inline_for_%(name)s" href="#" '
-                   'class="related-lookup" onclick='
-                   '"if(document.getElementById(\''
-                   'id_inline_content_type_for_%(name)s\').value != '
-                   '\'----------\') { return '
-                   'showRelatedObjectLookupPopup(this); }" '
-                   'style="margin-right:20px;">')
-        widget += ('<img src="%(path)s/selector-search.gif" width="16" '
-                   'height="16" alt="Loopup" /></a>')
-        return widget % {"name": self.name,  "path": settings.ADMIN_IMAGES_PATH}
+            html += " ".join(['%s="%s"' % (key, value)
+                              for key, value in six.iteritems(attrs)])
+        html += ('/><a id="lookup_id_inline_for_%(name)s" href="#" '
+                 'class="related-lookup" onclick='
+                 '"if(document.getElementById(\''
+                 'id_inline_content_type_for_%(name)s\').value != '
+                 '\'----------\') { return '
+                 'showRelatedObjectLookupPopup(this); }" '
+                 'style="margin-right:20px;">')
+        if VERSION < (1, 9):
+            html += ('<img src="%(path)s/admin/img/selector-search.gif" '
+                     'width="18" height="18" alt="Loopup" /></a>')
+            widget = html % {"name": self.name, "path": settings.STATIC_URL}
+        else:
+            html += '</a>'
+            widget = html % {"name": self.name}
+        return widget
 
     def _do_element_select_class(self, attrs=None):
         widget = ('<strong>Class:</strong>&nbsp;<select id='
