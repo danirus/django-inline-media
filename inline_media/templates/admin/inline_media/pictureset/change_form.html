@@ -1,6 +1,9 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static admin_modify thumbnail %}
-{% load url from future %}
+
+{% load i18n %}
+{% load admin_static %}
+{% load admin_modify %}
+{% load thumbnail %}
 {% load admin_urls %}
 
 {% block extrahead %}{{ block.super }}
@@ -27,7 +30,7 @@
 {% block sidebar %}
 <div id="content-related" style="overflow-y:scroll">
   {% if add %}
-  <p style="padding:10px; background:#eee; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "empty picture set" %}</p>
+  <p style="padding:10px; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "empty picture set" %}</p>
   {% else %}
   <p>{% trans "Pictures appear in the following order. Reorder them by typing a comma separated list of IDs in the field Order." %}</p>
   {% for item in original.next_picture %}

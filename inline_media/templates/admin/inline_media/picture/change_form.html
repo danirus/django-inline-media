@@ -28,7 +28,7 @@
 {% block sidebar %}
 <div id="content-related">
   {% if add %}
-  <p style="padding:10px; background:#eee; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "no picture" %}</p>
+  <p style="padding:10px; font-size:1.4em; font-weight:bolder; text-align:center">{% trans "no picture" %}</p>
   {% else %}
   {% thumbnail original.picture "216" upscale=False as im %}
   <div style="margin:0 auto; text-align:center">
